@@ -1,0 +1,449 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+                 \usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[all]{xy}
+
+%END usepackaging
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\qz}{{\mathbb{Q}}}
+\newcommand{\qzcl}{\overline{\qz}}
+\newcommand{\bn}{\begin{enumerate}}
+\newcommand{\en}{\end{enumerate}}
+\newcommand{\bao}[1]{\begin{array}{#1}}
+\newcommand{\ea}{\end{array}}
+\newcommand{\bmk}{\paragraph{Remark}}
+\newcommand{\bws}{\paragraph{Proof}}
+\newcommand{\bsp}{\paragraph{Example}}
+\newcommand{\tens}[2]{\left(#1\right)^{\otimes #2}}
+\newcommand{\tenso}[2]{#1^{\otimes #2}}
+\newcommand{\twotens}[1]{\tens{#1}{2}}
+\newcommand{\twotenso}[1]{\tenso{#1}{2}}
+%END new commands
+
+\newtheorem{defi}{Definition}
+\newtheorem{prop}{Proposition}
+\newtheorem{coro}{Corollary}
+\newtheorem{lemm}{Lemma}
+\newtheorem{satz}{Theorem}
+\author{G. Mueller}
+\title{Unified PV theory}
+\begin{document}
+\section{Introduction}
+We briefly recall some constructions from bialgebras. We assume any ring $R$ mentioned to be unital and commutative, unless stated otherwise. In addition, we omit subscripts from tensor products and $\mathrm{Hom}$-bifunctor where no ambiguity can arise. Furthermore, $A^{\otimes 2} := A \otimes A$ and recursively $A^{\otimes n} = A \otimes A^{\otimes n - 1} \simeq A^{\otimes n - 1} \otimes A$
+\subsection{Algebras and coalgebras}
+Let $R$ be a ring - an $R$-module $A$ is called an $R$-algebra, or simply algebra if $R$ is clear, if there is an $R$-linear map $\mu : A \otimes A \longrightarrow A$, called multiplication. We call $(A, \mu)$ associative if
+$$\xymatrix{
+A^{\otimes 3} \ar[r]^{\mu \otimes id_A}\ar[d]_{id_A \otimes \mu} & A^{\otimes 2}\ar[d]^\mu\\
+A^{\otimes 2} \ar[r]_{\mu} & A\\
+}$$
+commutes. We call $A$ unital if there is an $R$-linear map $\eta : R \longrightarrow A$, called unit (map), such that
+$$\xymatrix{
+R \otimes A \ar[r]^{\eta \otimes id_A}\ar[rd]_{\simeq} & A^{\otimes2} \ar[d]^\mu & A \otimes R \ar[l]_{id_A \otimes \eta} \ar[ld]^{\simeq}\\
+&A&\\
+}$$
+commutes. $(A, \mu, \eta)$ denotes a unital associative algebra. An $R$-module $C$ is called an $R$-coalgebra if there is an $R$-linear map $\Delta : C \longrightarrow C^{\otimes2}$, called the comultiplication and denote it by $(C, \Delta)$. We call $(C, \Delta)$ coassociative if
+$$\xymatrix{
+C^{\otimes 3} & C^{\otimes 2}\ar[l]_{\Delta \otimes id_C}\\
+C^{\otimes 2} \ar[u]^{id_C \otimes \Delta} & C\ar[l]^{\Delta}\ar[u]_{\Delta}\\
+}$$
+commutes. We call $(C, \Delta)$ counital if there is an $R$-linear map $\varepsilon : C \longrightarrow R$ such that
+$$\xymatrix{
+R \otimes C & \ar[l]_{\varepsilon \otimes id_C} C^{\otimes2} \ar[r]^{id_C \otimes \varepsilon}& C \otimes R\\
+& C \ar[u]_\Delta \ar[ul]^{\simeq} \ar[ur]_{\simeq}&\\
+}$$
+commutes. A counital (coassociative) coalgebra is denoted by $(C, \Delta, \varepsilon)$. We call an algebra $A$ commutative and a coalgebra $C$ cocommutative if
+$$\mu = \mu \circ \tau,\ \tau \circ \Delta = \Delta$$
+for the flip isomorphism $\tau = \tau_{X \otimes Y} : X \otimes Y \longrightarrow Y \otimes X$.
+An $R$-module $M$ is called a left $(A, \mu, \eta)$-module if there is an algebra homomorphism
+$$\rho : A \longrightarrow \mathrm{End}_R(M),$$
+or equivalently there is an $R$-linear $\hat{\rho} : A \otimes M \longrightarrow M, a \otimes m \longmapsto a m := \rho(a)(m)$ such that
+$$\begin{array}{cc}
+\xymatrix{
+A^{\otimes2} \otimes M \ar[rr]^{\mu \otimes id_M} \ar[d]_{id_A \otimes \hat{\rho}} && A \otimes M \ar[d]^{\hat{\rho}}\\
+A \otimes M \ar[rr]_{\hat{\rho}}& & M\\
+} &\xymatrix{
+R \otimes M \ar[d]_{\simeq}\ar[r]^{\eta \otimes id_M} & A \otimes M \ar[ld]^{\hat{\rho}}\\
+M&\\
+}
+\end{array}$$
+commute. Right $(A, \mu, \eta)$-modules are defined accordingly. For a counital coassociative coalgebra $(C, \Delta, \eps)$, we call a left $C$-comodule an $R$-module $M$ with $R$-linear map:
+$$\rho : M \longrightarrow C \otimes M$$
+such that
+$$\begin{array}{cc}
+\xymatrix{
+C^{\otimes 2} \otimes M & C \otimes M\ar[l]_{id_C \otimes \rho}\\
+C \otimes M\ar[u]^{\Delta \otimes id_M} & M \ar[u]_\rho \ar[l]^\rho\\
+%M \ar[r]^\rho \ar[d]_\rho & C \otimes M\ar[d]^{\Delta \otimes id_M}\\
+%C \otimes M \ar[r]_{id_C \otimes \rho} & \\
+} & \xymatrix{
+R \otimes M & C \otimes M\ar[l]_{\eps \otimes id_M}\\
+M \ar[u]^\simeq \ar[ru]_{\rho} &\\% C \otimes M\ar[d]_{\eps \otimes id_M}\\
+}
+\end{array}$$
+commute. An $R$-submodule $B$ of an algebra $(A, \mu, \eta)$ is called a subalgebra if $(B, \mu\mid_{B \otimes B}, \eta)$ is an algebra. A (left/right/two-sided) ideal $I$ of an algebra $A$ is a (left/right/two-sided) $A$-submodule of $A$, i.e.
+$$\begin{cases}
+A. I \subset I &, \mathrm{left~sided}\\
+I. A \subset I &, \mathrm{right~sided}\\
+ A. I + I. A \subset I &\mathrm{two-sided}\\
+ \end{cases}.$$
+An $R$-submodule $D$ of a coalgebra $(C, \Delta, \eps)$ is called sub coalgebra if $(D, \Delta\mid_D, \eps\mid_D)$ is a coalgebra. A coideal $I$ of a coalgebra $C$ is an $R$-submodule $I \subset \ker \eps$ such that
+$$\Delta(I) \subset C \otimes I + I \otimes C,$$
+i.e. a two-sided sub comodule of $\ker \eps$.
+\begin{defi}
+Let $C$ be a coalgebra. We call an element $c \in C$ group-like if
+$$\Delta(c) = c \otimes c.$$
+We call $c$ $(g,h)$-skew primitive if there are group-like elements $g, h \in C$ such that
+$$\Delta(c) = g \otimes c + c \otimes h.$$
+%We call $c$ primitive if $c$ is $(1_C, 1_C)$-skew primitive.
+\end{defi}
+\bmk We remark that $\eps(c) = 1$ if $c \in C$ is a group-like and $\eps(c) = 0$ if $c \in C$ is $(g,h)$-skew primitive. This follows from counitality.
+\subsubsection{Cofree coalgebras}
+We need some additional
+\begin{defi}
+We call an $R$-module $M$ an essential module over some module $N$ if $N \subset M$ (or equivalently essential extension of $N$) if for all $H \subset M$ we have
+$$N \cap H = \{0\} \Rightarrow H = \{0\}.$$
+We call $M$ an injective module if $M$ has no proper essential extensions $M'$. Furthermore, we call $M$ an injective hull if $M$ is essential and injective. We call a submodule $N \subset M$ dense if $\mathrm{Hom}_R(M/N,E(M)) = \{0\}$ for the injective hull $E(M)$ over $M$.
+\end{defi}
+As we already stated, the dual $A^\ast$ of an $R$-algebra $A$ is in general not a coalgebra. However, there is a way to adjust $A^\ast$ appropriately. Let
+$$\bao{rcl}
+A^0 &:=& \left<g \in A^\ast : \exists I \leq \ker g\ \wedge\ n \in \mathbb{N}, A/I \simeq \sum_{i \leq n} R.x_i\right>\\&&\\ &=& \left<g \in A^\ast : \mathrm{supp} g \simeq \sum_{i\leq n} R.x_n\right>.\\\ea$$
+then $A^0$ is an $R$-submodule of $A^\ast$. We consider for every module homomorphism $f : A \longrightarrow B$ its dual $f^\ast : B^\ast \longrightarrow A^\ast$. This implies
+$$\mu : \twotenso{A} \longrightarrow A\ \Rightarrow\ \mu^\ast : A^\ast \longrightarrow \left(\twotenso{A}\right)^\ast$$
+However, $\twotens{A^\ast} \subset \left(\twotenso{A}\right)^\ast$ is a dense submodule. Now we compute for all $g \in A^0$:
+$$\bao{rcl}
+\Delta(g) = \mu^\ast(g) = g \circ \mu &=& [a \otimes a' \longmapsto g(a a')]\\
+&\Rightarrow&\\
+\ker g \circ \mu &=& \{a \otimes a' \in \twotenso{A} : g(a a') = 0\}\\
+&&\\
+&=& \{a \otimes a' : a a' \in \ker g\} \supset \{1_A \otimes a + b \otimes 1_A : a, b \in \ker g\}\\
+&&\\
+&=& \left\{a b^{-1} \otimes b + b' \otimes b'^{-1} a' : a, a' \in \ker g, b , b' \in A\right\}
+\ea$$
+where $a b^{-1}$ is in the left ideal $A.a/b = \{r \in A : r b \in A.a\}$ for $a, b \notin A^\times$ and for $a', b' \notin A^\times$ in the right-hand version. If $a \in \ker g$ then $f_a = [x \longmapsto x - g(x) a] \in \mathrm{End}_R(A)$ then $f_a \mid_{\ker g} = id_{\ker g}$ and $g(f_a(x)) = g(x) - g(g(x) a) = g(x)(1 - g(a)) = g(x)$ Its iterates are
+$$\bao{rcl}
+f_a^2 &=& [x \longmapsto f_a(x - g(x) a) = x - g(x) a - g(x - g(x) a) a = x - 2 g(x) a]\\
+\ea$$
+Clearly, $1 \otimes \ker g + \ker g \otimes 1$ is a submodule of $\ker \Delta(g)$ with $\twotenso{A}$
+\subsubsection{Duality}
+An important
+\begin{prop}
+Let $C^\ast := \mathrm{Hom}(C, R)$ be the dual module for a cofree counital coassociative coalgebra $(C, \Delta, \varepsilon)$ then $(C^\ast, \mu_{C^\ast}, \eta_{C^\ast})$ is a unital associative algebra with:
+$$\begin{array}{rrcl}
+\mu_{C^\ast} := \Delta^\ast: & \left(C^{\otimes 2}\right)^\ast \simeq C^\ast \otimes C^\ast &\longrightarrow& C^\ast,\\
+&&\\
+& \alpha \otimes \beta &=& \left[c_1 \otimes c_2 \longmapsto \alpha(c_1)  \beta(c_2)\right] \\
+&&\\
+& &\longmapsto& (\alpha \otimes \beta) \circ \Delta\\
+&&&\\
+&(\alpha \otimes \beta) \Delta &=& \left[c \longmapsto \sum_{(c)} (\alpha \otimes \beta)\left(c_{(1)} \otimes c_{(2)}\right)\right]\\
+\end{array}$$
+where $\Delta(c) = \sum_{(c)} c_{(1)} \otimes c_{(2)}$, and unit
+$$\eta_{C^\ast} := \varepsilon^\ast : R \longrightarrow C^\ast,\ r \longmapsto r \cdot \eps.$$
+\end{prop}
+The multiplication on $C^\ast$ is sometimes denoted by $\ast$ and called convolution. The converse statement, the dual of each algebra is a coalgebra is in general not true. However:
+\begin{prop}
+let $A$ be an projective algebra of finite type. Its dual module $A^\ast$ is a coalgebra with structure maps
+$$\Delta = \mu^\ast = \left[\alpha \longmapsto \alpha \mu_A = \left[a \otimes b \longmapsto \alpha(a b)\right] \right],\ \eps = \eta^\ast = \left[\alpha \longmapsto \alpha(1_A)\right].$$
+\end{prop}
+In general, $A^\ast$ is not a coalgebra. However, if $A^\ast = A^0$ this is the case.\\%let $A$ be an arbitrary unital associative algebra and 
+%$$A^0 := \left\{\alpha \in A^\ast : \exists I \subset \ker \alpha,\ A/I \simeq_{R-\mathrm{modules}} \sum_{i=1}^n R.e_i\right\} = A^\ast$$
+%then $(A^0, \Delta = \mu^\ast\mid_{A^0}, \eps = \eta^\ast\mid_{A^0})$ is a coalgebra.\\
+\indent For an algebra $(A, \mu, \eta)$ and a coalgebra $C$ as above the module
+$$\mathrm{Hom}(C, A) \simeq C^\ast \otimes A$$
+is an unital associative algebra with multiplication 
+$$\mu_{\mathrm{Hom}(C,A)} = \mu \Delta = \left[f \otimes g \longmapsto \mu(f \otimes g) \Delta = \left[c \longmapsto \mu(f \otimes g) \Delta(c)\right]\right]$$
+and unit $\eta \cdot \eps$.
+%Firstly, we claim that if there is an $R$-submodule $I \leq \ker g$ for some $g \in A^\ast$ with $I$ is not finitely generated if $A$ is not then $I$ is an ideal in $A$. Let $A_M := R[M]$, for some $M \subset A\backslash R$ and
+%$$x = \sum_{\substack{n \geq 0\\i \in \mathbb{Z}_{\geq 0}^n}} x_{i} m^i \in R[M] \cap I,\ a = \sum_{n,i} a_i m^i \in R[M],$$ for $\ x_i, a_i \in R, m^i = m_{i_1} \ldots m_{i_n}, \forall n \geq 1$ and $m^0 = 1_A$ we have
+%$$\bao{rcl}
+%g(x a) &=& g \circ \mu(x \otimes a)\\
+%&&\\
+%&=& g \circ \mu\left(\sum_{m,m'} x_m a_{m'} m \otimes m'\right)\\
+%&&\\
+%&=& \sum_{m m' \in \ker g} x_m a_{m'} \underbrace{g \circ \mu(m \otimes m')}_{=0}\\&&\\&& + \sum_{m m' \in \mathrm{supp}(g)} x_m a_{m'} g \circ \mu(m \otimes m')\\
+%\ea$$
+\subsection{Bialgebras}
+We call a module $(B, \mu, \eta, \Delta, \eps)$ a bialgebra if $(B, \mu, \eta)$ is an algebra and $(B, \Delta, \eps)$ is a coalgebra such that 
+$$\begin{array}{cc}
+\xymatrix{
+B^{\otimes2} \ar[d]_{\Delta \otimes \Delta}\ar[r]^{\mu} & B \ar[r]^\Delta & B^{\otimes2}\\
+B^{\otimes4} \ar[rr]_{id_B \otimes \tau \otimes id_B}&&B^{\otimes4} \ar[u]_{\mu \otimes \mu}\\
+} & \xymatrix{
+ B^{\otimes2} \ar[d]_{\eps \otimes \eps}\ar[r]^\mu & B\ar[ld]^{\eps}\\
+ R
+}\\
+&\\
+\xymatrix{
+R \ar[d]_{id_R}\ar[r]^\eta & B\ar[ld]^\eps\\
+R&\\
+}
+&\xymatrix{
+B^{\otimes2} & B\ar[l]_{\Delta}\\
+ R\ar[u]^{\eta \otimes \eta} \ar[ur]_{\eta}
+}
+\end{array}$$
+commute. It is equivalent to say $\Delta$ and $\eps$ are algebra homomorphisms and $\mu$ and $\eta$ are colalgebra homomorphisms.
+\newpage
+\section{General PV theory}
+Given a bialgebra $(D, \mu, \eta, \Delta, \eps)$ and a $D$-module algebra $(A, \Psi_A)$ we define the map
+$$\begin{array}{rrcl}
+\rho :& A & \longrightarrow &\mathrm{Hom}(D, A)\\
+& a &\longmapsto & \left[d \longmapsto \Psi_A(d \otimes a)\right] =: ev_a\\
+\end{array}$$
+We see that $\rho$ is an algebra homomorphism as
+$$\begin{array}{rcl}
+\rho(a a') &=& ev_{a a'}\\
+&&\\
+ &=& \left[d \longmapsto \Psi_A(d \otimes a a')\right]\\% = \sum_{(d)} \mu_A\left(\Psi_A\left(d_{(1)} \otimes a\right) \otimes \Psi_A\left(d_{(2)} \otimes a'\right)\right)\\%\left[d \longmapsto \mu_A(\rho(a) \otimes \rho(a')) \Delta(d) = \sum_{(d)} \rho(a)(d_{(1)}) \rho(a')(d_{(2)})\right]
+ &&\\
+ \Psi_A(d \otimes a a') &=& \sum_{(d)} \mu_A\left(\Psi_A\left(d_{(1)} \otimes a\right) \otimes \Psi_A\left(d_{(2)} \otimes a'\right)\right)\\
+ &&\\
+ &=& \mu_A(ev_a \otimes ev_{a'}) \Delta(d)\\
+ &&\\
+\rho(a) \ast \rho(a') &=& \left[d \longmapsto \mu_A(\rho(a) \otimes \rho(a'))\Delta(d)\right] = \mu_A(\rho(a) \otimes \rho(a')) \Delta\\
+&&\\
+ &=& \mu(ev_a \otimes ev_{a'})\Delta =: ev_a \ast ev_{a}\\
+ &&\\
+ &=& \rho(a a')
+\end{array}$$
+where $\Delta(d) = \sum_{(d)} d_{(1)} \otimes d_{(2)}$ is the coproduct in Sweedler notation and $\ast$ denotes convolution in $\mathrm{Hom}(D,A)$. We define
+$$A^\rho := \{a \in A : \rho(a) = a \eps\}$$
+as constant module algebra. Conversely,
+$$\rho_0 := \left[a \longmapsto a \eps\right]$$
+is the trivial module algebra homomorphism. In addition, we have
+$$\begin{array}{rrcl}
+\rho_{\mathrm{int}} :& \mathrm{Hom}(D, A) &\longrightarrow &\mathrm{Hom}(D, \mathrm{Hom}(D, A))\\
+& f& \longmapsto& f_r = \left[d \longmapsto \left[d' \longmapsto f(d' d)\right]\right]\\
+\end{array}$$
+with
+$$\mathrm{Hom}\left(D, \mathrm{Hom}(D,A)\right) \simeq \mathrm{Hom}(D \otimes D, A)$$
+making $\mathrm{Hom}(D,A)$ a $D$-module algebra. We remark that
+$$\begin{array}{rcl}
+\mathrm{Hom}(D, A)^{\rho_{\mathrm{int}}} &=& \left\{f \in \mathrm{Hom}(D, A) : \rho_{\mathrm{int}}(f) = f \otimes \eps\right\}\\
+&&\\
+f \otimes \eps &=& \left[d \otimes d' \longmapsto \eps(d')f(d)\right]\\
+\end{array}$$
+\section{Trivial example from 2-d}
+We fix $k = \qzcl$ and $L = \partial^2 - a \cdot id_{\qzcl}$, with $\partial\mid_{\qzcl} = 0$ and $a \in \qzcl^\times$. Firstly, $D = \qzcl[\partial]$ with
+$$\rho_{\qzcl} : \qzcl \longrightarrow \mathrm{Hom}\left(\qzcl[\partial], \qzcl\right), x \longmapsto \left[\sum_{i=0}^n d_i \partial^i \longmapsto d_0 x\right]$$
+making $\rho_{\qzcl} = \rho_0$. Furthermore, we have
+$$\bao{rclcrcl}
+\Delta(\partial^j) &=& \sum_{j_0=0}^j\left(\bao{c}j\\j_0\\\ea\right) \partial^{j_0} \otimes \partial^{j - 1_0} && \mu(\partial^i \otimes \partial^j) &=& \partial^{i + j}\\
+\eps(\partial^j) &=& \begin{cases}
+1 & j = 0\\
+0 & \mathrm{else}\\
+\end{cases} &&\eta(1_{\qzcl}) &=& 1_D = id\\
+\ea$$
+Now, let us compute the principal module algebra $R$, its module algebra homomorphism $\rho_R \in \mathrm{Hom}(R, \mathrm{Hom}(D, R))$ and $H := \left(R \otimes_k R\right)^{\rho_R \otimes \rho_R}$.
+\subsection{Principal module algebra}
+Abstractly, $R$ is isomorphic to $\qzcl\left[X,X^{-1}\right]$ where $X \in \mathrm{Gl}_n(\qzcl)$ is a fundamental solution. Thus, we set $R = \qzcl[X,X^{-1}]$. Let us compute
+$$\bao{rcl}
+\rho_R &=& \left[X^i \longmapsto ev_{X^i}\right]\\
+&&\\
+ev_{X^i} &=& \left[\partial^j \longmapsto \Psi_R(\partial^j \otimes X^i)\right]\\
+&&\\
+&=& \left[\partial^j \longmapsto \partial^j(X^i) = \begin{cases}
+X^i&,\ j = 0\\
+i^j A^j X^i&, \mathrm{else}\\
+\end{cases}\right]\\
+\ea$$
+where $A = \left(\bao{cc}0 & 1\\a & 0\\\ea\right)$. This is equivalent to
+$$\rho_R = \left[X^i \longmapsto \left[\sum_{j=0}^n d_j \partial^j \longmapsto \left(d_0 I_n + \sum_{j=1}^n d_j (i A)^j\right) X^i\right]\right].$$
+The constant module algebra is
+$$R^{\rho} = \left(\qzcl\left[X,X^{-1}\right]\right)^\rho = \left\{x \in \qzcl\left[X,X^{-1}\right] : \rho(x) = x \cdot \eps = \left[d \longmapsto x \eps(d)\right]\right\}$$
+which implies
+$$\bao{rcl}
+\rho(x) &=& x \cdot \eps\\
+\Leftrightarrow \rho(x)(d) &=& \sum_{i=0}^n d_i \partial^i(x)\\
+&&\\
+&\stackrel{!}{=}& x \sum d_i \underbrace{\eps(\partial^i)}_{\delta_{0,i}}\ =\ x d_0\\
+\Leftrightarrow x &\in& \ker \partial\\
+\ea$$
+i.e. $x \in \qzcl$. Here, $\delta_{0,i}$ denotes the Kronecker Delta being zero for all but $i = 0$. This proves that $R^\rho$ equals $\qzcl$. To see that $R$ is a simple $D$-module algebra we will use the following: the differential ideal $\left<X\right> \subset \qzcl[X]$ contains a unit in its localization $S_{X} \left<X\right>$ where
+$$S_{X} := \qzcl[X]\backslash\bigcup_{\substack{\mathfrak{p} \in \mathrm{Spec}\qzcl[X]\\X \notin \mathfrak{p}}} \mathfrak{p}.$$
+This is clear from the fact that the negation of primality reads: $a \notin \mathfrak{p}$ and $b \notin \mathfrak{p}$ implies $a b \notin \mathfrak{p}$, for all $\mathfrak{p} \in \mathrm{Spec}R$ with $X \notin \mathfrak{p}$.
+Firstly,
+$$\partial(f X) = \partial(f) X + f \partial(X) = \partial(f) X + f A X \in \left<X\right>,$$
+showing us that $\left<X\right>$ is a non-trivial $D$-stable prime ideal. Now we assume a prime ideal $\mathfrak{p} \neq \left<X\right>$ also being $D$-stable (we could have started with any $D$-stable ideal and then show that it is contained in a larger prime ideal with the same property). As $\qzcl[X]$ is a PID there is a generator $f$ such that $\left<f\right> = \mathfrak{p}$. Again, we compute
+$$\partial(g f) = \underbrace{\partial(g) f}_{\in \left<f\right>} + g \partial(f) \in \left<f\right>$$
+and for $f = \sum_i f_i X^i$:
+$$g \partial(f) = g \sum_i f_i \sum_{j=0}^{i-1} X^j A X^{i-j} \stackrel{!}{=} h \sum_i f_i X^i.$$
+However, since $A \neq I_2$ and $A X \neq X A$ we see that equality does not hold and we have arrived at a contradiction. Thus, $\left<X\right>$ is the only maximally $D$-stable prime ideal and $R$ has to be a simple $D$ module algebra.
+\subsubsection{Two cases}
+We assume to work in an appropriate subfield $k$ of $\qzcl$. We subdivide our discussion into two cases the decomposition case (that is our parameter $a \in k$ has a square root in $k$) and non-decomposition case (the polynomial $Y^2 - a \in k[Y]$ has no roots in $k$).
+\paragraph{Non-composition case}
+
+\paragraph{Composition case}
+We set $k = \qz(\sqrt{a})$ and readily see that the PV ring has to contain two elements $y, y^{-1} \in R$ such that
+$$a x$$
+% $\qzcl[X]$ has only one maximal differential ideal $I = \left<X\right>$. Now, let $J \supset I$ be another ideal closed under $D$-action:
+%$$\bao{rcl}
+%D(J) &\subset& J\\ &\Leftrightarrow&\\
+%J \ni j &=& \sum_{k=0}^n j_k X^k \stackrel{\partial}{\longmapsto} \sum_{k=0}^{n-1}  j_{k+1} \sum_{0 \leq l\leq %k-1} X^{l} \partial(X) X^{n - 1 - k}\\
+%& =& \partial(j) \in J
+%\ea$$
+%\newcommand{\tens}[2]{\left(#1\right)^{\otimes #2}}
+%\newcommand{\tenso}[2]{#1^{\otimes #2}}
+%\newcommand{\twotens}[1]{\tens{#1}{2}}
+%\newcommand{\twotenso}[1]{\tenso{#1}{2}}
+\subsection{Hopf algebra}
+To compute the Hopf-algebra $H = \left(\twotenso{R}\right)^{\rho_R \otimes \rho_R}$ we will discuss the map $\rho_R \otimes \rho_R$ first.
+$$\bao{rrcl}
+\rho_R \otimes \rho_R : &\twotenso{R}& \longrightarrow &\mathrm{Hom}\left(D, \twotenso{R}\right)\\
+&r_1 \otimes r_2 &\longmapsto &\Psi_{\twotenso{R}}\left(\_ \otimes\left(r_1 \otimes r_2\right)\right) = \left[d \longmapsto \Psi_{\twotenso{R}}\left(d \otimes \left(r_1 \otimes r_2\right)\right)\right].\\
+\ea$$
+where
+$$\bao{rcl}
+\Psi_{\twotenso{R}}\left(d \otimes \left(r_1 \otimes r_2\right)\right) &=& \sum_{(d)} \Psi_R\left(d_{(1)} \otimes r_1\right) \otimes \Psi_R\left(d_{(2)} \otimes r_2\right)\\
+&&\\
+& =& \left(\Psi_R \otimes \Psi_R\right)(f)(\Delta \otimes id_{R^{\otimes2}})(d \otimes r_1 \otimes r_2)\\
+&\mathrm{with}&\\
+f &=& id_D \otimes \tau_{D\otimes R} \otimes id_R.\ea$$
+The counit is $\eps = \eps_{\qzcl[\partial]} = [\partial^i \longmapsto \delta_{0,i}]$. Therefore,
+$$\bao{rcl}
+H &=& \left\{r_1 \otimes r_2 : \rho(r_1 \otimes r_2) = r_1 \otimes r_2 \cdot \eps\right\}\\
+&&\\
+&=& \left\{r_1 \otimes r_2 : \rho(r_1 \otimes r_2) (d) = \eps(d) r_1 \otimes r_2, \forall d \in \qzcl[\partial]\right\}\\
+&&\\
+&=& \left\{r_1 \otimes r_2 : \sum_{(d)} \Psi_R(d_{(1)} \otimes r_1) \otimes \Psi_R(d_{(2)} \otimes r_2),\forall d \in \qzcl[\partial]\right\}\\
+&&\\
+&=& \left\{r_1 \otimes r_2 : \partial^i \longmapsto \sum_{j=0}^i \left(\bao{c}i\\j\\\ea\right) \partial^j (r_1) \otimes \partial^{i-1}(r_2) = \delta_{0,i} \cdot r_1 \otimes r_2,\forall d\right\}\\
+&&\\
+&\stackrel{?}{=}& \ker \Delta(\partial)\\
+&&\\
+& =& \{r_1 \otimes r_2 : r_1 \otimes \partial(r_2) + \partial(r_1) \otimes r_2 = 0\}\\
+&&\\
+&=& \qzcl[y\otimes y^{-1}, y^{-1} \otimes y]\ \simeq \ \qzcl[y,y^{-1}]\\
+\ea$$
+For all $i \in \mathbb{Z}$, we have
+$$\bao{rcl}
+\Delta(\partial)\left(y^i \otimes y^{-i}\right) &=& y^i \otimes \partial(y^{-i}) + \partial(y^i) \otimes y^{-1}\\&&\\
+ &=& - i \sqrt{a} (y^i \otimes y^{-i}) + i \sqrt{a} (y^{i} \otimes y^{-i}) = 0
+ \ea$$
+and
+$$id(y^0 \otimes y^0) = id(1_R \otimes 1_R) = 1_R \otimes 1_R \in \ker \Delta(\partial).$$
+Now, we assume $h = \sum_{i,j} h_{i,j} y^{i} \otimes y^{j} \in H$ then
+$$\bao{rcl}
+\rho_{\twotenso{R}}(h)(\partial) &=& \Delta(\partial)(h)\\&&\\ &=& \sum_{i,j} h_{i,j} (y^i \otimes \partial(y^j) + \partial(y^i) \otimes y^j)\\
+&&\\
+&=& \sum_{(i,j) \in \mathbb{Z}^2 \backslash \{0\}} h_{i,j} (j \sqrt{a} y^i \otimes y^j + i \sqrt{a} y^i \otimes y^j)\\
+&&\\
+&=& \sum_{(i,j) \in \mathbb{Z}^2 \backslash \{0\}} h_{i,j} (j + i) \sqrt{a} y^i \otimes y^j\ = \ 0\\
+&\Leftrightarrow&\\
+&&j = -i,\ \forall i \in \mathbb{Z} \vee h_{i,j} = 0,\ \forall (i,j) \neq 0 \in \mathbb{Z}^2\\
+\ea$$
+proving $H \subset \ker \Delta(\partial)$. As all elements $h \in \ker \Delta(\partial)$ fulfil
+$$\bao{rcl}
+\rho(h)(d) &=& \sum_i d_i \Psi_{\twotenso{R}}(\partial^i \otimes h)\\&&\\&=& \sum_i \delta_{0,i} \cdot d_i h\\
+&&\\
+&=& \sum_i d_i  \underbrace{\eps(\partial^i)}_{\delta_{0,i}} h\\&&\\ &=& \eps(d) h,\ \forall d = \sum_i d_i \partial^i\\
+\ea$$
+we have the inverse inclusion. As $\Delta$ is a homomorphism of $\qzcl$-algebras, we have $\Delta(\partial^i) = \Delta(\partial)^i$ and $y^{i} \otimes y^{-i} - y^{-i} \otimes y^i$ generates a proper Hopf-ideal in $H$.
+\subsubsection{No composition}
+The above description works for all cases $k \supset \qz$ with $\sqrt{a} \in k$. However, if $k(\sqrt{a})$ is a proper extension over $k$ then there are no non-trivial eigenvectors to $\partial - \sqrt{a} \cdot id_R$, i.e. no element $y \in R$.\\
+The general solutions are $x_1$ with $\partial(x_1) = x_2$ and $\partial(x_2) = a x_1$. The PV ring is isomorphic to
+$$R \simeq k[x_1,x_2]/\left<a x_1^2 - x_2^2 - 1\right> \simeq k[x_1] \otimes (k \oplus k.x_2)$$
+with multiplication for all $i_1, j_1 \geq 0, i_2, j_2 = 0, 1$:
+$$\begin{array}{rrcl}
+\mu_R :& R \otimes R &\longrightarrow& R,\\
+& x_1^{i_1} x_2^{i_2} \otimes x_1^{j_1} x_2^{j_2} &\longmapsto &x_1^{i_1 + j_1} (a x_1^2 - 1)^{\frac{i_2+j_2 - (i_2+ j_2)\mod 2}{2}} x_2^{i_2+j_2 \mod 2},\\
+&&&\\
+&&& = \begin{cases}
+%x_1^{i_1 + j_1}, & i_2 = j_2 = 0\\
+x_1^{i_1 + j_1} x_2, & i_2 + j_2 \equiv 1 \mod 2\\
+x_1^{i_1 + j_1} (a x_1^2 - 1)^{[(i_2+j_2)/2]}, & i_2 + j_2 \equiv 0 \mod 2\\
+\end{cases}
+\end{array}$$
+where $[z] := \max \{z' \in \mathbb{Z} : z' \leq z\}$, and $k$-derivation
+$$\begin{array}{rrcl}
+\partial_R : &R& \longrightarrow &R,\\
+&x_1^i x_2^j &\longmapsto &i x_1^{i-1} x_2^{j+1} + j a x_1^{i+1} x_2^{j-1},\ \forall i \geq 0, j = 0, 1\\
+&&&\\
+&&& = \begin{cases}
+i x_1^{i-1} x_2 & j = 0\\
+i x_1^{i-1} (a x_1^2 - 1) + a x_1^{i+1} x_2& j = 1\\
+\end{cases}\\
+\end{array}$$
+Again, we are looking for elements $r \otimes s \in \ker \Delta(\partial) \subset R^{\otimes 2}$. Clearly, the elements
+$$\left\{\underbrace{a x_1 \otimes x_1 - x_2 \otimes x_2}_{=: h_1}, \underbrace{x_1 \otimes x_2 - x_2 \otimes x_1}_{=: h_2}, \underbrace{1 \otimes 1}_{1_H}\right\}$$
+are ideal candidates as
+$$a x_1 \otimes x_1 - x_2 \otimes x_2 - 1 \otimes 1,\ x_1 \otimes x_2 - x_2 \otimes x_1 \in \mu_R^{-1}(0) =: \ker \mu_R.$$
+Some notes why only generators...\\
+
+
+\subsubsection{Its structure maps}
+Firstly, we are discussing the case $\sqrt{a} \in k$. Its multiplication and unit are
+$$\mu_H = \mu_{R^{\otimes2}} \mid_H = [a_1 \otimes b_1 \otimes a_2 \otimes b_2 \longmapsto a_1 a_2 \otimes b_1 b_2],\ \eta = [1_{\qzcl} \longmapsto 1_R \otimes 1_{R}].$$
+Its comultiplication and counit are
+$$\Delta = [y^i \otimes y^{-i} \longmapsto y^i \otimes 1 \otimes 1 \otimes y^{-i}],\ \eps = [a \otimes b \longmapsto a b].$$
+We remark that $H$ is generated by the non-trivial group-like:
+$$y \otimes y^{-1} \longmapsto y \otimes_{\qzcl} \underbrace{y^{-1} \otimes_R y}_{= 1_R} \otimes_{\qzcl} y^{-1} = y \otimes 1 \otimes 1 \otimes y^{-1},\ y\otimes y^{-1} \stackrel{\eps_H}{\longmapsto} 1_R$$
+Second case $\sqrt{a} \notin k$ is not obvious. However, we will use a trick to get the Hopf algebra structure. We recall that an algebraic element $\alpha$ over the ring of constants is constant in the algebraic extension $R(\alpha)$. Hence, we use: if $\sqrt{a} \notin \qz$ then $H(\sqrt{a})$ is constant algebraic over $H$.
+\newcommand{\pvextens}{R(\sqrt{a})}
+$$\pvextens \simeq \qz(\sqrt{a}) \otimes_\qz R$$
+where
+$$R \simeq \qz[x_1,x_2]/\left<x_2^2 - a x_1^2 + 1\right>.$$
+Now, we can use the decomposition as above:
+$$\begin{array}{rclrcl}
+y &=& \sqrt{a} \otimes x_1 + 1_{\qz(\sqrt{a})} \otimes x_2,&y^{-1} &=& \sqrt{a} \otimes x_1 - 1_{\qz(\sqrt{a})} \otimes x_2 \in \qz(\sqrt{a}) \otimes_\qz R\\
+&&&&&\\
+x_1 &=& \frac{1}{2 \sqrt{a}} (y + y^{-1}) &
+x_2 &=& \frac{1}{2} (y - y^{-1}) \in \pvextens\\
+\end{array}$$
+As this setting does not fully meet our needs we expand:
+$$\begin{array}{rrcl}
+&\pvextens \otimes_\qz \pvextens &\longrightarrow& \pvextens \otimes_{\qz(\sqrt{a})} \pvextens.\\
+&a \cdot (r \otimes s)& \longmapsto&\sqrt{a} r \otimes  \sqrt{a} s\\
+\end{array}$$
+Basically, we simply replace our incomplete ring with an appropriate ring and take our equation along the way:
+$$\partial^2 - a \cdot id_{\qz(\sqrt{a})} \in \qz(\sqrt{a})[\partial] \simeq \qz(\sqrt{a}) \otimes_\qz \qz[\partial.$$ 
+Now, we may proceed. Again, $y_1 \otimes y_{-1} \longmapsto y_1 \otimes 1 \otimes_R 1 \otimes y_{-1}$ then:
+$$\begin{array}{rcl}
+\Delta_{\pvextens}(a x_1 \otimes x_1 - x_2 \otimes x_2) &\longmapsto& a \Delta_{\pvextens}\left(\frac{1}{2\sqrt{a}} (y + y^{-1}) \otimes \frac{1}{2\sqrt{a}} (y + y^{-1})\right)\\
+&&\\
+&& - \Delta_{\pvextens}\left(
+\frac{1}{2} (y - y^{-1}) \otimes \frac{1}{2} (y - y^{-1})
+\right)\\
+&&\\
+&=& \frac{1}{2} \Delta_{\pvextens}(y \otimes y^{-1} + y^{-1} \otimes y)\\
+&&\\
+&=& \frac{1}{2} \left(y \otimes 1 \otimes 1 \otimes y^{-1} + y^{-1} \otimes 1 \otimes 1 \otimes y\right)\\
+&&\\
+&=& \frac{1}{2} ((\sqrt{a} x_1 + x_2) \otimes 1 \otimes 1 \otimes (\sqrt{a} x_1 - x_2)\\&&\\&& + (\sqrt{a} x_1 - x_2) \otimes 1 \otimes 1 \otimes (\sqrt{a} x_1 + x_2))\\
+&&\\
+&=& a x_1 \otimes 1 \otimes 1 \otimes x_1 - x_2 \otimes 1 \otimes 1 \otimes x_2\\
+\ea$$
+$$\bao{rcl}
+\Delta_{\pvextens}(x_1 \otimes x_2 - x_2 \otimes x_1) &=& \Delta_{\pvextens}\left(\frac{1}{2 \sqrt{a}} (y_1 + y_{-1}) \otimes \frac{1}{2} (y_1 - y_{-1})\right)\\
+&&\\
+&& - \Delta_{\pvextens}\left(\frac{1}{2} (y_1 - y_{-1}) \otimes \frac{1}{2\sqrt{a}} (y_1 + y_{-1})\right)\\
+&&\\
+&=& \frac{1}{2 \sqrt{a}} \Delta_{\pvextens}(y_{-1} \otimes y_{1} - y_{1} \otimes y_{-1})\\
+&&\\
+&=& \frac{1}{2 \sqrt{a}} (y_{-1} \otimes 1 \otimes 1 \otimes y_{1} - y_1 \otimes 1 \otimes 1 \otimes y_{-1})\\
+&&\\
+&=& \frac{1}{2 \sqrt{a}} ((\sqrt{a} x_1 - x_2) \otimes 1 \otimes 1 \otimes (\sqrt{a} x_1 + x_2)\\
+&&\\
+&& - (\sqrt{a} x_1 + x_2) \otimes 1 \otimes 1 \otimes (\sqrt{a} x_1 - x_2))\\
+&&\\
+&=& x_1 \otimes 1 \otimes 1 \otimes x_2 - x_2 \otimes 1 \otimes 1 \otimes x_1\\
+\end{array}$$
+In conclusion, even if we change our setting our Hopf-algebra $H$ is already contained in $R \otimes R$ (we do not need $\pvextens$).
+ %more complicated. Firstly, the element $h_1$ has to be group-like as
+%$h_1 \in \mu_R^{-1}(1_R)$, i.e.
+%$$\begin{array}{rcl}
+%\Delta(h_1) &=& h_1 \otimes_R h_1 = (a x_1 \otimes x_1 - x_2 \otimes x_2) \otimes_R (a x_1 \otimes x_1 - x_2 \otimes x_2)\\&&\\ &=& a^2 x_1 \otimes x_1 \otimes_R x_1 \otimes x_1 + x_2 \otimes x_2 \otimes_R x_2 \otimes x_2\\
+%&& - a (x_1 \otimes x_1 \otimes_R x_2 \otimes x_2 + x_2 \otimes x_2 \otimes_R x_1 \otimes x_1).\\
+%\end{array}$$
+%On the other hand, $1 \otimes 1 = 1 \otimes (a x_1^2 - x_2^2) = a \otimes x_1^2 - 1 \otimes x_2^2 = a x_1^2 \otimes 1 - x_2^2 \otimes 1 = a^2 x_1^2 \otimes x_1^2 - a (x_1^2 \otimes x_2^2 + x_2^2 \otimes x_1^2) + x_2^2 \otimes x_2^2$ in $R \otimes R$. Therefore, we get
+%$$\begin{array}{rcl}
+%\Delta(h_1) &=& a^2 x_1 \otimes x_1^2 \otimes_R (a x_1^2 - x^2) \otimes x_1 + x_2 \otimes x_2^2 \otimes_R (a x_1^2 - x_2^2) \otimes x_2\\
+%&&\\
+%&&- a (x_1 \otimes x_1 x_2 \otimes_R (a x_1^2 - x_2^2) \otimes x_2 + x_2 \otimes x_1 x_2 \otimes_R (a x_1^2 - x_2^2) \otimes x_1)
+%\end{array}$$
+% \longmapsto 1 \otimes 1 \otimes_R 1 \otimes 1$
+\subsection{Module algebra homomorphisms}
+\end{document}

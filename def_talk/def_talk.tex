@@ -1,0 +1,64 @@
+\documentclass[11pt]{beamer}
+\usetheme{Berlin}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[all]{xy}
+
+%END usepackaging
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\nz}{\mathbb{Q}}
+\newcommand{\zz}{\mathbb{Z}}
+\newcommand{\qz}{\mathbb{Q}}
+\newcommand{\rz}{\mathbb{R}}
+\newcommand{\cz}{\mathbb{C}}
+\newcommand{\zzn}[1]{\mathbb{Z}_{#1}}
+\newcommand{\fp}[1]{\mathbb{F}_{#1}}
+\newcommand{\qzcl}{\overline{\qz}}
+\newcommand{\bd}{\begin{description}}
+\newcommand{\ed}{\end{description}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\bn}{\begin{enumerate}}
+\newcommand{\en}{\end{enumerate}}
+\newcommand{\bao}[1]{\begin{array}{#1}}
+\newcommand{\ea}{\end{array}}
+\newcommand{\bmk}{\paragraph{Remark}}
+\newcommand{\bws}{\paragraph{Proof}}
+\newcommand{\bsp}{\paragraph{Example}}
+\newcommand{\tens}[2]{\left(#1\right)^{\otimes #2}}
+\newcommand{\tenso}[2]{#1^{\otimes #2}}
+\newcommand{\twotens}[1]{\tens{#1}{2}}
+\newcommand{\twotenso}[1]{\tenso{#1}{2}}
+%END new commands
+
+\newtheorem{defi}{Definition}
+\newtheorem{prop}{Proposition}
+\newtheorem{coro}{Corollary}
+\newtheorem{lemm}{Lemma}
+\newtheorem{satz}{Theorem}
+\author{Gabriel M\"uller}
+\title{Exemplifying the Galois Theory of Simple Artinian D-Module Algebras}
+%\setbeamercovered{transparent} 
+%\setbeamertemplate{navigation symbols}{} 
+%\logo{} 
+%\institute{} 
+%\date{} 
+%\subject{} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\tableofcontents
+\end{frame}
+
+\include{intro}
+\include{classic}
+
+\end{document}

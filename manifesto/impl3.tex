@@ -1,0 +1,11 @@
+\section{Implementation}
+This section is going to discuss the implementation details of a functorial approach.
+\subsection{Dependencies and inheritance}
+As we have outlined before a direct inheritance tree encoding all mathematical dependencies can become quite steep and therefore prohibitively expensive in case of copy construction etc. Thus, the inheritance tree is thought of as a super object containing the actual mathematical objects:
+\begin{lstlisting}[frame=single]
+template<typename T1, ... >
+struct math_concept {//something like group concept, ring concept, ...
+//impl. details
+};
+
+\end{lstlisting}

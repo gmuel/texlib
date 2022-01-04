@@ -1,0 +1,29 @@
+\section{Introduction}
+All topics discussed in this paper rely on category theory and its notations. We refer the interested reader to ...\\
+\indent Let $\mathcal{I}$ be some category and $\mathrm{URng}$ the category of unital rings. We aim to discuss the bifunctor 
+$$\mathfrak{sl} : \mathcal{I} \times \mathrm{URng} \longrightarrow \mathrm{Lie}.$$
+Here, $\mathrm{Lie}$ is the category of Lie algebras, situated in the following chains of categories:
+$$\bao{lllllll}
+\mathrm{Lie} &\subset \mathrm{Alg} &\subset \mathrm{Mod} &\subset \mathrm{Abel} &\subset \mathrm{Grp} &\subset \mathrm{Mon} &\subset \mathrm{SGrp}\\
+&&&&&& \subset \mathrm{PSpc}\\
+&& \subset \mathrm{SGrp}&&&&\\
+\ea$$
+
+\newpage
+\newcommand{\sltwor}{\mathfrak{sl}_2(R)}
+\section{Example}
+Now, let us discuss the special case $|I| = 2$ for $I \in \mathcal{I}$. We define $\mathfrak{sl}(I,R) =: \sltwor$ in a categorical sense.
+\subsection{Representation}
+We choose the $R$ module $M$ with
+$$M = \bigoplus_{i=1}^3 R.e_i \simeq_{\mathrm{Mod}_R} R.X \oplus R.Y \oplus R.H,\ e_1 \stackrel{\sim}{\longmapsto} X, e_2 \stackrel{\sim}{\longmapsto} Y,e_3 \stackrel{\sim}{\longmapsto} H.$$
+Let $m = \sum_{i \in \{X,Y,H\}} m_i e_i \in \sltwor$ then the following matrix represents the adjunct of $m$:
+$$\bao{rcl}
+ad(m) &=& \left(\bao{ccc}
+2 m_H & & -2 m_X\\
+& -2 m_H & 2 m_Y\\
+-m_Y&m_X&\\
+\ea\right),\\
+ &&\\
+ &=& \left[ n \longmapsto [m,n] = \begin{cases}(2 m_H n_X - 2 m_X n_H) X\\ - (2 m_H n_Y - 2 m_Y n_H) Y\\ + ( m_X n_Y - m_Y n_X) H\end{cases}\right]\\.
+ \ea$$
+Thus, the map $\rho : \sltwor \longrightarrow \mathrm{End}_R(M)$, 

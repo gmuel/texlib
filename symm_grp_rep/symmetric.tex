@@ -1,0 +1,33 @@
+\section{The symmetric group}
+Given a set $X$, the class of all bijections $\pi \in Bij(X,X)$ is called the symmetric group
+$$S(X),\ \tmr{or}\ S_X.$$
+In particular, given the integer interval $N := \{1,\ldots,n\} \subset \zz$ we call
+$$S_N := S_n$$
+the $n$-th symmetric group.
+\subsection{Representation theory of $S_n$}
+The first to mention is the 
+\subsubsection{Trivial representation of $S_n$}
+Given a unital commutative ring $R$, then the pair $(R,\rho_R)$
+$$S_n \ni \pi \stackrel{\rho_R}{\longmapsto} 1_R$$
+is called the trivial representation of $S_n$. We only mention it for completeness - as it will be used later on.
+\subsubsection{Permutation representation of $S_n$}
+Given $R$ and $S_n$ as above, we call
+$$(M,\rho_{\tmr{perm}}),\ M = R^n,\ \pi \longmapsto \sum_{i=1}^n e_{\pi(i)i}$$
+the permutation representation of $S_n$. Note, that although most often $R$ to be an algebraic field it need not be - $\zz$ as the initial object in the category of unital rings is sufficient.
+\subsubsection{Standard representation of $S_n$}
+Again, $R$, $S_n$ and now $M$ as above - we get 
+$$(M',\rho_{\tmr{std}}),\ M' = \left<e_i - e_n : 1 \leq i \leq n - 1\right> \subsetneq M,\ \pi \longmapsto \left[\sum_i^{n-1} \lambda_i \alpha_i \longmapsto \sum_i \lambda_i \right]$$
+the standard representation. Here, $e_i$ denotes the canonical generators of $M$ and $\alpha_i = e_i - e_n$ are our generators. Let us expand:
+$$\sum_i \lambda_i \alpha_i = \sum_i \lambda_i (e_i - e_n)\longmapsto \sum_i \lambda_i (e_{\pi(i)} - e_{\pi(n)}) ) = \sum_i \lambda_i(e_{\pi(i)} - e_n + e_n - e_{\pi(n)}) = \sum_i \lambda_i (\alpha_{\pi(i)} - \alpha_{\pi(n)})$$
+In this context, $\alpha_{\pi(n)}$ is simply either zero if $\pi(n) = n$, otherwise $\pi(n) < n$ and thus there is an element $\alpha_{\pi(n)}$. I.e.:
+$$\alpha_i \longmapsto \alpha_{\pi(i)} - (1 - \delta_{\pi(n),n}) \alpha_{\pi(n)}\ \forall 1 \leq i \leq n - 1.$$ 
+In conclusion:
+$$\pi \longmapsto \sum_{i=1}^{n-1} \left(f_{\pi(i)i} - (1 - \delta_{\pi(n),n}) f_{\pi(n)i}\right)$$
+where $f_{ji} = [\alpha_i \longmapsto \alpha_j] \in \tmr{End}_R(M')\ \forall 1 \leq i,j \leq n - 1$.
+The alert reader will have noticed that we already employed the following
+\begin{prop} The permutation representation $(M,\rho_{\tmr{perm}})$ decomposes into the trivial and standard representation:
+$$(M,\rho_{\tmr{perm}}) = (M',\rho_{\tmr{std}}) \oplus  (M'',\rho_{\tmr{trivial}}).$$
+\end{prop}
+We already saw that $M'$ is an $S_n$ submodule of $M$. The trivial representation is given by
+$$M'' := \left<\sum_{i=1}^n e_i\right>$$
+and the fact that any $\pi \in S_n$ operates trivially on $\sum_i e_i$ (i.e. just a reshuffle of the summands).

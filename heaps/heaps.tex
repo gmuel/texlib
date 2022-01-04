@@ -1,0 +1,90 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage[all]{xy}
+
+\newtheorem{defi}{Definition}
+\newtheorem{lemm}{Lemma}
+\newcommand{\bws}{\paragraph{Proof}}
+\author{moi}
+\begin{document}
+\section{Groups and heaps}
+We intend to discuss the concept of groups and heaps which are closely related. As convention, we use
+$$\underbrace{X \times \ldots \times X}_{n-\mathrm{times}} = X^n,\ \forall n \in \mathbb{N}.$$
+\subsection{Definitions}
+For the sake of completeness, we are going to repeat the definition for semi groups, monoids and groups.
+\begin{defi}
+A set $S$ with a binary map $m : S^2 \longrightarrow S$ is called a semi group if $\mathrm{im}(m) \subset S$ and the following diagram
+$$\xymatrix{S^3 \ar[r]^{id \times m}\ar[d]_{m \times id} & S^2\ar[d]^m\\
+S^2 \ar[r]_m &S\\
+}$$
+commutes. We call $m$ the operations or sometimes incorrectly the multiplication and denote a semi group as a pair $(S,m)$. A subset $T \subset S$ is called a sub semi group if both conditions hold for the restriction $m \mid_{T^2} : T^2 \longrightarrow T$. 
+\end{defi}
+The first condition is called closeness - the latter is called the associativity. 
+\begin{defi}
+We call a semi group $(M,m)$ a monoid if $M$ has a sub semi group, usually denoted by $\{\ast\}$, with exactly one element such that
+$$\xymatrix{
+\{\ast\} \times G 
+}$$
+This distinguished element $e \in \{\ast\}$ is called the neutral element and induces a map
+$$
+\end{defi}
+\begin{defi}
+Let $X$ be a set. We call a pair $(X, h)$, with $h : X^3 \longrightarrow X$ a terniar operation, a heap if the following diagrams commute:
+$$\begin{array}{c}
+\xymatrix{
+&&&X^5 \ar[rrrd]^{id_{X^2} \times h}\ar[llld]_{h \times id_{X^2}} \ar[dd]_{id_{X} \times \tau_3 \times id_X}&&& \\
+X^3\ar[rrrddd]_{h}&&&&&&X^3\ar[lllddd]^{h}\\
+&&&X^5 \ar[d]_{id_X \times h \times id_X}&&&\\
+&&&X^3\ar[d]_h&&&\\
+&&&X&&&\\
+}\\
+\mathrm{para-associativity}\\
+\end{array}$$$$
+\begin{array}{c}
+\xymatrix{
+&&&X^2\ar[llld]_{\Delta \times id_X \circ \tau} \ar[ldd]_{\Delta \times id_X \circ \tau} \ar[ddd]^{\pi_1}_{\pi_2 \circ \tau}\ar[rdd]^{id_X \times \Delta}\ar[rrrd]^{id_X \times \Delta} &&&\\
+X^3\ar[d]_{\tau_3}&&&&&& X^3\ar[d]^{\tau_3}\\
+X^3\ar[rrrd]_h&&X^3\ar[rd]_h&&X^3\ar[ld]^{h}& &X^3\ar[llld]^{h}\\
+&&&X&&&\\
+}\\
+\mathrm{identity,}\\
+\end{array}
+$$
+where
+$$\begin{array}{rrclcrrcl}
+\Delta : &X& \longrightarrow &X^2,&&\tau_3 : &X^3& \longrightarrow& X^3\\
+&x&\longmapsto&(x,x)&&&(x,y,z)&\longmapsto&(z,y,x)\\
+&&&\\
+\pi_1:&X^2&\longrightarrow&X&&\pi_2:&X^2&\longrightarrow&X\\
+&(x,y)&\longmapsto&x&&
+&(x,y)&\longmapsto&y\\
+&&&\\
+\tau :& X^2 &\longrightarrow&X^2\\
+&(x,y)&\longmapsto&(y,x)\\
+\end{array}$$
+\end{defi}
+Firstly, we obviously have $\tau_3 = (id \times \tau)\circ(\tau \times id) \circ (id \times \tau)$ and $\pi_2 \tau = \pi_1$. Secondly, the projections $\pi_i$ are tighed to the left or right side of the diagram. Furthermore, we remark that heaps can be thought of as groups with no unique neutral element, i.e. we forgot to a assign a neutral element. One can easily check that each group $(G, m, e, inv)$ is a heap via
+$$h = m \circ (id_G \times m)\circ (id_G \times inv \times id_G) = m \circ (m \times id_G)\circ(id_G \times inv \times id_G).$$
+Conversely, each heap $(G, h)$ has a unique group structure modulo a distinguished element $e \in G$ being the neutral element. We subsequently get the group morphisms:
+$$m = h\mid_{G \times \{e\} \times G} : G^2 \longrightarrow G,\ (g,g') \longmapsto h(g,e,g'),$$
+$$e : \{\ast\} \longrightarrow G,\ \ast \longmapsto e.$$
+To be more precise, the first statement shall be read via the identification induced by the map
+$$id_G \times f_e \times id_G : G^3 \longrightarrow G^2,\ (g, g'', g') \longmapsto (g, e, g').$$
+The equivalence classes are
+$$\mathcal{G} := \left\{[(g,g')] \subset G^3: (g,g'',g') \in [(g,g')] \forall g'' \in G\right\}$$ 
+We claim
+\begin{lemm}
+The set of equivalence classes $\mathcal{G}$ is isomorphic to $G^2$.
+\end{lemm}
+\bws This is obvious if we consider
+$$\iota_{G^2} : G^2 \longrightarrow G^3,\ (g,g') \longmapsto (g,e,g')$$
+is a monomorphism and therefore we have $\mathrm{im} \pi \iota_{G^2} \simeq \mathcal{G}$.\\
+The inverse is given via
+$$m(g,g') = e \Leftrightarrow g' \in m\mid_{\{g\}\times G}^{-1}(e) = \{g'' \in G: m(g,g'') = e\}$$
+%$$G \times \{e\} \times G/
+\end{document}

@@ -1,0 +1,188 @@
+%\newcommand{\lstst}{\begin{lstlisting}[frame=single]
+%set<SET,EQUAL >
+%\end{lstlisting}}
+%\newcommand{\lstst}{\lstss{set\<SET,EQUAL \>}}
+\section{Introduction}
+This paper is intended to compile some requirements as to how to implement a computer algebra library written in \textsf{C++} and define a what should and should not be included.
+\subsection{Background}
+A previous version of a computer algebra library was written by us a couple of years ago. It was pretty straight forward. There was a set of base class templates which inherited their properties to ther child classes (or class templates) in the following way:
+\newcommand{\lstss}[1]{\textsf{#1}}
+\newcommand{\lstst}{\lstss{set$\left<\mathtt{SET,EQUAL}\right>$}}
+\bn
+\item The root class template was \lstst, where \textsf{SET} type parameter was the implementing child class (template) with (in-) equality operators and \textsf{EQUAL} type parameter was the a class template implementing a function operator\\
+\begin{lstlisting}[frame=single]
+/**
+ * Set class templ.
+ * General base class templ
+ */
+template<typename SET, typename EQUAL >
+class set {
+	const SET* ptr;
+protected:
+	set():ptr(0){}
+	
+	//only inheritance, no direct usage
+	set(SET& ref):ptr(const_cast<const SET*>(&ref)){}
+	
+public:
+
+	//static member of type 'EQUAL' should inherit
+   	//from equal_map<set>, used in equality
+	static const EQUAL& EQUAL;
+   	
+	~set(){if(ptr!=0) ptr=0;}
+	bool operator==(const SET& s1, const SET& s2) const {
+		return EQUAL(s1,s2);
+	}
+	bool operator!=(const SET& s1, const SET& s2) const {
+		return !(s1==s2);
+	}
+};
+/**
+ * Equality map class templ.
+ * All equality maps should inherit from this
+ * class templ and implement map operator
+ */
+template<typename SET >
+class equal_map {
+protected:
+	equal_map():ptr(0){}
+public:
+	bool operator()(const SET& s1, const SET& s2) const ;
+};
+\end{lstlisting}
+\newcommand{\lstsg}{\lstss{semi\_{}group$\left<SEMI,EQUAL,OPER \right>$}}
+\item The immediate child template of \lstst was 
+\begin{lstlisting}[frame=single]
+template<typename SEMI, typename EQUAL, typename OPER >
+class semi_group<SEMI, EQUAL,OPER > : public set<SEMI, EQUAL >
+{
+//code
+};
+\end{lstlisting}
+ where the \textsf{SEMI} is an implementing partial specialization/child of\\ \indent \textsf{semi\_{}group$\left<SEMI,EQUAL,... \right>$},\\
+ \textsf{EQUAL} as in its parent class and \textsf{OPER} is a binary associative operation
+$$m : \mathsf{SEMI} \times \mathsf{SEMI} \longrightarrow \mathsf{SEMI},\ (s,s') \longmapsto s s'$$
+on \textsf{SEMI}. For convenience a specialized structure was provided:
+\begin{lstlisting}[frame=single]
+template< typename SEMI >
+struct oper_morph {
+SEMI operator()(const SEMI& s1, const SEMI& s2) const ;
+}
+\end{lstlisting}
+such that each child class would simply provide the definition of the map operator for each specialization. In addition, those types of classes were usually kept as singleton classes, i.e. there would only be one instantiation for type implemented.
+\item The immediate child of \lstst was the monoid class template with one additional type parameter: \textsf{NEUT}, the trivial map:
+$$e : \ast \longrightarrow M,\ \longmapsto e_M,$$
+where $e_M$ is the neutral element of the monoid $M$ and $\ast$ is the trivial submonoid.
+\begin{lstlisting}[frame=single]
+/**
+ * The monoid class template
+ */
+template<typename MONO, typename EQUAL, typename OPER , typename NEUT>
+class monoid<MONO, EQUAL, OPER, NEUT > : public semi_group<SEMI, EQUAL, OPER >
+{
+//code
+};
+\end{lstlisting}
+Again, a structure template was provided for both the operation map and neutral map
+\begin{lstlisting}[frame=single]
+/**
+ * The operation map structure template
+ */
+template< typename MONO >
+struct oper_morph {
+MONO operator()(const MONO& s1, const MONO& s2) const ;
+};
+/*
+ * The neutral map structure template
+ */
+template <typename MONO >
+struct trivial {
+	//should be a constant ref.
+	const MONO& operator()() const ;
+};
+\end{lstlisting}
+\item The immediate child of \texttt{monoid} was \texttt{group} with one additional template parameter, the inversion map, with on structure template already provided:
+\begin{lstlisting}[frame=single]
+template< typename GROUP, typename EQUAL, typename OPER, typename NEUT, typename INVERSE >
+class group : public monoid<GROUP,EQUAL,OPER,NEUT,INVERSE > {
+//code
+};
+template< typename SEMI >
+struct inverse_morph {
+	GROUP operator()(const GROUP& g) const ;
+};
+\end{lstlisting}
+To distinguish between non-abelian and abelian groups, we implemented two base class templates that came with a structure template for the neutral element.
+\en
+\subsection{The problem}
+Two major problems arose from this form of implementation.
+\subsubsection{Steepness}
+With additional class templates in place to provide a basic interface for computer algebra library, one particular problem crept up: a rather steep level of inheritance. Although, each constructor usually consists of one line of code leaving a distinct chance of proper optimisation, a different optimisation scheme and a general dependence on another compiler might serverly alter timing.\\
+\subsubsection{Code bloat}
+The problem came clear when we started testing the implementation for bugs. Checking the size on even the simplest type, for instance the cyclic ring class template parameterised via its charactersistic, had a size of 72 bytes although only an unsigned integer coded each instance. In addition, copy construction became prohibitively expensive as all base class constructors had to be called (for the latter example, six base class constructor calls were required only to copy some integers).\\Secondly, all constructs requiring a multitude of instances of different types within this type framework caused substantial costs in memory. Consider the type \texttt{fraction} inheriting from a field type - this type would require two group structures as $(\mathbb{Q}, +, 0, -)$ and $(\mathbb{Q}^\times, \cdot, 1, ^{-1})$ which in turn, depend on the integer type within the same frame work. Thus, the minimal requirement for memory would by 144 bytes per instance. Any type consisting of instance of fractions would be a multiple of this size.
+\subsubsection{Diamond problem}
+Certain algebraic structures were diamond prone, that is a class diagram converged at one level with matching parameter types. Consider a two-sided module
+\begin{lstlisting}[frame=single]
+/**
+ * Left module class template
+ * Comes with unital ring parameters (not given) and module
+ * specific parameter list
+ * -> URNG type of underlying unital ring
+ * -> ...  ring specific parameter list
+ * -> MOD  type of implementing class
+ * -> ...	module specific parameter types
+ */
+template<typename URNG, ..., //ring specific parameter list
+typename MOD, typename ADD, typename MOD_ZERO,
+typename MOD_INV, typename LEFT_SCALAR >
+
+//is a direct child of ablian groups class templ.
+class left_mod : public ablian_group<MOD, ADD, MOD_ZERO, MOD_INV > {
+public:
+
+	//left scalar multiplication map
+	static const LEFT_SCALAR& LEFT;
+	
+	//operator definition 
+	friend MOD operator*(const URNG& scl, const MOD& m){
+		return LEFT(scl,m);
+	}
+};
+/**
+ * Right module class template
+ * Comes with unital ring parameters (not given) and module
+ * specific parameter list
+ * -> URNG type of underlying unital ring
+ * -> ...  ring specific parameter list
+ * -> MOD  type of implementing class
+ * -> ...	module specific parameter types
+ */
+template<typename URNG, ..., //ring specific parameter list
+typename MOD, typename ADD, typename MOD_ZERO,
+typename MOD_INV, typename RIGHT_SCALAR >
+
+//is a direct child of ablian groups class templ.
+class right_mod : public ablian_group<MOD, ADD, MOD_ZERO, MOD_INV > {
+public:
+
+	//right scalar multiplication map
+	static const RIGHT_SCALAR& RIGHT;
+	
+	//operator definition, note the inversion of arguments
+	//compared to left_mod<URNG,...,MOD,...>
+	friend MOD operator*(const MOD& m, const URNG& scl){
+		return RIGHT(m,scl);
+	}
+};
+\end{lstlisting} 
+Now, let us consider a class inheriting from both classes, called \texttt{two\_{}mod}. We would get 
+{\scriptsize
+$$\xymatrix{
+&\mathtt{two\_mod}\ar[rd]\ar[ld]&\\
+\ar[rd]\mathtt{left\_mod<URNG,...,two\_mod,...>}&&\mathtt{right\_mod<URNG,...,two\_mod,...>}\ar[ld]\\
+&\mathtt{abel_group<two\_mod,...>}&\\}$$}
+This class has two distinct inheritance paths to the same parameterisation of the base class template \texttt{abel\_{}group}. Therefore, any ambiguious function/member call will result in a compile error. It can only be resolved via virtualisation of the base class in the diagram. On the other hand, virtualisation prohibits the use of constant expressions in newer standard versions and adds to the users responsiblity to correctly instantiate objects by including a direct constructor call to the virtual base class in every constructor in every base class.
+\subsection{Workaround}
+An immediate workaround came apparent: instead of preserving the mathematical structure in a steep inheritance tree, simple construct category class templates with members (data or functions) that contain a given mathematical structure and provide functors where needed or wanted. The idea is that each instantiation of a mathematical object should only rely on a simple base class and have the containing category objects deal with upward and downward casting (in type theoretic fashion).\\
+\indent We will discuss this and other approaches in the next section.\\

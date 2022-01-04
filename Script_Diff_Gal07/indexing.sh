@@ -1,0 +1,2 @@
+makeindex Symbol
+makeindex Index

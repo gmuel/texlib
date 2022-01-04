@@ -1,0 +1,92 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage[all]{xy}
+
+\newtheorem{defi}{Definition}
+
+\newcommand{\tauRng}{\tau_{\mathrm{Rng}}}
+\newcommand{\bn}{\begin{enumerate}}
+\newcommand{\en}{\end{enumerate}}
+
+\newcommand{\bao}[1]{\begin{array}{#1}}
+\newcommand{\ea}{\end{array}}
+\author{moi}
+\begin{document}
+\section{Introduction}
+This document is going to deal with rings and certain topologies defined on those rings. This will lead to the definition of topological rings with a somewhat canonical topology.\\
+We denote the topology with $\tau$, subscripted where needed, and the discrete topology with $\mathcal{P}(X) = \{Y : Y \subset X\}$ for each set $X$. Furthermore, we call a topology open if it is invariant wrt. arbitrary unions and finite intersections. Conversely, a topology is called closed if it is invariant wrt. arbitrary intersections and finite unions. If it is both open and closed we call it clopen.
+\subsection{Rings and topological rings}
+A ring $R$ is a set with two binary operations $m_+ : R \times R \longrightarrow R$, $m_\cdot : R \times R \longrightarrow R$, a unique element $0_R \in R$ and a map $S : R \longrightarrow R$ such that
+$(R, m_+, 0_R, S)$ is an abelian group and $(R, m_\cdot)$ is a semigroup such that
+$$\xymatrix{
+&R^{2}\ar[dl]^{m_\cdot}&&\ar[ll]_{\ m_+ \times id_R\ }R^{3} \ar[rr]^{id_R \times m_+}\ar[d]^{\Delta \times id_{R^{2}}}_{id_{R^2} \times \Delta}&&R^{2}\ar[dr]^{m_\cdot}\\
+R&&&R^{4} \ar[d]_{id_R \times \tau_{R\times R} \times id_R}&&&R\\
+&R^2 \ar[ul]_{m_+}&&R^{4} \ar[rr]_{m_\cdot \times m_\cdot}\ar[ll]^{m_\cdot \times m_\cdot} && R^{2}\ar[ur]_{m_+}\\ 
+}$$
+commutes. Here, $R^{n} = \underbrace{R \times \ldots \times R}_{n\mathrm{-times}}$, as well as $\Delta : R \longrightarrow R^{2}, r \longmapsto (r,r)$ and $\tau_{X\times Y} : X \times Y \longrightarrow Y \times X, (x,y) \longmapsto (y,x)$. We remark that this diagram simply depicts distrivibutivity. We call a ring $R$ unital if there is a unique $1_R \in R$ such that $(R, m_\cdot, 1_R)$ is a monoid. We call $R$ commutative if
+$$\xymatrix{R^{2} \ar[r]^{\tau_{R\times R}} \ar[rd]_{m_\cdot} & R^{2}\ar[d]^{m_\cdot}\\&R\\}$$ commutes. For a unital ring $(R, +, 0_R, S, \cdot, 1_R)$, we call the subset
+$$R^\times := \{r \in R : \exists s \in R, r s = 1_R\}$$
+the unit group of $R$. This set is identical to $\pi_1(R_1)$ with $R_1 = \{(r,s) \in R^2 : r s = 1\}$ and $\pi_1 : R \times R \longrightarrow R, (r,s) \longmapsto r$. For simplicity, we will identify $m_+ = +$ and $m_\cdot = \cdot$ from now on and refer to these maps as addition and multiplication, resp. Furthermore, we will omit the subscript $_R$ from elements and functors such as $1_R, \mathrm{Hom}_R$.
+\subsubsection{Modules and ideals}
+Let $R$ be a unital ring. A left $R$ module $M$ is an abelian group $(M, +_M, 0_M, S_M)$ with an $R$-left action:
+$$\cdot_l : R \times M \longrightarrow M,\ (r, m) \longmapsto r m$$
+of the ring $(R, +, 0, -, \cdot, 1)$ such that the following commutes:
+$$\bao{c}
+\xymatrix{
+R^2 \times M \ar[rrrr]^{(+_R,id_M)}\ar[d]_{(id_{R^2},\Delta_M)} &&&&R \times M \ar[d]^{\cdot_l}\\
+ R^2 \times M^2 \ar[rr]_{(id_R,\tau_{R\times M},id_M)} && (R \times M)^2\ar[r]_{(\cdot_l,\cdot_l)} & M^2 \ar[r]_{+_M}& M\\
+}\\
+\xymatrix{
+R \times M^2 \ar[rrrr]^{(id_R,+_M)}\ar[d]_{(\Delta_{R},id_{M^2})} &&&&R \times M \ar[d]^{\cdot_l}\\
+ R^2 \times M^2 \ar[rr]_{(id_R,\tau_{R\times M},id_M)} && (R \times M)^2\ar[r]_{(\cdot_l,\cdot_l)} & M^2 \ar[r]_{+_M}& M\\
+}\\
+\xymatrix{
+R^2 \times M \ar[rr]^{(\cdot_R,id_M)}\ar[d]_{(id_R,\cdot_l)}&&R \times M \ar[d]^{\cdot_l}\\
+R \times M\ar[rr]_{\cdot_l}&& M\\
+}\\
+\ea
+$$
+ A right $R$ module is simply an abelian group $(M, +_M, 0_M, S_M)$ with an $R$-right action
+$$\cdot_r : M \times R \longrightarrow M,\ (m, r) \longmapsto m r.$$
+The above diagrams hold with sides flipped for $R$ and $M$. A two-sided $R$ module is both, left and right module. The action is refered to as (left, right or two-sided) scalar product. A (left, right or two-sided) submodule $N$ of $M$ is a subset such that the restrictions of the structure maps yield a (left, right or two-sided) $R$ module. We call quotient
+$$M/N := \{m + N : m \in M\}$$
+the left, right or two-sided factor module for two left, right or two-sided modules $N \subset M$. The tensor product for two two-sided $R$ modules $M$ and $N$ is an $R$ bilinear map
+$$\otimes : M \times N \longrightarrow M \otimes N$$
+such that for all bilinear maps $f : M \times N \longrightarrow P$ for an $R$ module $P$ there exists a unique $R$ linear map
+$g : M \otimes N \longrightarrow P$ with
+$$\xymatrix{M \times N \ar[rd]_{f}\ar[r]^\otimes &M \otimes N\ar[d]^g\\&P }$$ commuting. We remark that, in general, the tensor product is only an abelian group. Only if $M$ is an right $R$ module and $N$ is a left $R$ module we get:
+$$(m r, n) \sim_R (m, r n) \Rightarrow \cdot_l : R \times (M \otimes N) \longrightarrow M \otimes N,\ (r, m \otimes n) \longmapsto m r \otimes n \equiv m \otimes r n$$
+A (left, right or two-sided) $R$ submodule of $R$ is called a (left, right or two-sided) ideal of $R$. The factor module of a two-sided ideal $I \subset R$ is an $R$ algebra, i.e. there is a $R$ linear map
+$$\mu : R/I \otimes R/I \longrightarrow R/I,\ r \otimes s \longmapsto r s,\ \forall r, s \in R/I.$$
+\begin{defi}
+We call an $R$ module $M$ a topological $R$ module if there is a topology $\tau_M \subset \mathcal{P}(M)$ such that addition and scalar multiplication are continuous wrt. the product topologies $\tau_{M \times M}$ and $\tau_{R \times M}$, respectively.
+\end{defi}
+\paragraph{Example}
+Each ring, simply considered to be a set, has two canonical topologies such that it is a topological ring:
+\begin{description}
+\item[$\tau_{\mathrm{lum}}$] the lump topology is simply:
+$$\{\emptyset, R\}.$$
+Its product topology is isomorphic to itself, i.e. $\tau_{\mathrm{lum}} \simeq \tau_{\mathrm{lum}} \times \tau_{\mathrm{lum}}$ assuming the axiom of choice. 
+\item[$\tau_{\mathrm{disc}}$] is the discrete topology, with $\tau_{\mathrm{disc}} = \mathcal{P}(R)$.
+\end{description}
+Both cases entail a clopen topology , i.e. all subsets are open and closed. Clearly, in both cases addition and multiplication are continuous, as all preimages are in the topologies generated by the cylinders. More interesting is the following - let $R$ be a commutative ring (e.g. all ideals are automatically two-sided):
+$$\tauRng = \left<I : I \in \mathrm{Mod}_R(R)\right>,$$
+the topology generated by all ideals in $R$. As ideals are invariant wrt. intersection we assume all generated elements to be closed. Ideals are in general not closed under union, i.e. $I \cup J \notin \mathrm{Mod}_R(R)$. However, the union $I \cup J$ is contained in an ideal, denoted by $I + J$. We check:
+\bn
+\item $R \in \tauRng$ as $\left<1\right> = R \in \tauRng$,
+\item each arbitrary intersection is an ideal and thus trivially contained in $\tauRng$,
+\item we simply enriched $\mathrm{Mod}$ with the unions contained in ideal sums and add the emptyset.
+\en
+Clearly, this defines a closed topological space $(R, \tau_{\mathrm{Mod}(R)})$.
+\begin{defi}
+An ideal $\mathfrak{p} \in \mathrm{Mod} \backslash \{\left<1\right>\}$ is called prime if for all elements $r, s \in R$ holds
+$$r s \in \mathfrak{p} \Rightarrow r \in \mathfrak{p} \wedge s \in \mathfrak{p}.$$
+We call the spectrum of a ring $R$ its class of prime ideals:
+$$\mathrm{Spec}(R) = \{\mathfrak{p} \in \mathbb{Mod} : \mathfrak{p}\ \mathrm{prime}\}.$$
+\end{defi}
+\end{document}

@@ -1,0 +1,232 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage[all]{xy}
+\newcommand{\zz}{\mathbb{Z}}
+\author{moi}
+\begin{document}
+\section{Intro}
+We are briefly discussing bialgebras and their module algebras. Appropriate knowledge in the theory of bialgebras and category theroy is recommanded. An interesting example will be a central part of this paper.
+\subsection{Algebras and coalgebras}
+We say ring when we are talking about unital commutative rings, rings with
+$$a b = b a,\ \forall a, b \in R \ \mathrm{and}\ \exists! 1_R \in R: 1_R a = a 1_R = a, \forall a \in R$$
+\subsubsection{Algebras}
+An $R$-algebra is a two-sided $R$-module $A$ with an $R$-linear map $\mu_A : A \otimes A \longrightarrow A$, called the multiplication. We call $A$ associative if
+$$\xymatrix{
+A^{\otimes 3} \ar[rr]^{\mu_A \otimes id_A} \ar[d]_{id_A \otimes \mu_A} && A^{\otimes 2}\ar[d]^{\mu_A}\\
+A^{\otimes 2} \ar[rr]_{\mu_A} && A\\
+}$$
+commutes. We call $A$ unital if there is an $R$-linear map $\eta_A : R \longrightarrow A$ such that
+$$\xymatrix{
+R \otimes A \ar[rr]^{\eta_A \otimes id_A} \ar[rrd]_\simeq & & A \otimes A\ar[d]^{\mu_A} && A \otimes R \ar[ll]_{id_A \otimes \eta_A}\ar[lld]^\simeq\\
+&&A&&\\
+}$$
+commutes. The triple $(A, \mu_A, \eta_A)$ denotes a associative unital algebra. If no ambiguity can arise we will omit the subscripts. Furthermore, we will omit the structure maps when clear from context.
+\paragraph{Commutative algebras}
+The $R$-linear map
+$$\tau_{A\otimes B} : A \otimes B \longrightarrow B \otimes A, a \otimes b \longmapsto b \otimes a$$
+is called the flip-isomorphism for two $R$-modules $A, B$. We say an $R$-algebra is commutative if
+$$\xymatrix{
+A \otimes A \ar[rr]^{\tau_{A\otimes A}} \ar[rrd]_{\mu}&& A \otimes A\ar[d]^\mu\\
+&&A\\
+}$$
+commutes.
+\paragraph{Examples} Some examples:
+\begin{description}
+\item[General unital rings] Clearly, all rings in theirselves are commutative associative unital algebras. In particular, $(\zz, \mu_{\zz}, \eta_{\zz})$ is an $\zz$-algebra and for any ring $(R, + , \cdot, 1)$ the
+map
+$$\varphi : \zz \longrightarrow R, n \longmapsto \begin{cases}
+\sum_{n\ \mathrm{times}} 1_R & n \geq 0\\
+\sum_{n\ \mathrm{times}} -1_R & n < 0\\
+\end{cases}$$
+is an $\zz$-algebra homomorphism. This summed up in the proposition: the class of unital associative algebra forms a category, with $\zz$-algebra homomorphisms as morphisms and has $\zz$ as inital object.
+\item[Lie algebras] We call an algebra a Lie algebra if
+$$\ker (id_{A \otimes A} - \tau_{A \otimes A}) \subset \ker \mu_A$$
+and
+$$\ker \left[((id \otimes \mu) \mu)(1 + \zeta_3 + \zeta_3^2)\right] \subset A.$$
+The first condition is equivalent in demanding $A$ is anticommutative, i.e.
+$$\tau \mu = - \mu$$
+the second is called Jacobian identity. Any given associative $R$-algebra $A$, has a Lie algebras structure:
+$$(\mathrm{End}_R(M), \mu = [\_,\_]),\ \mu = [a \otimes b \longmapsto a b - b a].$$
+It is denoted by $\mathfrak{g}(A)$ and its multiplication is called commutator. For a given $R$-module $M$, the endomorphism algebra $\mathrm{End}_R(M)$ is a Lie algebra - denoted by $\mathfrak{gl}_(M)$. The matrix ring $M_n(R)$ has the general Lie algebra $\mathfrak{gl}_n(R)$ as Lie algebra. Its elements are all matrices and its multiplication is the commutator. We remark that these $R$-algebras are in general not associative or commutative. Some other Lie algebras are:
+\begin{description}
+\item[$\mathfrak{d}$] the Lie algebra of all upper diagonal matrices - a sub Lie algebra if $\mathfrak{gl}_n(R)$.
+\item[$\mathfrak{n}$] the Lie algebra of all strictly upper diagonal matrices, a sub Lie algebra of $\mathfrak{d}$.
+\item[$\mathfrak{sl}_n(R)$] the Lie algebra of all trace zero matrices.
+\end{description}
+\item[Ring extensions] If $R$ is a ring and $S/R$ is a ring extension, i.e. $S$ is an $R$-algebra,
+\end{description}
+\newpage
+\section{Example}
+Let $R$ be a ring with $2$ not dividing its characteristic. We want to study the an interesting example of a module algebra.
+\subsection{Ring of Laurent polynomials}
+Let $R$ be as above and $R[z, z^{-1}]$ be the ring of Laurent polynomials. We may wish to identify $R_1 := R[z,z^{-1}]$ with $R_2 := R[x,y]/\left<x y - 1 \right>$ with standard $R$-derivations:
+$$\partial_x = \frac{\partial}{\partial x},\ \partial_y = \frac{\partial}{\partial y},$$
+making $\left(R_1, \left\{\partial_x,\partial_y\right\}\right)$ an differential $R$-algebra. Since the commutator $\left[\partial_x,\partial_y\right]$ is trivial it is a partial differential algebra.
+\subsubsection{The $\mathfrak{sl}_2(R)$-module}
+We want to introduce two new $R$-linear maps $\partial_X, \partial_Y \in \mathrm{End}_R(R_1)$:
+$$\partial_X := \partial_x - y^2 \partial_y,\ \partial_Y := \partial_y - x^2 \partial_x.$$
+\paragraph{Claim}
+We are proposing:
+\begin{enumerate}
+\item\label{claim01} $\left(R_1, \left\{\partial_X,\partial_Y\right\}\right)$ is a differential $R$-algebra or equivalently, $\partial_X, \partial_Y$ are $R$-derivations.
+\item\label{claim02} $R_1$ is an $\mathfrak{sl}_2(R)$-module or equivalently, $$\mathfrak{g}_R(\{\partial_X, \partial_Y\}) := \left<\partial_X, \partial_Y\right>_{\mathrm{Lie-alg}} \simeq \mathfrak{sl}_2(R).$$
+\item\label{claim03} $R_1$ is an $U(\mathfrak{sl}_2(R))$-module algebra.
+\end{enumerate}
+We are proving our claims step-by-step.
+\begin{description}
+\item[ad \ref{claim01}] We only need to show the Leibniz-rule as $R$-linearity is aready assumed. Let $r, s \in R_1$:
+$$\begin{array}{rcl}
+\partial_X(r s) &=& (\partial_x - y^2 \partial_y)(r s)\\
+&&\\
+ &=& \partial_x(r s) - y^2 \partial(r s)\\
+ &&\\
+ &=& \partial_x(r) s + r \partial_x(s) - y^2(\partial_y(r) s + r \partial_y(s))\\
+ &&\\
+ &=& \underbrace{\partial_x(r) s - y^2 \partial_y(r) s}_{\partial_X(r) s} +\underbrace{r \partial_x(s) - r y^2 \partial_y(s)}_{r \partial_X(s)}\\
+ &&\\
+ &=& \partial_X(r) s + r d\partial_X(s)\\
+ \end{array}$$
+By the symmetry of definition, we see that both maps are indeed $R$-derivations.
+\item[ad \ref{claim02}] Let us commute the commutator of $\partial_X$ and $\partial_Y$:
+$$\begin{array}{rcl}
+[\partial_X, \partial_Y] &=& (\partial_x - y^2 \partial_y)(\partial_y - x^2 \partial_x) - (\partial_y - x^2 \partial_x)(\partial_x - y^2 \partial_y)\\
+&&\\
+&=& \partial_x \partial_y - 2 x \partial_x - x^2 \partial_x^2 - y^2 \partial_y^2 + x^2 y^2 \partial_y \partial_x \\
+&&\\
+&& -(\partial_y \partial_x - 2 y \partial_y - y^2 \partial_y^2 - x^2 \partial_x^2 + x^2 y^2 \partial_x \partial_y)\\ 
+&&\\
+&=& 2 (y \partial_y - x \partial_x)\\
+\end{array}$$
+This endomorphism is clearly an $R$-derivation. Setting $\partial_H := [\partial_X,\partial_Y]$ we will continue:
+$$\begin{array}{rcl}
+[\partial_H, \partial_X] &=& 2 [(y \partial_y - x \partial_x)(\partial_x - y^2 \partial_y) - (\partial_x - y^2 \partial_y)(y \partial_y - x \partial_x)]\\
+&&\\
+&=& 2 \left[y \partial_y \partial_x - 2 y^2 \partial_y - y^3 \partial_y^2 - x \partial_x^2 + x y^2 \partial_x \partial_y\right]\\
+&&\\
+&& - 2\left[y \partial_x \partial_y - \partial_x - x \partial_x^2 - y^2 \partial_y - y^3 \partial_y ^2 + x y^2 \partial_y \partial_x\right]\\
+&&\\
+&=& 2 \left(\partial_x - y^2 \partial_y\right) = 2 \partial_X\\
+\end{array}$$
+and
+$$\begin{array}{rcl}
+[\partial_H, \partial_Y] &=& 2 [(y \partial_y - x \partial_x)(\partial_y - x^2 \partial_x) - (\partial_y - x^2 \partial_x)(y \partial_y - x \partial_x)]\\
+&&\\
+&=& 2 \left[y \partial_y^ 2 - x^2 y \partial_y \partial_x - x \partial_x \partial_y + 2 x^2 \partial_x + x^3 \partial_x^2\right]\\
+&&\\
+&& - 2\left[\partial_y + y \partial_y^2 - x \partial_y \partial_x - x^2 y \partial_x \partial_y + x^2 \partial_x + x^3 \partial_x^2\right]\\
+&&\\
+&=& -2 \left(\partial_y - x^2 \partial_x\right) = -2 \partial_Y\\
+\end{array}$$
+which proves our second claim. We remark that this proof is applicable to $\left(R[x,y], \left\{\partial_X,\partial_Y\right\}\right)$.
+\item[ad \ref{claim03}] Let %$i, j, k, \in \mathbb{Z}_{\geq 0}$ and 
+$m, n \in \mathbb{Z}$ and $\Psi_{R_1} := \left[\partial_Z \otimes r \longmapsto ev_r(\partial_Z) := \partial_Z(r)\right]$ for $Z = H, X, Y$:
+$$\begin{array}{rcl}
+\partial_H \partial_X \partial_Y \otimes z^m \otimes z^n &\stackrel{\Delta \otimes id_{R_1^{\otimes 2}}}{\longmapsto}& [(1 \otimes \partial_H + \partial_H \otimes 1) (1 \otimes \partial_X + \partial_X \otimes 1)\\
+&& (1 \otimes \partial_Y + \partial_Y \otimes 1)] \otimes z^m \otimes z^n\\
+&&\\
+&=& %\sum_{i_0, j_0, k_0 \in \{0,1\}} %\substack{0 \leq i_0 \leq i\\0 \leq j_0 \leq j\\0 \leq k_0 \leq k\\}}\left(
+%\begin{array}{c}
+%i\\i_0\\
+%\end{array}\right)\left(
+%\begin{array}{c}
+%j\\j_0\\
+%\end{array}\right)\left(
+%\begin{array}{c}
+%k\\k_0\\
+%\end{array}\right) 
+\sum_{i_0, j_0, k_0 \in \{0,1\}}%\substack{0 \leq i_0 \leq 1\\0 \leq j_0 \leq 1\\0 \leq k_0 \leq 1\\}}
+\partial_H^{1 - i0} \partial_X^{1 - j_0} \partial_Y^{1 - k_0} \\
+&&\\&&\otimes \partial_H^{i0} \partial_X^{j_0} \partial_Y^{k_0} \otimes z^m \otimes z^n\\
+&&\\
+&\stackrel{f}{\longmapsto}& \sum_{i_0, j_0, k_0 \in \{0,1\}}%\substack{0 \leq i_0 \leq 1\\0 \leq j_0 \leq 1\\0 \leq k_0 \leq 1\\}}%\left(
+%\begin{array}{c}
+%i\\i_0\\
+%\end{array}\right)\left(
+%\begin{array}{c}
+%j\\j_0\\
+%\end{array}\right)\left(
+%\begin{array}{c}
+%k\\k_0\\
+%\end{array}\right) 
+\partial_H^{1 - i0} \partial_X^{1 - j_0} \partial_Y^{1 - k_0}(z^m) \\
+&&\\&&\otimes \partial_H^{i0} \partial_X^{j_0} \partial_Y^{k_0}(z^n)\\
+&&\\
+&=& \partial_H(\partial_X(\partial_Y(z^m))) \otimes z^n + \partial_H(\partial_X(z^m)) \otimes \partial_Y(z^n)\\
+&& + \partial_H(\partial_X(z^m)) \otimes \partial_X(z^n) + \partial_X(\partial_Y(z^m)) \otimes \partial_H(z^n)\\
+&& + \partial_Y(z^m) \otimes \partial_H(\partial_X(z^n)) + \partial_X(z^m) \otimes \partial_H(\partial_X(z^n)) \\
+&& + \partial_H(z^m) \otimes \partial_X(\partial_Y(z^n)) + z^m \otimes \partial_H(\partial_X(\partial_Y(z^n)))\\
+\end{array}$$
+where $f = (\Psi_{R_1} \otimes \Psi_{R_1}) (id_{U(\mathfrak{sl}_2(R))} \otimes \tau_{U(\mathfrak{sl}_2(R)) \otimes R_1}\otimes id_{R_1})$.
+$$\begin{array}{rcl}
+\partial_H\partial_X\partial_Y \otimes z^m \otimes z^n &\stackrel{id \otimes \mu_{R_1}}{\longmapsto}&
+\partial_H \partial_X \partial_Y \otimes z^{m + n}\\
+&&\\
+&\stackrel{\Psi_{R_1}}{\longmapsto}& \partial_H(\partial_X(\partial_Y(z^{m + n})))\\
+&&\\
+&=& \partial_H(\partial_X(\partial_Y(z^m) z^{n})) + \partial_H(\partial_X(z^m \partial_Y(z^n)))\\
+&&\\
+&=& \partial_H(\partial_X(\partial_Y(z^m)) z^{n}) + \partial_H(\partial_Y(z^m) \partial_X(z^{n}))\\
+&&\\
+&& + \partial_H(\partial_X(z^m) \partial_Y(z^n)) + \partial_H(z^m \partial_X(\partial_Y(z^n)))\\
+&&\\
+&=& \partial_H(\partial_X(\partial_Y(z^m))) z^{n} + \partial_X(\partial_Y(z^m)) \partial_H(z^n)\\
+&&\\
+&& + \partial_H(\partial_Y(z^m)) \partial_X(z^{n}) + \partial_Y(z^m) \partial_H(\partial_X(z^n))\\
+&&\\
+&& + \partial_H(\partial_X(z^m)) \partial_Y(z^n) + \partial_X(z^m) \partial_H(\partial_Y(z^n))\\
+&&\\
+&& + \partial_H(z^m) \partial_X(\partial_Y(z^n)) + z^m \partial_H(\partial_X(\partial_Y(z^n)))\\
+&&\\
+&=& \mu_{R_1}(f(\Delta \otimes id_{R_1^{\otimes 2}}(\partial_H \partial_X \partial_Y \otimes z^m \otimes z^n)))\\%\sum_{i_0, j_0, k_0 \in \{0,1\}} \mu_{R_1} \left(\partial_H^{1 - i_0} (\partial_X^{1 - j_0} (\partial_Y^{1 - k_0}(z^m))) \otimes \partial^{i_0} (\partial_X^{j_0}(\partial_Y^{k_0}(z^n)))\right)\\
+\end{array}$$
+Replacing $\partial_H \partial_X \partial_Y$ with powers of derivations $\partial_H^i \partial_X^j \partial_Y^k$ follows inductively wrt. binomial formula for each power. Furthermore for $d = \sum_{i,j,k} d_{i,j,k} \partial_H^i \partial_X^j \partial_Y^k$
+$$\Psi_{R_1} (d \otimes 1_{R_1}) = \begin{cases}
+d_{0,0,0} & d_{i,j,k} = 0\ \forall i + j + k \geq 1\\
+0 & \mathrm{else}\\
+\end{cases}$$
+The two commutative diagrams defining module algebras hold and we proved the last claim.
+\end{description}
+As we stated earlier, the proof for each claim can be easily translated to $\left(R[x,y], \{\partial_X,\partial_Y\}\right)$. This is as $R[x,y]$ is itself a $U(\mathfrak{sl}_2(R))$-module algebra and the ideal
+$$I = \left<x y - 1 \right>$$
+is $U(\mathfrak{sl}_2(R))$-stable:
+$$\begin{array}{rcl}
+\partial_X(f (x y - 1)) &=& \partial_X(f) (x y - 1) + f \partial_X(x y - 1)\\
+&&\\
+&=& \underbrace{\partial_X(f) (x y - 1)}_{\in I} + f (\partial_X(x) y + x \partial_X(y))\\
+&&\\
+&\equiv& f (y - x y^2) \mod I \equiv -f y (x y - 1) \mod I \in I\\
+&&\\
+\partial_Y(f (x y - 1)) &=& \partial_Y(f) (x y - 1) + f \partial_Y(x y - 1)\\
+&&\\
+&=& \underbrace{\partial_Y(f) (x y - 1)}_{\in I} + f (\partial_Y(x) y + x \partial_Y(y))\\
+&&\\
+&\equiv& f (x - x^2 y) \mod I \equiv -f x (x y - 1) \mod I \in I\\
+\end{array}$$
+Proving $\partial_Z(I) \subset I$ for $Z = X, Y$. Furthermore, $\partial_X \circ \partial_Y (I) \subset I$ and $\partial_Y \circ \partial_X(I) \subset I$ implying $\partial_H(I) \subset I$. Therefore, $I$ is $D = U(\mathfrak{sl}_2(R))$-stable. In particular, we have that the projection
+$$\pi : R[x,y] \longrightarrow R[x,y]/I$$
+is a homomorphism of $D$-module algebras. Now, we would like to know if $R_1$ is simple as $D$-module algebra. We assume that there is an ideal $J \subset R_1$ being $D$-stable. Let $F = \{f_i \in R_1\backslash R_1^\times : i \in \mathbb{Z}_{>0}\}$ be a finite set of generators of $J$. Then
+$$\begin{array}{rcl}
+\partial_Z\left(\sum_{i=0}^n g_i f_i\right) &=& \sum_{i=0}^n \left(\underbrace{\partial_Z(g_i) f_i}_{\in J} + g_i \partial_Z(f_i)\right)\\
+&&\\
+&\equiv& \sum_{i=0}^n g_i \partial_Z(f_i) \mod J \equiv 0 \mod J\\
+&\Leftrightarrow&\\
+\sum_{i=0}^n g_i \partial_Z(f_i) &=& \sum_{j=0}^m h_i f_j,\\
+\end{array}$$
+for $Z = X, Y, H$ and $h_i \in R_1$. Now, we are going to use induction on $n$. Firstly, let $n = 1$ then
+$$F = \{f\}\ \mathrm{and}\ g \partial_X(f) = h f$$
+for appropriate $g, h \in R_1$. A non-trivial solution is clearly $f = g, h = \partial(f)$. If $f$ is not square-free, i.e. there is a $h': h'^2\mid f$ and $h'^3\nmid f$ we may consider $f_h = f/h'^2$ as ideal generator. If $f = \sum_{i=-m}^n f_i x^i$ we may write $f$ as
+$$f = x^{-m} \underbrace{\sum_{i=0}^{n+m} f_{i-m} x^i}_{\hat{f}}$$
+i.e. $f$ is associated to some element $\hat{f} \in R[x]$. Hence, if $\partial_Z(f) \in R_1.f \Leftrightarrow \partial_Z(x^{-m}) \hat{f} + x^{-m} \partial_Z(\hat{f})$.
+$$\begin{array}{rcl}
+f = \sum_{i=-m}^n f_i x^i &\stackrel{\partial_X}{\longmapsto}& \sum_{i=0}^{n-1} (i + 1) f_{i+1} x^i - \sum_{i=2}^{m + 1} (i - 1) f_{1 - i} x^{-i}\\
+&&\\
+n f - x \partial_X(f) &=& \sum_{i=0}^{n-1} (n - i) f_i x^i + \sum_{i=1}^m (n + i) f_{-i} x^{-i}\\
+&&\\
+\frac{f_{n-1}}{f_n} \partial_X(f) - (n - 1) (n f + x \partial_X(f)) &=& 
+\end{array}$$
+\end{document}

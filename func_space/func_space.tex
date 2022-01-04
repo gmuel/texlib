@@ -1,0 +1,50 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\newtheorem{defi}{Definition}
+\newcommand{\bsp}{\paragraph{Example}}
+\author{moi}
+\title{Function spaces}
+\begin{document}
+\section{Introduction}
+Given two sets $X, Y \neq \emptyset$, we want to discuss the relation
+$$\mathrm{map}(X, Y) \simeq Y^X$$
+We are going to apply a categorical and set-theoretic approach in order to explain this equivalence.
+\subsection{Category theory}
+This theory dates back to the 40ies of the last century.\\
+/*\\
+ ~* Proper historic review (morphs, objects and compos; co/contravar. funct, ~* special categories: grp, abel, rng, ...)\\
+ */
+\subsection{Set theory}
+//sets blabla
+\newpage
+\section{Function spaces}
+The term \textit{space} is to be understood as follows
+\begin{defi}
+Let $\mathrm{Set}$ denote the category of sets, with maps as morphisms. There exists a subcategory called the category of pointed spaces, denoted by $\mathrm{PSpc}$, with:
+\begin{enumerate}
+\item $\mathrm{Obj}(\mathrm{PSpc})$ all sets/classes $X$ with a designated element $x \in X$, called the basepoint.
+\item $\mathrm{Mor}(\mathrm{PSpc})$ all basepoint preserving maps in $\mathrm{Set}(A,B)$ for all $A, B \in \mathrm{Obj}(\mathrm{PSps})$.
+\end{enumerate}
+If $A \in \mathrm{Obj}(\mathrm{PSpc})$ then we simply denote it by $(A, a)$ with basepoint $a \in A$.
+\end{defi}
+\begin{description}
+\item[Counter] A prominent counterexample is the empty set $\emptyset$. Since it has no element we cannot choose a designated element $x$. Hence, $\mathrm{Set}$ is a proper supercategory (borrowing from set theory).
+\item[Example] Any non-empty set $X$ with a fixed element $x_0 \in X$ is a pointed space $(X,x_0)$. Furthermore, due to non-emptyness of any monoid $G \in \mathrm{Obj}(\mathrm{Grp})$, with neutral element $e \in G$, we have that
+$$(G, e)$$ is a pointed space. In turn, if $(G, e)$ and $(G', e')$ are two monoids and $\varphi : G \longrightarrow G'$ is a monoid homomorphism (a morphism in $\mathrm{Mon}$) then
+$$\varphi(e) = e' \Leftarrow \varphi \in \mathrm{PSpc}(G,G'),$$
+i.e. each monoid homomorphism is also a morphism of pointed spaces.
+\end{description}
+\begin{defi}
+A pointed $(X,x_0)$ is called a \textit{singleton} if $X\backslash\{x_0\} = \emptyset$.
+\index{singleton}
+\end{defi}
+We claim
+\begin{prop}
+The singleton is terminal object in the category of pointed spaces.
+\end{prop}
+\end{document}

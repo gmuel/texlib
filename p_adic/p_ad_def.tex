@@ -1,0 +1,72 @@
+\section{$p$-adic integers}
+Let $p$ be a prime number. To construct the $p$-adic integers, we have different ways of definition. We are going to present all of them.
+\subsection{Topological approach}
+Fix $p$ as above then $\mathfrak{p} := \left<p\right> = p\zz$ is a prime ideal in $\zz$ (moreover, it is maximal). We are going to use the notion of linear topological rings. 
+\begin{defi}
+Let $(R,+,0,-,\cdot,1)$ be a ring with topology $\tau$. We call $R$ a topological ring if $+, \cdot : R^2 \longrightarrow R$ are continuous wrt. product topology. We call a topological ring $R$ linear topological if there is a open neighborhood basis of zero wrt. $\tau$:
+$$\beta(0) := \{U \in \tau : U\ \trm{open},\ 0 \in U\}$$
+\end{defi}
+\bsp Clearly, $\zz$ is a ring which is a topological ring wrt. discrete topology $\tau_\zz = \mathcal{P}(\zz) = \{A \subset \zz\}$. More interestingly, let us consider the field of real numbers $\rz$ with standard topology $\tau_{\mathrm{stand}}$ with
+$$\tau_{\mathrm{stand}} = \left<B(y,\eps) := \{x \in \rz : d(x,y) < \eps\} : y \in \rz, \eps \in \rz_{+}\right>.$$ To show continuity of addition we first prove that negation $- : \rz \longrightarrow \rz, x \longmapsto -x$ is continuous:
+$$\bao{rclcl}
+-^{-1} B(x,\eps) &=& \{y \in \rz : d(-y,x) < \eps\} &=& \{y \in \rz : -\eps < -(x + y) < \eps\}\\
+&&&&\\
+ &=& \{y \in \rz : \eps < y - (-x) < \eps\} &=&  \{y \in \rz : d(y,-x) < \eps\}\\
+ &&&&\\ &=& B(-x,\eps).\\
+ \ea$$
+Thus the preimage is indeed a generator for the standard topology on $\rz$ for all generators $B(x,\eps)$. We claim the it suffice to show that subtraction $- : \rz^2 \longrightarrow \rz$ is continuous at zero. Clearly:
+$$\bao{rcl}
+-^{-1} (B(0,\eps)) &=& \{(x,y) \in \rz^2 : d(x - y, 0) < \eps\}\\&&\\ &=& \{(x,y) : -\eps < x - y < \eps\}\\
+&&\\
+& =& \bigcup_{x \in \rz,\delta \in (0,\eps)} B(x,\delta) \times B(-x,\eps - \delta)\\&&\\
+&=& \bigcup_{y \in \rz,\ \delta \in (0,\eps)} B(-y,\eps - \delta) \times B(y,\delta)\\
+\ea$$
+is an open element in the product topology proving our previous claim. Since all elements $x \in \rz$ have a neighborhood system $B(x,\eps) = x + B(0,\eps)$ we may apply the last proof and see each preimage is of type
+$$\bigcup_{y \in \rz,\ \delta \in (0,\eps)} B(y,\delta) \times B(x - y, \eps - \delta).$$
+Analogously, we claim that $^{-1} : \rz^\times \longrightarrow \rz^\times$ is continuous for all $x \in \rz^\times$ and $B(x,\eps)$. For simplicity, we assume $0 \notin B(x,\eps)$ (otherwise we may decompose $B(x,\eps)$ to $B(x,\eps) \cap \rz_{<0}$ and $B(x,\eps) \cap \rz_{>0}$ and proceed with each component).
+%We have $B(x^{-1},\eps/x)$ as preimage being clearly an open element in $\tau_{\mathrm{stand}}$.
+$$\bao{rcl}
+(1/)^{-1}(B(x,\eps)) &=& \{y \in \rz^\times : d(y^{-1},x) < \eps\}\\
+&&\\
+&=& \{y : \rz^\times : x - \eps < 1/y < x + \eps\}\\
+&&\\
+&=& \left\{y : \rz^\times : \frac{1}{x - \eps} > y > \frac{1}{x + \eps}\right\}\\
+&&\\
+&=& B(x/(2(x^2 - \eps^2)), \eps/(x^2 - \eps^2))\\
+\ea$$
+clearly being open in $\tau_{\mathrm{stand}}$. Now we will show that the division map $/ : \left(\rz^\times\right)^2 \longrightarrow \rz^\times, (x,y) \longmapsto x/y$ is continuous in the product topology at one.
+$$\bao{rcl}
+/^{-1}(B(1,\eps)) &=& \left\{(x,y) \in \left(\rz^\times\right)^2 : d(x/y, 1) < \eps\right\}\\
+&&\\
+&=& \{(x,y) : 1 - \eps < x/y < 1 + \eps\}\\
+&&\\
+&=& \left\{(x,y) \in \left(\rz_{>0}\right)^2 : \frac{x}{1 - \eps} > y > \frac{x}{1 + \eps}\right\}\\&&\\&& \cup \left\{(x,y) \in \left(\rz_{<0}\right)^2: \frac{x}{1 - \eps} < y < \frac{x}{1 + \eps}\right\}\\
+&&\\
+&=& B(x,\delta) \times B\left(\frac{x}{2(1 - \eps^2)}, \frac{\eps x}{1 - \eps^2}\right) \cup \{\mathrm{bollocks}\}\\
+\ea$$
+%The product topology is $\tau_{\rz \times \rz} = \left<U \times \rz, \rz \times V: U, V \in \tau\right>$. Then for $B(y,\eps)$, we find an $0 < \delta < \eps$ such that
+%$$\bao{rcl}
+%+^{-1}(B(y,\eps)) &=& \left\{(x,x') \in \rz^2 : d(x + x', y) < \eps\right\}\\
+%&&\\
+% &=& \bigcup_{\delta \in (0,\eps)} \left\{(z,z') \in \rz^2 : \forall x \in \rz,\ z \in B(x,\delta) \wedge z' \in B(y - x, \eps - \delta)\right\}\\
+%&&\\
+% &=:& \bigcup_{\substack{x \in \rz\\\delta \in (0,\eps)\\}} B(x,\delta) \times B(y - x,\eps - \delta)\\
+% &&\\
+% &=& \bigcup_{\delta \in (0,\eps)}\left\{(z,z') \in \rz^2 : \forall x' \in \rz,\ z' \in B(x',\delta) \wedge z \in B(y - x', \eps - \delta)\right\}\\
+% &&\\
+% &=& \bigcup_{\substack{x' \in \rz\\\delta \in (0,\eps)\\}} B(y - x', \eps - \delta) \times B(x',\delta)\\
+% \ea$$
+%Without loss of generality, each subset $B(x,\delta) \times B(y - x, \eps - \delta)$, indexed by $x \in \rz$ and $\delta \in (0,\eps)$,  is contained in a well chosen family of ascending neighborhoods of $x$ and $y - x$. Therefore, the preimages are open in the product topology. For the continuity of the multiplication, we first distinguish the unit group $(\rz^\times,\cdot,1)$ and then complete with zero. Thus, let $y \in \rz^\times$ and the other parameter as above.
+%$$\bao{rcl}
+%\cdot^{-1}(B(y,\eps)) &=& \{(x,x') \in \rz^2 : d(x x', y) < \eps\}\\
+%&&\\
+%&=& \bigcup_{\delta \in (0, \min(|x|, \eps))} \{(z,z') : \forall x \in \rz^\times,\ z \in B(x,\delta), z' \in \underbrace{B(y/(x - \delta), \eps/(x - \delta))}_{U_{-,\delta}}\}\\
+%&&\\
+%&& \cap \{(z,z') : \forall x \in \rz^\times,\ z \in B(x,\delta), z' \in \underbrace{B(y/(x + \delta, \eps/(x + \delta))}_{U_{+,\delta}}\}\\ 
+%&&\\
+%&=& \bigcup_{\substack{x \in \rz^\times\\0 < \delta < \min(|x|, \eps)}} B(x,\delta) \times (U_{-,\delta} \cap U_{+,\delta})
+%\ea$$
+%By symmetry of the metric, we may reverse both factors. This shows $(R^\times, \cdot, 1, ^{-1}, \tau)$ is a topological group.\\
+\indent Next, we construct a neighborhood basis of zero for any commutative ring with one and an ideal $0 \subsetneq I \subsetneq R$. Pick $\beta(0) := \{I^i \subset R : i \geq 1\}$ then this defines a neighborhood system of zero as
+$$I \supsetneq I^2 \supsetneq \ldots \supsetneq I^i \supsetneq I^{i+1} \supsetneq \ldots \supsetneq 0,$$
+i.e. each ideal contains the zero module and, therefore, the zero element. 

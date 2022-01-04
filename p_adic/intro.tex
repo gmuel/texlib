@@ -1,0 +1,78 @@
+\section{Introduction}
+We are going to analyse the ring of $p$-adic integers $\hat{\zz}_p$ for a given prime number $p \geq 2$. To establish this algebraic ring, there are several possibilities.
+\subsection{Basic ring theory}
+For clarity, we are going to repeat some important definitions of ring theory. We make usage of categorical notations as found in (Strickl. 2000, Formal groups and formal group laws).
+\subsubsection{Rings and prime ideals}
+We call a set $R$ a ring if it is an abelian group $(R,m_+,0,S_-)$ with structure maps
+$$\bao{rrcl}
++ :& R \times R&\longrightarrow& R\\
+&(r,s) &\longmapsto&r + s\\
+&&&\\
+0 :& \ast & \longrightarrow&R\\
+&x&\longmapsto&0\\
+&&&\\
+- :& R &\longrightarrow&R\\
+&r &\longmapsto&-r\\
+\ea$$
+and $(R,m_\cdot)$ is a semigroup such that the following diagram commutes:
+$$\bao{cc}\xymatrix{
+R^4 \ar[rrr]^{id_R \times \tau_{R^2} \times id_R} &&& R^4 \ar[d]^{m_\cdot \times m_\cdot}&\\
+R^3 \ar[d]_{id_R \times m_+} \ar[u]^{\Delta \times id_{R^2}} &&&R^2\ar[d]^{m_+}\\
+R^2\ar[rrr]^{m_\cdot}&&&R\\
+} & \bao{c}
+\trm{where}\bao{rrcl}
+\Delta : & R & \longrightarrow& R^2\\
+&r&\longmapsto&(r,r)\\
+&&&\\
+\tau_{R^2} :& R^2 &\longrightarrow&R^2\\
+&(r,s)&\longmapsto&(s,r).\\
+\ea\ea
+\ea$$
+This is just a rephrasing of distributivity. Clearly, $m_+$ and $m_\cdot$ are addition and multiplication, $S$ is the additive inversion and $0$ is the zero map. If no ambiguity can occur, we simply use the standard symbols for those operation maps.  Let $(R,+_R, 0_R, -_R,\cdot_S)$ and $(S,+_S,0_S,-_S,\cdot_S)$ be two rings. We call a map $f : R \longrightarrow S$ a ring homomorphism if
+$$\xymatrix{
+R^2 \ar[r]^{f \times f} \ar[d]_m & R^2\ar[d]^m\\
+R \ar[r]_{f}&R\\
+}$$
+commutes for both operation maps $+, \cdot : R^2 \longrightarrow R$. The class of all rings forms a category with morphisms called ring homomorphisms. We call a ring unital, if there is a map $1 : \ast \longrightarrow R, x \longmapsto 1$ such that $(R,\cdot,1)$ is a monoid. Again, if no ambiguity can arise we simply denote a ring by its set. For a unital ring $R$, we denote by $R^\times$ the group of units:
+$$R^\times := \{x \in R : \exists y \in R, x y = 1\} = \pi_1(\mathcal{M}_1),$$
+$$\ \pi_1 : R \times R \longrightarrow R, (r,s) \longmapsto r\ \trm{and}\ \mathcal{M}_1 := \{(x,y) \in R^2 : x y = 1\}.$$
+\subsubsection{Modules and ideals}
+\indent For a ring $R$, we call an abelian group $(M,+_M,0_M,-_M)$ an left $R$-module if there is a map 
+$m_\cdot : R \times M \longrightarrow M$ such that both diagrams
+$$\bao{c}
+\xymatrix{
+R^4 \times M^2 \ar[rrr]^{id_{R^2} \times \tau_{R^2 \times M} \times id_{M^2}}& && (R^2 \times M)^2 \ar[d]^{+_R \times id_M \times +_R \times id_M}\\
+R^2 \times M^2 \ar[d]_{+_R \times +_M} \ar[u]^{\Delta_{R^2} \times id_{M^2}} &&&(R \times M)^2\ar[d]^{m_+}\\
+R\times M\ar[rrr]^{m_\cdot}&&&M\\
+}\\
+\xymatrix{
+R^2 \times M \ar[r]^{id_R \times m_\cdot} \ar[d]_{\cdot_R \times id_M} & R \times M\ar[d]^{m_\cdot}\\
+R \times M \ar[r]_{m_\cdot} &M\\
+}
+\ea$$
+commute. We remark that the first diagram represents distributivity in both, $R$ and $M$. The latter represents the successive scalar multiplication commutes with multiplication of $R$ (i.e. $m_\cdot(r,m_\cdot(s,m)) = m_\cdot(rs, m)$). The map $m_\cdot$ is called the outer left product or scalar left multiplication. Similarily, we define a right $R$-module for $m_\cdot : M \times R \longrightarrow M$. An $R$-submodule $N$ of $M$ is a subset that is itself a module (i.e. the restrictions of the structure maps have images in product sets of $N$). The class of $R$-modules forms a category, with $R$-linear maps as morphisms.
+\paragraph{Ideal}
+An ideal $I \subset R$ is simply an $R$-submodule of $R$. Alternatively, we could have defined an ideal $I$ to be an abelian subgroup of $R$, that is stable under $R$-action: $R.I \subset I$. We call $R$ simple if $\left<0\right>$ and $R$ (if unital) are the only ideals in $R$. We call an ideal $I$ proper if $I \neq R = \left<1\right>$. A proper ideal $I$ is called prime if for all $a, b \in R$ holds $a b \in I$ implies $a \in I$ or $b \in I$. We call a proper ideal $I$ maximal if for any ideal $J \supset I$  we have either $J = I$ or $J = R$. Two ideals $I, J \subset R$ are called coprime if
+$$I + J = \left<1\right>.$$
+\begin{prop}
+In a unital commutative ring, there always exists a maximal ideal and every maximal ideal is prime.
+\end{prop}
+\bws Proving the first statement we are considering the set $R^0 := R\backslash R^\times$. Then we construct the set of ideals $\mathcal{I}$ in $R^0$. Clearly, $\{0\} \in \mathcal{I}$. Then any element $x \in R^0 \backslash \{0\}$ generates an ideal in $R^0$. Thus
+$$\mathcal{I} \supset \mathcal{I}_0 := \{R.x : x \in R^0\}.$$
+Now we pick $I = R.x$ and $J = R.x'$ being not coprime then its sum is a proper ideal $I + J \subset R^0$. Therefore, we may attach
+$$\mathcal{I}_0 \cup \left\{\sum_{x \in R^0} R.x : \sum R.x \cap R^\times = \emptyset\right\} =: \mathcal{I}.$$
+It is not obvious that this is already the family of all ideals in $R^0$. However, since each $R$-combination of elements in $R^0$ is either a unit or a non-unit we have that
+$$\forall I \in \mathcal{I} \wedge \forall y \in I \Rightarrow y \in R^0.$$
+%We may repeat the this procedure in the following way:
+%$$R^i = \bigcup_{I \in \mathcal{I}_i} I,\ \mathcal{I}_i = \mathcal{I}_{i-1} \cup \left\{\sum_{x \in R^{i-1}} R.x : \sum R.x \cap R^\times = \emptyset\right\}$$
+%until no more proper ideals are left to be added.
+Now we get a partially ordered set
+$$(\mathcal{I}, \leq),\ \leq = \left\{(I,J) \in \mathcal{I}^2 : I \supset J\right\}.$$
+Each chain of ideals $\mathcal{I}_I := \{I_i : \ldots \supset I_i \supset I_{i+1} \supset \ldots\}$ is a totally ordered set. Thus, by Zorns lemma we have that each $\mathcal{I}_I \subset \mathcal{I}$ has a lower bound. By definition it is the largest $R$-submodule in $R^0$ or equivalently a maximal ideal.\\
+\indent To see that a maximal ideal is prime we simply mention that the factor ring of a maximal ideal is an algebraic field, hence an integral domain.
+\paragraph{Spectrum}
+%For a ring $R$ we can call an ideal $I$ prime if and only if $R/I$ is an integral domain, i.e. zero is the only $R$-torsion. Furthermore, an ideal $I$ is maximal if and only if $R/I$ is an algebraic field. 
+Prime ideals are usually denoted by $\mathfrak{p}$, $\mathfrak{q}$ - maximal ideals by $\mathfrak{m}$. Let $\mathcal{M}_R := \mathcal{I} \cup \{\left<1\right>\}$ denote all ideals in $R$. We call the set of prime ideals
+$$\trm{Spec}(R) := \{\mathfrak{p} \in \mathcal{M}_R : \trm{Ann}_R(R/\mathfrak{p}) = \left<0\right>\}$$
+the spectrum of $R$. We remark that the set of maximal ideals is a subset of $\trm{Spec} R$ in all unital ring, as each field is obviously an integral domain. Lastly, we have that
+$$R \simeq \prod_{\mathfrak{p} \in \trm{Spec} R} R/\mathfrak{p}.$$

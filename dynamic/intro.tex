@@ -1,0 +1,45 @@
+\section{Introduction}
+This paper attempts to summarise some important defintions and theorems in theory of dynamical systems (DS). We only presume basic knowledge of topology and analysis. When we say 'time interval' we simply refer to a connected open subset $U$ of $\rz$ and 'time' to an element in $U$.
+\subsection{Background}
+Let $(X,d)$ be a metric space, that is there exists a map
+$$d : X \times X \longrightarrow \rz,$$
+such that $d(x,y) \geq 0$, for all $x, y \in X$, $d(x,x) = 0$ and 
+$$d(x,z) \leq d(x,y) + d(y,z),\ \forall x, y, z \in X.$$
+\subsubsection{Dynamical systems}
+Given a metric space $(X,d)$ and map $f : X \longrightarrow X$, a time discrete dynamical system (TD) is a map
+$$\phi : \nz \times X \longrightarrow X, (n,x) \longmapsto f^n (x) := \underbrace{f \circ \ldots \circ f}_{n-\mathrm{times}}(x)$$
+inducing a sequence $(f^n(x))_{n \in \nz} \subset X$ for all $x \in X$ and $n \geq 0$. A time-continuous dynamical system (TC) is a map
+$$\varphi : \rz \times X \longrightarrow X,$$
+such that $\varphi(0,x) = x$ and $\varphi(t + s,x) = \varphi(s,\varphi(t,x)) = \varphi(t,\varphi(s,x))$ for all $t, s \in U \subset \rz$ open and $x \in X$. We denote a TC as
+$$(X, d, \varphi, U).$$
+We remark that a given a time-continous dynamical system $(X,d,\varphi)$ we get a family of maps $\{f_t : X \longrightarrow X\}_{t \in U}$ indexed by time such that $f_0 = id_X$ and $\varphi(t,x) = f_t(x)$ for all $x \in X$ and $t \in \rz$, as well as
+$$f_s(f_t(x)) = f_t(f_s(x)).$$
+Furthermore, we get a time-discrete DS when we restrict the domain accordingly. What this entails will be later discussed.\\
+\indent In addition, we restrict the time domain to an open subset as there are examples of smooth TCs which do not exist for all times:
+$$\partial(x) = x^2 \Rightarrow \varphi(t,x_0) = \frac{1}{1 - x_0(t - t_0)}, \forall t \geq t_0$$
+has no smooth solution $x \in C^\infty(\rz)$ for all initial conditions $(t_0,x_0) \in U \times X$ (only locally smooth solution).
+\begin{defi}
+Let $(X, d, \varphi, U)$ be a TC and $x_0 \in X$. We call a map $x : U \longrightarrow X$ a solution if $x(t) = \varphi(t,x_0)$ for all $t \in U$. If $U = \rz$ we call $x \in X^U$ a global solution.
+\end{defi}
+\subsubsection{Attractors and basin of attraction}
+Until now, we did not need the metric $d$. However, the next definition requires this map. Moreover, let $X$ be complete wrt. to the metric induced topology.
+\begin{defi}[Metric attractors]
+Let $(X, d, \varphi, U)$ be a TC. A subset $A \subset X$ is called an attractor if there exists an open neighborhood $V \supset A$ such that
+$$\forall \varepsilon > 0\ \exists T \in U\ \forall t \geq T:\ d(\varphi(t,x),A) < \varepsilon,$$
+for all $x \in V$. This property is denoted as usual as a limit:
+$$A := \{x \in V : \lim_{t \rightarrow \infty} \varphi(t,x) \in A\}$$
+%We remark that not all metric spaces do have a limit, i.e. $\varphi
+We call the union of all neighborhoods $V \supset A$, such that
+$$\lim_{t \rightarrow \infty}\varphi(t,x) \in A$$
+the basin of attraction, denoted by $B(A)$.
+\end{defi}
+Again, strictly speaking we only need a (complete) topological space $(X,\tau)$ with a neighborhood basis $\beta(x)$ wrt. $x \in X$:
+\begin{defi}[Topological attractor]
+Let $(X, \tau, \varphi, U)$ be a TC. A subset $A \subset X$ is called an attractor if there exists an open neighborhood $V \supset A$ such that
+$$\forall W(A) \in \beta(A)\ \exists T \in U\ \forall t \geq T:\ \varphi(t,x) \in W(A),$$
+for all $x \in V$. We call the union of all neighborhoods $V \supset A$, such that
+$$\lim_{t \rightarrow \infty}\varphi(t,x) \in A$$
+the basin of attraction, denoted by $B(A)$.
+\end{defi}
+Here,
+$$W(A) = \bigcup_{x \in A} W(x),\ \beta(A) = \bigcup_{x \in A} \beta(x)\ \mathrm{where}\ W(x) \in \beta(x)\ \forall x \in X.$$

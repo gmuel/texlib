@@ -1,0 +1,38 @@
+\section{Introduction}
+This paper discusses the symmetric groups as an idexed category and their representations on finitely generated modules of some unital commutative ring ($\zz$, $\zz_n$, ...). Firstly, we will briefly discuss (finite groups) and their representations.
+\subsection{Representation theory}
+Given a unital commutative ring $R$ and a group $G$, a representation is some $R$ module $M$ with a group homomorphism
+$$\rho : G \longrightarrow \mathrm{Gl}_R(M).$$
+It is denoted by the pair $(M, \rho)$. Alternatively, the module $M$ for every representation $(M, \rho)$ is called a $G$ module, with $G$ action induced via $\rho$:
+$$\alpha : G \times M \longrightarrow M,\ (g, m) \longmapsto \rho(g)(m).$$
+Thus, discussing $G$ modules or representations $(M, \rho)$ is identical. If the representation homomorphism $\rho$ is clear from the context, we will omit it and simply write
+$$G.M = \{g \cdot m: g \in G, m \in M\} \subset M \equiv \{\rho(g)(m) : g \in G, m \in M\} \subset M$$
+if we wish to define a $G$ module.
+\begin{defi}
+Given a representation $(M, \rho)$ for a group $G$. We call a submodule $N \subset M$ a sub representation or a $G$ submodule if
+$$\rho : G \longrightarrow \mathrm{Gl}_R(N) \Leftrightarrow G.N \subset N.$$
+For two representations $(M, \rho_M)$, $(N, \rho_N)$, we call a module homomorphism $\phi \in \mathrm{Hom}_R(M,N)$ a $G$ module homomorphism if the following diagram commutes:
+$$\xymatrix{
+M \ar[r]^{g}\ar[d]_\phi &M\ar[d]^\phi\\
+N \ar[r]_g & N.\\
+}$$
+\end{defi}
+\paragraph{Remark}
+For a given $G$ module $M$ and a $G$ submodule $N \subset M$, the quotient module
+$$M/N := \{m + N : m \in M\}$$
+is a $G$ module via:
+$$\rho_{M/N} := \left[m + N \longmapsto g m + N\right],$$
+as $G. N \subset N$. In particular, the projections $\pi_N, \pi_{M/N} \equiv id_{M/N} - \pi_N$ are $G$ module homomorphisms. Therefore, the decomposition:
+$$M \simeq M/N \oplus N$$
+is a decomposition in 'smaller' $G$ modules. Furthermore, for any given $G$ submodule $N \subset M$, we get the complement as a $G$ submodule $N' \simeq M/N$. In addition, we have for to $G$ modules $M_1, M_2$ the sum 
+$$M_1 + M_2 = \left\{\sum_i \lambda_i m_i : \lambda_i \in R, m_i \in M_i\right\},$$
+as $G$ module via $\rho_{M_1 + M_2} := (\rho_1 + id_{M_2}) \circ (\rho_2 + id_{M_1})$, with $id_{M_i}$ as trivial representation. This gets us to a very important classification of $G$ modules:
+\begin{defi}
+We call a $G$ module simple/irreducible if the only $G$ submodules are $\{0\}$ and $M$ (i.e. the trivial $G$ submodules). Thus, its representation is called irreducible. A $G$ module is indecomposible if $M$ does not admit a decomposition in non-trivial $G$ submodules:
+$$M = M' \oplus M'' \Leftrightarrow (M' = \{0\} \vee M'' = \{0\}.$$
+Aquivalently, every decomposition into $G$ submodules is trivial if and only if $M$ is indecomposible.
+\end{defi}
+Firstly, we remark that any $G$ module with a non-trivial submodule is called reducible. Secondly, we remark that a simple $G$ module is clearly indecomposible but, there are indecomposible modules that are reducible: $M = R.e_1 \oplus R.e_2$, $G \subset \mathrm{Gl}_2(R)$ the group of upper triangular matrices and $A \in G \backslash \{I_2\}$ than clearly, $R.e_1$ is a non-trivial $G$ submodule, hence, reducible but indecomposible: basis $B = \{b_1 = e_1, b_2 = e_1 + e_2\}$
+$$A = \left(\begin{array}{cc}\lambda & \mu\\ &\lambda'\\\end{array}\right)\ \mathrm{with}\ \lambda, \lambda' \in R^\times \wedge \mu \in R$$$$ \Rightarrow\ A.b_1 = \lambda b_1,\ A.b_2 = (\lambda + \mu) e_1 + \lambda' e_2 = (\lambda + \mu - \lambda' ) b_1 + \lambda' b_2$$
+Clearly, $b_2$ does not span its own $G$ submodule. Thus, our decomposition is not direct but also not trivial and therefore not simple but also indecomposible.
+$$\{b_1 = e_1, b_2 = (\lambda + \mu - \lambda') e_1 + \lambda e_2\} = M_0 \supset M_1 = \{b_1\} \supset 0$$

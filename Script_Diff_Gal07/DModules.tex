@@ -1,0 +1,642 @@
+\section{General theory}
+The idea, pioneered by Picard and Vessiot, was for a given differential equation $L \in k[\partial]$ with differential extension $K/k$ and PV ring $R$ we get a functor
+$$\trm{DGal}(K/k) : \trm{CAlg}_{k^\partial} \longrightarrow \trm{Grp}$$
+which assigns to each commutative $k^\partial$ algebra $A$ the group of elements $\varphi \in \trm{Aut}_{k^\partial}(R \otimes A)$ such that
+$$\xymatrix{
+R \otimes_{k^\partial} A \ar[r]^{\partial_R \otimes id_A} \ar[d]_\varphi &R\otimes_{k^\partial} A\ar[d]^\varphi\\
+R \otimes_{k^\partial} A \ar[r]_{\partial_R \otimes id_A} & R \otimes_{k^\partial} A\\
+}$$
+commutes. As all $A$ points (i.e. functor evaluated at $A \in \trm{CAlg}_{k^ \partial}$) are subgroups of $\trm{Gl}_l(k^\partial)$ for some $l \leq \trm{deg} L$, we see that it is an affine group scheme over $k^\partial$. Umemura extended the definition the functor via:
+$$\trm{Inf-Gal} := \trm{Ume} : \trm{CAlg_k} \longrightarrow \trm{Grp}$$
+\index{Symbol}{$\trm{Inf-Gal}$}
+\index{Symbol}{$\trm{Ume}$}
+which assigns to each commutative differential algebra $A$ over a differential field $k$ a group object $G$ or more generally: a formal group law/formal group scheme. In \cite{Heid13}, this functor is introduced as the \textit{Umemura-functor}. However, Heiderich uses a bialgebraic approach - that is - let $D$ be a bialgebra and $A$ a $D$-module algebra. The question tackled by the bialgebraic approach is:
+\bd
+\item[How] to extend the action of a derivation on tensor products of $D$-modules $A^{\otimes n}$ for all $n \geq 0$?\\
+\item[Answer] use its coalgebraic structure $\Delta, \eps$ (or equivalently the $D$-module algebraic structure).
+\ed
+More importantly, the question for formalization and generalizations of the bialgebraic approach of the PV theory builds an extended framework to deal with the above question in terms of iterative derivation and difference equations in positive characteristic or arbitrary characteristic, respectively. However, this is well beyond the scope of this paper.\\
+\indent To explain this approach, we have to introduce some additional constructs. Although, most of the definition in the linear case are still used (as for instance Picard-Vessiot rings/fields). However, we usually do not assume $K/k$ to be field extension, rather some ring (i.e. an associative $k$-algebra).
+\subsection{Basics}
+As in the last section, $(k,\partial)$ is differential field and $K$ is a differential extension such that $k(x) := k(x_1,\ldots,x_n)$ is a differential field/ring and $[K:k(x)] = [K:k(x)]_{\trm{sep}} < \infty$, as field/ring extension in the classical sense. Note, that $(K, \{\partial, \partial_i = [x_j \longmapsto \delta_{i,j}] : 1 \leq i \leq n\})$ is also a differential algebra. In addition, let $\trm{char} k = 0$.
+\subsubsection{Universal Taylor homomorphism and iterative derivations}
+Let $K/k$ be as above and $K[[t]]$ the ring of formal power series over $K$.
+\begin{defi}[Universal Taylor]
+The map
+$$\iota : K \longrightarrow K[[t]],\ a \longmapsto \sum_{n \geq 0} \frac{\partial(a)}{n!} t^n$$
+is called the universal Taylor-morphism.
+\index{Symbol}{$\iota$}
+\index{Index}{homomorphism!universal Taylor}
+\end{defi}
+Before exploring why this is called universal we need some additional definitions.
+\begin{defi}[$n$-variate iterative derivations]
+Let $K/k$ be as above, %$K[[w]]$ be the ring of formal power series in multiple variables $w = (w_i)_{i=1}^n$, 
+with $k$-derivations $\partial_{x_i}$, where $x = (x_i)_{i=1}^n$. A family of $C_k$-module homomorphisms $(\theta^{(\alpha)})_{\alpha \in \nz_0^n} \subset \trm{Hom}_{C_k}(K,K)$ defines an $n$-variate iterative derivation, if
+\bn
+\item $\theta^{(0)} = id_K$,
+\item $\theta^{(\alpha)}(a + b) = \theta^{(\alpha)}(a) + \theta^{(\alpha)}(b)$,
+\item $\theta^{(\alpha)} (a b) = \sum_{\alpha_1 + \alpha_2 = \alpha} \theta^{(\alpha_1)} (a) \theta^{(\alpha_2)} (b)$ and
+\item $\theta^{(\alpha_1)} \circ \theta^{(\alpha_2)}(a) = \left(\bao{c}
+\alpha_1 + \alpha_2\\
+\alpha_1\\
+\ea\right) \theta^{(\alpha_1 + \alpha_2)} (a)$,
+\en
+for all $a, b \in K$ and $\alpha, \alpha_i \in \nz_0^n$. Moreover, for an iterative derivation $\theta$ we call the subring
+$$k^\theta := \left\{x \in k : \theta^{(\alpha)}(x) = 0,\ \forall \alpha \in \nz_0^n\bsl \{0\}\right\} = \bigcap_{\alpha \in \nz_0^n \bsl \{0\}} \ker \theta^{(\alpha)}$$
+its subring of iterative constants (or simply constants).
+\index{Symbol}{$\theta$}
+\index{Index}{derivation!iterative}
+\end{defi}
+\bsp
+\bn
+\item The family of $C_k$-homomorphisms $\{\iota^{\alpha}\}$, given in the definition of the universal Taylor-morphism, clearly defines a mono-variate iterative derivation. We will show this shortly.
+\item Let $\trm{char} k = p \neq 0$, and $K = k(x)$, then
+$$\theta^{(m)} = \left[x^n \longmapsto \left(\bao{c}
+n\\
+k\\
+\ea\right) x^{n - m}\right],\ m \geq 0$$
+is an example in positive characteristic. Indeed, its ring of iterative constants is $k$.
+\en
+\bmk The $n$-variate iterative derivations may be applied to positive characteristic. However, in case of the Taylor-morphism, this is only applicable to characteristic zero.\\
+\indent We call a ring $(R, \theta)$ an iterative differential ring, in particular for $R = k[x_1,\ldots,x_n]$ it is $\trm{Der}_{\trm{ID^n}}$. The transcendence degree $n$ can be omitted to get a more general definition of $\trm{Der}_{\trm{ID}}$, the set of iterative derivations.
+\begin{defi}
+Let $K/k$ be as above (with $\trm{char} k = 0$) and let $\theta^{(\alpha)} := \left[a \longmapsto \frac{\partial_x^\alpha(a)}{\alpha!}\right]$ define the iterative derivation (wrt. $x$):
+$$\theta_x := \sum_{\alpha \in \nz_0^n} \theta^{(\alpha)} w^\alpha : K \longmapsto K[[w]],\ a \longmapsto \sum_{\alpha \in \nz_0^n} \theta^{(\alpha)}(a) w^\alpha.$$
+\end{defi}
+Both maps play a prominent role in the definition of the so called Umemura functor. Returning to the universal Taylor-morphism, we have
+\begin{lemm}
+Let $K/k$ be as above, $\partial_t$ be the $K$-derivation $t \longmapsto 1$ on $K[[t]]$ and $\iota$ denote the Taylor-morphism. Then the following diagrams commute:
+$$\bao{cc}
+\xymatrix{
+K \ar[rd]_{id_K}\ar[r]^\iota &K[[t]]\ar[d]^{\pi_t}\\
+&K
+}&
+\xymatrix{
+K \ar[r]^{\iota_u}\ar[d]_{\iota} &K[[u]]\ar[d]^{\iota[[u]]}\\
+K[[t]] \ar[r]_{t\mapsto t+u}&K[[t]][[u]]\\
+}
+\ea,$$
+where $\iota_u$ represents an equivalent Taylor morphism $K \longrightarrow K[[u]]$ (replacing $t$ with $u$ in $\iota : K \longrightarrow K[[t]]$), $\pi_t = [x \longmapsto x \mod t]$ and $\iota[[u]] : K[[u]] \longrightarrow K[[t]][[u]], \sum_{n \geq 0} a_n u^n \longmapsto \sum_{n \geq 0} \iota(a_n) u^n$.\\
+In addition, the following diagram also commutes for all $i \geq 0$:
+$$\xymatrix{
+K \ar[r]^\iota\ar[d]_{\partial_K^i}&K[[t]]\ar[d]^{\partial_t^i}\\
+K&K[[t]]\ar[l]^{\pi_t},\\
+}$$
+where $\partial_K$ is the extension of $\partial \in \trm{Der}_C(k)$ on $K$.
+\end{lemm}
+\bws The first diagram and the third are equivalent if $i = 0$. Also, the first diagram is an immediate consequence of the definition of $\iota$ as it is defined by iterative derivations $\iota^{(k)} : K \longrightarrow K$.
+\bn
+\item Pick some $a \in K$, then the upper part of the diagram yields:
+$$\iota[[u]] \circ \iota_u(a) = \iota[[u]]\left(\sum_{n\geq 0} \frac{\partial^n(a)}{n!} u^n\right) = \sum_{n + m\geq0} \frac{\partial^{n+m}(a)}{n!m!} t^m u^n$$
+Following the lower part:
+$$f(a) = \sum_{n\geq0} \frac{\partial^n(a)}{n!}(t + u)^n = \sum_{n\geq0} \sum_{m \leq n}\left(\bao{c}
+n\\
+m\\
+\ea\right) \frac{\partial^{n'}(a)}{n'!} t^{m'} u^{n'-m'} = \sum_{m'+n'\geq0} \frac{\partial^{n'+m'}(a)}{m'! n'!} t^{m'} u^{n'},$$
+Setting $m = m'$ and $n' = n + m$ in both parts, we see by comparison of coefficients that the claim holds.
+\item Pick $a \in K$, then:
+$$\pi_t \circ \partial_t^i\circ\iota(a) = \pi_t \circ \partial_t^i\left(\sum_{n\geq0} \frac{\partial^n(a)}{n!} t^n\right) = \pi_t\left(\sum_{n \geq i} \frac{ \partial^n(a)}{(n - i)!} t^{n-i}\right) = \partial^i(a),$$
+completing the prove.
+\en
+\bmk The second part of the prove, in essence, shows that $\iota$ is indeed an iterative derivation. Moreover, $K[[t]]$ is a $D = k[\partial]$-module algebra and $\iota$ is a homomorphism of $D$-module algebras.
+\begin{defi}
+The following algebras are differential sub-algebras of $K[[t]]$:
+\bn
+\item $\mathcal{K} := K\{\iota(K)\}_{\partial_x}$, i.e. is generated by $K$ and the image of $K$ under $\iota$ - closed under the $k$-derivations $\partial_x$.
+\item $\kappa := K\{\iota(k)\}_{\partial_x}$, i.e. is generated by $K$ and the image of $k$ under $\iota$ - closed under the $k$-derivations $\partial_x$.
+\en
+\end{defi}
+\bmk The partial differential subalgebras of $K[[t]]$ can be expressed as
+\bn
+\item $\kappa = \left<\iota(a), b : a \in k, b \in K\right>_{k-\trm{alg}}$ and
+\item $\mathcal{K} = \left<\partial_x^{\alpha}(\iota(a)), b : a, b \in K, \alpha \in \nz_0^n\right>_{k-\trm{alg}}$.
+\en
+\subsubsection{The Umemura functor}
+Let $K/k$ be as above and let $A$ be a commutative (ass.) $K$-algebra (i.e. a ring containing $K$). We will consider the following tensor product:
+$$K[[t]] \otimes A[[w]] := K[[t]] \otimes_K A[[w]],$$
+with the algebra structure induced by the composition of $\theta_x : K \longrightarrow K[[w]]$ and the image of $K[[w]]$ in $A[[w]]$ via the $K$-linear unit-homomorphisms:
+$$\bao{rrclcrcl}                
+\eta_{K[[t]]}': &K &\longrightarrow& K[[t]],&& a &\longmapsto& a\cdot t^0\\
+&&&&&&&\\
+\eta_A : &K &\longrightarrow& A,&& a &\longmapsto& a\cdot 1_A\\
+\ea$$
+and
+$$\theta_x[[t]] : K[[t]] \longrightarrow K[[t]] \otimes K[[w]],\ \sum_{i\geq0} a_i t^i \longmapsto \sum_{\substack{i\geq0\\k \in \nz_0^n}} \frac{\partial_x^k(a_i)}{k!} t^i \otimes w^k,$$
+where the tensor product is defined over $K$, making the following diagram commutative
+$$\xymatrix{
+K \ar[rr]^{\eta_{K[[t]]}} \ar[d]_{\eta_{K[[t]]} \otimes \eta_{A[[w]]}} && K[[t]]\ar[d]^{\theta_x[[w]]}\\
+K[[t]] \otimes A[[w]] && K[[t]] \otimes K[[w]]\ar[ll]_{id \otimes \eta_{A}[[w]]}.\\
+}$$
+This defines a partial differential algebra structure on $K[[t]] \otimes A[[w]]$:
+$$\bao{rrcl}                                    
+\partial_t :& K[[t]]\otimes A[[w]] &\longrightarrow& K[[t]]\otimes A[[w]]\\
+& \sum_{(i,k) \in \nz_0^{n+1}} a_{i,k} t^i\otimes w^k&\longmapsto& \sum_{(i+1,k) \in \nz_0^{n+1}} i a_{i,k} t^{i-1} \otimes w^k\\
+&&&\\
+\partial_{x_i} :& K[[t]]\otimes A[[w]] &\longrightarrow& K[[t]]\otimes A[[w]]\\
+& \sum_{(i,k) \in \nz_0^{n+1}} a_{i,k} t^i\otimes w^k&\longmapsto& \sum_{(i,k) \in \nz_0^{n+1}} \partial_{x_i}(a_{i,k}) t^{i-1} \otimes w^k\\
+&&&\\
+\partial_{w_i} :& K[[t]]\otimes A[[w]] &\longrightarrow& K[[t]]\otimes A[[w]]\\
+& \sum_{(i,k) \in \nz_0^{n+1}} a_{i,k} t^i\otimes w^k&\longmapsto& \sum_{(i,k+e_i) \in \nz_0^{n+1}} k_i a_{i,k} t^{i-1} \otimes w^{k-e_i},\\
+\ea$$
+where $e_i$ denotes the canonical base vector in $\zz^n$. We note that while $\partial_t, \partial_{w_i} \in \trm{Der}_K(K[[t]]\otimes A[[w]])$ the derivation $\partial_{x_i}$ is in $\trm{Der}_k(K[[t]] \otimes A[[w]])$. To specify,
+$$\bao{rcl}
+\partial_t &\in& \trm{Der}_{A[[w]]}(K[[t]] \otimes A[[w]]),\\
+&&\\
+ \partial_{w_i} &\in& \trm{Der}_{K[[t]] \otimes A[[w \bsl\{w_i\}]]}(K[[t]]\otimes A[[w]]),\\
+&&\\
+ \partial_{x_i} &\in& \trm{Der}_{k[[t]] \otimes k[[w]]} (K[[t]]\otimes A[[w]]),\\\ea$$
+where $\partial_\zeta \in \trm{Der}_A(B)$ implies $B^{\partial_\zeta} \supseteq A$.
+%\begin{defi}[Linear topological rings]
+%A topological ring $R$ is called linear if there is a fundamental neighborhood basis of $0 \in R$.
+%%Ein topologischer Ring $R$ hei\ss{}t linear, falls es eine fundamentale Umgebungsbasis von $0 \in R$ gibt.
+%\end{defi}
+%For further discussion see appendix. If $R$ is a linear topological ring with fundamental neighborhood basis $\beta(0)$ then every open neighborhood of zero contains at least one ideal, trivially the zero ideal as ideals are stable under intersection. Let $\{I_i \in \beta(0) : i \in \mathcal{I}\}$ be a system of ideals then the union is a subset of $R$ containing ideals of the form%  Ist nun $R$ ein linear topologischer Ring, mit fundamentaler Umgebungsbasis $\beta(0)$, dann enth\"alt jede offene Umgebung der Null mindestens ein Ideal $I \in \beta(0)$, trivialerweise mindestens $(0)$, da der Schnitt beliebiger Ideale wieder ein Ideal ergibt. Sei $\{I_i \in \beta(0) : i \in \mathcal{I}\}$ ein System von Idealen, dann ist deren Vereinigung eine Teilmenge von $R$, die alle Ideale der Form
+%$$\bigcap_{i \in \mathcal{I}'} I_i, \forall \mathcal{I}' \subset \mathcal{I}\ \trm{and}\ |\mathcal{I}'| < \infty$$
+%defining an open neighborhood of zero. On the other hand, the intersections are also neighborhoods of zero. Hence, all elements are clopen in $R$.%enth\"alt und definiert damit eine offene Umgebung der Null. Andererseits sind die Schnitte der Ideale auch Umgebungen der Null, d.h. damit sind alle Ideale \textit{clopen} in $R$.
+%\begin{defi}[Complete topological rings]
+%Let $R$ be a linear topological ring with fundamental neighborhood basis $\beta(0)$. $\hat{R}$ is called complete if%Sei $R$ ein linear topologischer Ring mit Fundamental-UB $\beta(0)$. Ein Ring $\hat{R}$ hei\ss{}t Vervollst\"andigung von $R$, falls
+%$$\hat{R} \simeq \lim_{\substack{\longleftarrow\\I \in \beta(0)}} R/I$$
+%i.e. the pro-finite limit of $R/I)$ for all $I \in \beta(0)$ and ring morphisms
+%$R/I \longrightarrow R/J$, for all $I \subset J$ - ordered by inclusion.%d.h. der pro-endliche (oder inverse) Limes von  $(R/I)_{I \in \beta(0)}$, mit Ringmorphismen $R/I \longrightarrow R/J$ f\"ur alle $I \subset J$ und $\beta(0)$ angeordnet bzgl. Inklusion.
+%\end{defi}
+%Now, we are equipped with the appropriate tools to continue.
+For the definition of linear topological rings, linear topological rings with fundamental basis and their completion consult the appendix.
+\begin{defi}
+Let $K/k$ and $K[[t]] \otimes A[[w]]$ be as above. The $K$-algebra $K[[t]] \hat{\otimes} A[[w]]$ is called the completion of $K[[t]] \otimes A[[w]]$ wrt the $\left<w\right>$-adic topology. To specify, if the neighborhood basis is defined by
+$$\beta(0) = \left\{\left<1\otimes w\right>^i : i \geq 1\right\} = \left\{\left<1 \otimes w^i : \ w^i = w_1^{i_1} \ldots w_n^{i_n}, \sum i_j = i\right> : i \geq 1\right\},$$
+then the completion is simply the pro-finite limit
+$$\lim_{\substack{\longleftarrow\\I \in \beta(0)}} K[[t]] \otimes A[[w]]/I.$$
+\end{defi}
+Lastly, we note that the two algebras $\kappa \hat{\otimes} A[[w]]$ and $\mathcal{K} \hat{\otimes} A[[w]]$ are differential subalgebras of $K[[t]] \hat{\otimes} A[[w]]$. 
+\begin{defi}[Umemura functor]
+Let $K[[t]] \otimes A[[w]]$ and $K[[t]] \hat{\otimes} A[[w]]$ be as above. Let $\trm{CAlg}_K$ and $\trm{Grp}$ denote the categories of commutative $K$-algebras and groups, respectively. The Umemura functor is the functor
+$$\trm{Ume}(K/k) : \trm{CAlg}_K \longrightarrow \trm{Grp}$$
+assigning to every $A \in \trm{CAlg}_K$ the group of automorphisms $\varphi$ of $\mathcal{K} \hat{\otimes} A[[w]]$ wrt to derivations $\partial_t, \partial_x, \partial_w$ leaving $\kappa \hat{\otimes} A[[w]]$ fixed and making
+$$\xymatrix{
+\mathcal{K} \hat{\otimes} A[[w]] \ar[d]_{\varphi}\ar[rd]^{\psi}&\\
+\mathcal{K} \hat{\otimes} A[[w]] \ar[r]_{\psi}&\mathcal{K} \hat{\otimes} \left(A/N(A)\right)[[w]]\\
+}$$
+commutative, where $\psi := id_\mathcal{K} \otimes \pi[[w]]$. Moreover, if $\lambda : A \longrightarrow B$ is a morphism in $\trm{CAlg}_K$, then one defines
+$$\trm{Ume}(K/k)(\lambda) : \trm{Ume}(K/k)(A) \longrightarrow \trm{Ume}(K/k)(B),\ \varphi \longmapsto \varphi \otimes id_{B[[w]]}.$$
+\index{Index}{functor!Umemura}
+\end{defi}
+\bmk Some additional statements are in place:
+\bn
+\item for any $A \in \trm{CAlg}_K$ the set $N(A) \subset \trm{Ann}(A)$ is the nilradical of $A$ and $\pi$ is its canonical projection $A \longrightarrow A/N(A)$.\index{Index}{nilradical}
+\item for $A, B \in \trm{CAlg}_K$ and $\lambda \in \trm{Hom}_{K-\trm{alg}}(A,B)$ we regard $B[[w]]$ as a $A[[w]]$-algebra via
+$$\lambda[[w]] : A[[w]] \longrightarrow B[[w]], \sum_{\alpha} a_\alpha w^\alpha \longmapsto \sum_\alpha \lambda(a_\alpha) w^\alpha.$$
+\item Umemura introduced the so called Lie-Ritt functors and shows that $\trm{Ume}(K/k)$ is such a functor \cite{Ume96,Ume96b}. Heiderich gives a more general definition in \cite{Heid10} which we are going to repeat for clarity.
+\en
+\subsection{The Lie-Ritt functor}
+As previously, we work in the same setting: $K/k$ a differential extension, $A \in \trm{CAlg}_K$ and all its algebras as above. Furthermore, let $n$ denote the transcendence degree of $K/k$.
+\subsubsection{The infinitesimal coordinate transformation group}
+Firstly, we define a special set of evaluation maps, which will be referred to as the set of infinitesimal coordinate transformation. It is shown that this set is indeed a group wrt. to composition. For $A[[w]]$ we define the differential algebra $A[[w]]\{\{Y\}\}$ to be the algebra of differential formal power series with coefficients in $A[[w]]$ (conforming to the definition of the ring of differential polynomials, \ref{RingOfDiffPolys} on pg. \pageref{RingOfDiffPolys}), i.e. a transcendental extension of $A[[w]]$, with variables $\left\{Y_i^{(j)} : 1 \leq i \leq n, j \in \nz_0^n\right\}$, where the super script index indicates $\partial_{Y_j}\left(Y_i^{(k)}\right) = Y_i^{(k+e_j)}$ (i.e. $A[[w]]$-derivations with $e_j \in \nz_0^n$ the canonical base vector).
+\begin{defi}
+We define
+\bn
+\item the set $$\Gamma(A,n) := \left\{\Phi = (\phi_1,\ldots,\phi_n) \in A[[w]]^n : \phi_i \equiv w_i \mod N(A)\right\},$$
+with group structure via composition: $\Psi \cdot \Phi := \left(\psi_1(\Phi),\ldots,\psi_n(\Phi)\right)$ - the infinitesimal coordinate transformation group.
+\item an $n$-variate iterative derivation $\theta$ wrt. $w$, such that
+$$\theta^{(l)}\left(Y_i^{(k)}\right) := \left(\bao{c}
+k + l\\
+k\\
+\ea\right) Y_i^{(k+l)}\ \forall l, k \in \nz_0^n,$$
+and its restriction to $K$ coincides with $\theta_x$ as defined above.
+\item the iterative differential subalgebra: 
+$$A[[w]]\{A[[Y]]\}_\theta := A[[w]]\left[\left[\theta^{(l)}\left(Y_i^{(0)}\right) : l \in \nz_0^n, 1 \le i \leq n\right]\right] \subset A[[w]]\{\{Y\}\},$$
+\item for $F \in A[[w]]\{A[[Y]]\}_\theta$ and $\Phi \in \Gamma(A,n)$ $F\mid_{Y = \Phi} = \sigma(F,\Phi)$,  where
+$$\bao{rrcl}
+\sigma : &A[[w]]\{A[[Y]]\}_\theta \times \Gamma(A,n) &\longrightarrow &A[[w]]\\
+&&&\\
+&\left(Y_i^{(k)},\Phi\right)&\longmapsto&\theta^{(k)}(\phi_i)\\
+\ea$$
+\en
+\index{Index}{group!infinitesimal transformation}
+\end{defi}
+\bmk We shall note the set $\Gamma(A,n)$ can be considered as substitution homomorphism 
+$$\hat{\phi}_i = \left[w_i \longmapsto
+\phi_i\right],\ \hat{\phi}_i\mid_{A[[w]]/\left<w_i\right>} = id_{A[[w]]/\left<w_i\right>}$$
+on $A[[w]]$. To see that this set is indeed a group, note that
+\bn
+\item associativity and closedness follows immediately from the last statement,
+\item the unit element is simply $id_{A[[w]]}$ and
+\item first, we note that if $u \in A^\times$ then $x := u + a \in A^\times$ for all $a \in N(A)$, as
+$$x - u \in N(A) \LRA \exists m \in \nz,\ \trm{such}\ \trm{that}\ (x - u)^m = 0 = \sum_{0\leq l\leq m}\left(\bao{c}m\\l\\
+\ea\right) x^l (-u)^{m-l}$$
+$$\LRA (-u)^m = x \sum_{1 \leq l\leq m}\left(\bao{c}m\\l\\\ea\right) x^{l-1} (-u)^{m-l} \in A^\times.$$
+Now, pick $\phi_i = a_i + w_i$ and $\psi_i = (1 + b_i) w_i$ then the inverse is $\phi_i^{-1} = w_i - a_i$ and $\psi_i^{-1} = (1 + b_i)^{-1} w_i$ for all $a_i, b_i \in N(A)$.
+\en
+Furthermore, let $X$ denote $\trm{map}(\{1,\ldots,n\} \times \nz_0^n,\nz_0) = \nz_0^{\{1,\ldots,n\} \times \nz_0^n}$ - is an element $F \in A[[w]]\{A[[Y]]\}_\Psi$ defined as
+$$F = \sum_{\substack{\alpha \in \nz_0^n\\k \in X}} a_{\alpha,k} w^\alpha \prod_{(i,\beta) \in \{1,\ldots,n\} \times \nz_0^n} \left(Y_i^{(\beta)}\right)^{k(i,\beta)},$$
+then the image $F\mid_{Y=\Phi}$ for a given $\Phi \in \Gamma(A,n)$ is
+$$\sigma(F,\Phi) = F\mid_{Y=\Phi} = \sum_{\substack{\alpha \in \nz_0^n\\k \in X}} a_{\alpha,k} w^\alpha \prod_{(i,\beta) \in \{1,\ldots,n\} \times \nz_0^n} \theta^{(\beta)}\left(\phi_i\right)^{k(i,\beta)}.$$
+With these definitions in place we can proceed with
+\begin{defi}[Lie-Ritt functor]
+A Lie-Ritt functor over $K$ is a group functor $G$ on $\trm{CAlg}_K$ such that there exits an $n \in \nz$ and an ideal $I \subset K[[w]]\{K[[Y]]\}_\theta$ such that $G(A) \simeq Z(I)(A)$, where
+$$Z(I)(A) := \left\{\Phi \in \Gamma(A,n) : F\mid_{Y = \Phi} = 0\ \forall F \in I\right\}.$$
+\index{Index}{functor!Lie-Ritt}
+\end{defi}
+\bmk If $\Phi \in \Gamma(A,n)$ is fixed we denote by $\sigma_\Phi(F)$ simply $\sigma(F,\Phi)$. Umemura defines the Lie-Ritt functors over $K$ via ideals in $K[[w]]\{\{Y\}\}$. However, Heiderich remarks that, in general, $\sigma_\Phi(F)$ is not well defined for arbitrary $F \in K[[w]]\{\{Y\}\}$.
+\begin{prop}\label{LieRittFunctor}
+Every Lie-Ritt functor over some commutative ring $K$ is isomorphic to a formal group scheme over $K$.
+\end{prop}
+\bws See \cite{Heid10}, proof of prop. 2.11.
+\subsubsection{Umemura functor as Lie-Ritt functor}
+We repeat and extend some of our above definitions. We set $k^\partial =: C$ (a commutative ring).
+\begin{defi}
+Let $G$ be a monoid, $D^1$ an irreducible pointed cocommutative $C$-Hopf-algebra of Birkhoff-Witt type and $D$ be the smashed product $D^1\#C[G]$ ($D^1$ as a $C[G]$-module algebra). If $A$ is a $D$-module algebra with structure map $\Psi$ %we denote by $_C\mathcal{M}(D,A)$ the $C$-module of $D$-module algebra homomorphisms, i.e. the subset of $f \in \trm{Hom}_C(D,A)$ such that the following diagram commutes:
+%$$\xymatrix{
+%D \otimes D\ar[r]^{id_D \otimes f}\ar[d]_{\Psi_D}&D \otimes A\ar[d]^{\Psi_A}\\
+%D \ar[r]_f&A\\
+%}$$
+%where $\Psi_D$ denotes the $D$-module algebra structure on $D$ itself.
+we define the map:
+$$\rho : A \longrightarrow \trm{Hom}_C(D,A),\ a \longmapsto \Psi(\_ \otimes a) = [d \longmapsto \Psi(d \otimes a)].$$
+This map is called the module algebra homomorphism.
+\end{defi}
+\bmk Let us discuss some immediate consequences for any $D$-module algebra $A$. Firstly, for the definition of $\rho$ we use the isomorphism:
+$$\trm{Hom}_C(D \otimes A, A) \simeq \trm{Hom}_C(A, \trm{Hom}_C(D,A)).$$
+Secondly, we get two other homomorphisms, induced by $\Psi_0 : D \otimes A \longrightarrow A$ and $\Psi_{\trm{int}} : D \otimes \trm{Hom}_C(D,A) \longrightarrow \trm{Hom}_C(D,A)$:
+$$\bao{rrcl}
+\rho_0 : & A & \longrightarrow & \trm{Hom}_C(D,A)\\
+& a & \longmapsto & a \eps_D\\
+&&&\\
+\rho_{\trm{int}} : & \trm{Hom}_C(D,A) & \longrightarrow &\trm{Hom}_C(D \otimes D,A) \simeq \trm{Hom}_C(D,\trm{Hom}_C(D,A))\\
+& f & \longmapsto &\Psi_{\trm{int}}(\_ \otimes f) := [d \otimes d' \longmapsto f \circ \mu_D(d \otimes d')].\\
+\ea$$
+$\Psi_0$ and $\Psi_{\trm{int}}$ are the trivial and internal module algebra homomorphism, respectively.
+%\bn
+%\item $_C\mathcal{M}(D,A)$ is a $C$-algebra via convolution:
+%$$f \otimes g \longmapsto \mu_A \circ\left(f \otimes g\right) \circ \Delta_D,$$
+%\item we define
+%$$\rho = \left[a \longmapsto \Psi_A(\_ \otimes a) := \left[d \longmapsto \Psi_A(d\otimes a)\right]\right]\in\:_C\mathcal{M}(A,\!_C\mathcal{M}(D,A))$$
+%via the isomorphism $_C\mathcal{M}(D\otimes A,A) \stackrel{\sim}{\longrightarrow} _C\mathcal{M}(A,\!_C\mathcal{M}(D,A))$,
+%\item for every $C$ bialgebra/Hopf-algebra $D$ and $D$-module algebra $A$
+%$$\rho_0 := [a \longmapsto \eps a := [d \longmapsto \eps(d) a]]$$
+%defines the trivial $D$-module algebra structure on $A$.
+%\en
+
+\begin{lemm}
+$\Psi$ is a morphism of $D$-module algebra structure on $A$ if and only if $\rho$ is morphism of $C$-algebras such that the following diagrams commute:
+$$\bao{cc}
+\xymatrix{
+A \ar[rr]^{\rho}\ar[d]_\rho&&\trm{Hom}_C(D,A)\ar[d]^{\trm{Hom}_C(D,\rho)}\\
+\trm{Hom}_C(D,A) \ar[rr]_{\trm{Hom}_C(\mu_D,A)}&&\trm{Hom}_C(D,\!\trm{Hom}_C(D,A))\\
+}
+&\xymatrix{
+A \ar[r]^{\rho}\ar[rd]_{id_A}&\trm{Hom}_C(D,A)\ar[d]^{ev_{1_D}}\\
+&A\\
+}
+\ea,$$
+identifying $\trm{Hom}_C(D \otimes D,A)$ and $\trm{Hom}_C(D,\!\trm{Hom}_C(D,A))$.
+\end{lemm}
+\bmk A short proof is given in \cite{Heid10}, pg. 35. Nevertheless, we shall remark on some aspects of the notation:
+\bn
+\item the morphism $\trm{Hom}_C(\mu_D,A)$ is equivalent to the just defined $\rho_{\trm{int}}$.
+\item the morphism $\trm{Hom}_C(D,\rho)$ denotes:
+$$\bao{rcl}
+D^* \otimes A &\longrightarrow& D^* \otimes \trm{Hom}(D,A)\\
+&&\\
+\delta \otimes a &\longmapsto& \delta \otimes \Psi(\_\otimes a) = \delta \otimes \rho(a)\\
+\ea$$
+\en
+%In both cases, we are restricting to the submodule of $D$-module algebra morphisms in $\trm{Hom}(D,A)$ and $\trm{Hom}(D,\trm{Hom}(D,A))$, respectively.
+In \cite{Heid13} it is shown that if $D \simeq D_{der}$ and $\qz \subset A$, then $\trm{Hom}_C(D,A)$ is isomorphic to $A[[t]]$ and $\rho$ is given by the universal Taylor homomorphism.
+\begin{prop}\label{GroupLaw}
+Let $F$ be an $n$-dimensional group law over some commutative ring $C$. The associated group functor $\mathfrak{F}$ is isomorphic to the Lie-Ritt functor $Z(I) \subset \Gamma(C,n)$ with $n$-variate higher differential ideal
+$$I := \left<\theta^{(\alpha)}(F(w,\Psi(Y))) : \alpha \in \nz_0^n\bsl\{0\}\right>_{C[[w]]\{C[[Y]]\}},$$
+where $\Psi \in C[[y]]^n$ such that $\Psi(0) = 0, F(\Psi(u),u) = 0$ for all $u \in C[[y]]^n$.
+\end{prop}
+\bmk Notion of formal group laws and formal groups is given in the appendix. A prove as well as the proposition can be found in \cite{Heid10}, pg. 97.
+\bsp \label{example_Heid_add_mul_grp_law}%Let $n \in \nz$ and $\mathcal{F}$ be a family of differential polynomials over some differential field $(k,\partial)$, in particular explicit differential equations. Our Picard-Vessiot extension $k(x)$ is of the $\partial x_i = p_i(x_1,\ldots,x_n)$. Fix $K = k(x)$ and $A = K[\eps] \simeq K[X]/\left<X^2\right>$ (i.e. the dual numbers of $K$). We know that $\Gamma(A,n) = \{\Phi \in A[[w]]^n : \Phi \equiv w \mod N(A)^n\}$. Hence
+%$$\Gamma(A,n) := \left\{\left(\sum_{\alpha \in \nz_0^n} a_{i,\alpha} w^\alpha\right)_{i=1}^n : a_{i,e_j} \equiv 1 \mod N(A) \wedge a_{i,\alpha} \equiv 0 \mod N(A) \forall \alpha \neq e_j,\ 1\leq i, j \leq n\right\}.$$
+Heiderich shows in case of the $\zz$-algebra $\zz[[w]]\{\zz[[Y]]\}_\theta$ and $n = 1$ that the functor induced by the subset $\{a + w: a \in N(A)\}$ of $\Gamma(A,1)$ is isomorphic to the additive group scheme $\mathbb{G}_a$ for every $\zz$-algebra $A$. The associated ideal in $\zz[[w]]\{\zz[[Y]]\}$ is generated by $Y^{(1)} - 1$ and $Y^{(j)}$ for all $j \geq 2$. The subset $\{(1 + a) w : a \in N(A)\}$ is isomorphic to the multiplicative group scheme $\mathbb{G}_m$. The associated ideal is generated by $w Y^{(1)} - Y$ and $Y^{(j)}$ for all $j \geq 2$.% Extending his approach we construct the following sets:
+%$$\bao{rcl}
+%G_1(A) &:=& \left\{w + a_i e_i \in A[[w]]^n: a_i \in N(A), 1 \leq i \leq n\right\}\\
+%&&\\
+%G_2(A) &:=& \left\{w + b_i w_i e_i \in A[[w]]^n : b_i \in N(A), 1 \leq i \leq n\right\}\\
+%\ea$$
+%Here we use $w = \sum_{i=1}^n w_i e_i \in A[[w]]$.% Next we have to compute the ideal $I$ in $K[[w]]\{K[[Y]]\}$ such that $F\mid_{Y=\Phi} = 0$ for all $F \in I$ and $\Phi \in G_i(A)$ with $i = 1,2$.
+\begin{satz}
+The Umemura functor $\trm{Ume}$ is a Lie-Ritt functor.
+\end{satz}
+\bws This is a consequence of theorem 2.14 (summarized in corollary 2.15) in \cite{Heid10} and \cite{Heid11}.
+\begin{koro}
+$\trm{Ume}(K/k)$ is a formal group scheme.
+\end{koro}
+\subsection{PV-theory of Artinian simple module algebras}
+Here, $(k,\partial)$ is again a differential field (more general a simple artinian $D$-module algebra) - with $\trm{char} k = 0$ and let $R$ be the PV-ring over $k$. For clarity, we are going to repeat some of the previous constructs, though we will adhere to the notation introduced in \cite{Heid10}. For $\partial : k \longrightarrow k$ we define
+$$D := k[\partial]\ \trm{and}\ \Psi : D \otimes A \longrightarrow A, d \otimes a \longmapsto d(a)$$
+for all $A \in \trm{CAlg}_k$, as derivation bialgebra over $k$ and $\Psi$ the $D$-module algebra structure morphism. Recall there is a unique morphism $\rho \in \trm{Hom}_C(A,\:\trm{Hom}_C(D,A))$, with
+$$\rho = \left[a \longmapsto \left[d \longmapsto \Psi(d \otimes a)\right]\right].$$
+In addition, the differential subalgebra $A^\rho$ is defined as $A^\Psi$ (i.e. the constant differential subalgebra).
+\begin{defi}
+Let $(K, \partial_K)/(k,\partial)$ be a differential extension. We call $K/k$ a PV extension if the following statements hold:
+\bn
+\item $K^{\rho_K} = k^{\rho}$,
+\item there is a differential subalgebra $k \subset R \subset K$, with $R^{\rho_R} = k^\rho$ such that $Q(R) = K$ and a $k^\rho$-subalgebra:
+$$H := (R \otimes_k R)^{\rho_R \otimes \rho_R},$$
+and $H$ generates $R\otimes_k R$ as a left/right $R$-algebra.
+\en
+\end{defi}
+\bmk \label{HeidRemk} In \cite{Heid10} it is shown that $R$ is unique and the map $R \otimes_{k^\rho} H \longrightarrow R \otimes_k R$ is an isomorphism of $D$-module algebras. Since we only restrict to derivation module algebras (Heidereich uses a general bialgebra) we want to elaborate on some of the constructs before proceeding.
+\bn
+\item instead of $R = k[x_{i,j},1/\det X]$, where $X \in  \trm{Gl}_n(R)$ is the fundamental solution, we use $k[X,X^{-1}]$. But clearly, both $k$-algebras define isomorphic rings (as the inverse matrix $X^{-1}$ is composed of entries in $k[x_{ij}]$ and has the inverse of $\det X$ as factor).
+\item The subalgebra $H$ is called the Hopf-algebra of $K/k$ and $R$ is called prinicpal $D$-module algebra of $K/k$.
+\item The Galois group $\trm{DGal}(K/k) := \trm{Spec}(H)$.
+\item In addition we have $H \simeq k^\rho[(X\otimes1)(1 \otimes X^{-1}),(1\otimes X)(X^{-1} \otimes 1)]$. Nevertheless, we will not use this.
+\en
+\begin{prop}\label{prop_hopf_struct}
+The differential subalgebra $H \subset R\otimes_k R$ carries an $R$-coalgebra structure given by the coalgebra structure on $R\otimes R$:
+\bn
+\item $\Delta_{R\otimes R} : R\otimes_k R \longrightarrow (R\otimes_k R) \otimes_R (R\otimes_k R)$, $a \otimes b \longmapsto a \otimes 1 \otimes 1 \otimes b$,
+\item $\eps : R\otimes_k R \longrightarrow R$, $a \otimes b \longmapsto a b$ and lastly
+\item $S: R \otimes_k R \longrightarrow R \otimes_k R$, $a \otimes b \longmapsto b \otimes a$ an antipode
+\en
+making $R\otimes R$ and its subalgebra $H$ a Hopf-algebra.
+\end{prop}
+\subsubsection{Comparing general theory with PV theory}
+We assume as in \cite{Heid13} $(K/k, R, H)$ to be an finitely generated PV extension of an artinian $D$-module algebras with $D = D^1 \# k.G$ for some pointed irreducible cocommutative bialgebra of Birkhoff-Witt type (cofree), $R$ the principle $D$-module algebra and $H$ its associate Hopf algebra. Furthermore, let $X \in \trm{Gl}_n(R)$ be the fundamental matrix, i.e. $R \simeq k[X,X^{-1}]$, for each (minimal) prime ideal $\mathfrak{p}) \subset K$ the field $K/\mathfrak{p}$ be finitely generated and separable over $k/(k \cap \mathfrak{p}$ and the transcendence degree $n$ for $K/k$ agree for all $\mathfrak{p} \in \trm{Spec}(K)$. We have a unique $n$-variate iterative derivation
+$$\theta_x : K \longrightarrow K[[w]],\ x_i \longmapsto x_i + w_i$$
+and two $D$-module algebra homomrphisms:
+$$\rho = [a \longmapsto ev_a = [d \longmapsto \Psi(d \otimes a)]] \in \trm{Hom}(K, \trm{Hom}(D, K))$$
+$$\rho_0 = [a \longmapsto a \cdot \eps_D = [d \longmapsto \eps_D(d) a]] \in \trm{Hom}(K, \trm{Hom}(D,K)).$$
+\begin{defi}
+We denote with $D_{\trm{der}}$ the derivation bialgebra $k[\partial] \subset \trm{End}_{k^\partial}(k)$, with
+$D_{\trm{ID}}$ the iterative derivation bialgebra $k[\theta]$ for some iterative derivation $\theta : k \longrightarrow k[[t]]$ and with $D_{\trm{ID}^n}$ the $n$-variate iterative derivation bialgebra.
+\end{defi}
+In \cite{Heid13} it is noted that $D_{\trm{der}} \simeq D_{\trm{ID}}$, $D_{\trm{ID}}^{\otimes n} \simeq D_{\trm{ID}^n}$ and $\trm{Hom}(D_{\trm{der}},A) \simeq A[[t]]$ and $\trm{Hom}(D_{ID}^{\otimes n}, A) \simeq A[[w]]$ with $w = (w_1,\ldots,w_n)$ for all commutative algebras $A$ and $\trm{char}k = 0$. Therefore, $\trm{Hom}(D_{\trm{der}},K)$ is clearly closed with respect to $\theta_x = \sum_{\alpha} \frac{1}{\alpha!}\partial_x^\alpha \otimes w^\alpha$:
+$$f = [d \longmapsto f(d)] \longmapsto \theta_x(f) = \left[d \longmapsto \theta_x(f(d)) = \sum_\alpha \frac{1}{\alpha!} \partial_x^\alpha(f(d)) \otimes w^\alpha\right].$$
+We recall that $[\partial_x,\partial_K] = 0$, i.e. $K$ is a partial different algebra wrt. $\{\partial_K = \partial, \partial_x\}$. It takes a little more to show closedness for $\rho(K)$:
+$$\bao{rcl}
+f = ev_a &=& [d \longmapsto \Psi_K(d \otimes a)]\\
+&&\\
+&\longmapsto& \theta_x(ev_a)\\
+&&\\
+&=& \left[d \longmapsto \sum_\alpha \theta_x^{(\alpha)} (ev_a(d)) \otimes w^\alpha = \sum_\alpha d\left(\theta^{(\alpha)}_x(a)\right) \otimes w^\alpha\right]\\
+&&\\
+&=& \sum_\alpha ev_{\theta^{(\alpha)}_x(a)} \otimes w^\alpha\\
+\ea$$
+For $w \stackrel{\pi_w}{\mapsto} 0$ we have identity and $\partial_{w_i} = [w_j \longmapsto \delta_{i,j}]$, $\partial_w^\beta = \partial_{w_1}^{\beta_1} \circ \ldots \circ \partial_{w_l}^{\beta_l}$ for all $\beta \in \nz_0^l$ we get:
+$$\pi(\partial_w^\beta(\theta_x(f))) = \partial_x\beta(f).$$
+\begin{defi}
+For some field $k$ we call a $k$-algebra $K$ \'{e}tal if $K \otimes_k \ov{k} \simeq \ov{k}^n$ as a vector space over the algebraic closure $\ov{k}$ of $k$ and $n \geq n$ an integer.
+\end{defi}
+\bmk An algebra $K$ over $k$ is \'{e}tal if and only if
+$$K \simeq \prod_{i=1}^n k[x]/\left<f_i\right>,\ f_i \in k[x] \trm{separable}.$$
+\subsection{Example} Revisiting our example on \pageref{twoD} with $\left(k \subseteq \ov{\qz}, \partial = 0_{\ov{\qz}}\right)$ and the $k$-linear differential operator $L = \partial^2 - a \cdot id_k \in k[\partial] =: D$, $a \in k^\times$. We are going to use the notation already introducted in \ref{twoD}, pg. \pageref{twoD}. Again, we are discussing two cases:
+\bd
+\item[reducible] The polynomial $X^2 - a \in k[X]$ decomposes into two linear factors $X - \sqrt{a}, X + \sqrt{a} \in k[X]$. In this case, we denote the PV ring with $R_1$.
+\item[irreducible] The polynomial $X^2 - a \in k[X]$ is irreducible - i.e. $k[X]/\left<X^2 - a\right>$ is a field extension over $k$. We denote the PV ring with $R_2$.
+\ed
+We remark that due to the "constness" of $a \in k$, $R_2(\sqrt{a)}) \simeq k(\sqrt{a}) \otimes_k R_2$ gets a $D$ module algebra via
+$$\bao{rrcl}
+\rho_{R(\sqrt{a})} : & k(\sqrt{a}) \otimes_k R_2 &\longrightarrow &\trm{Hom}_k(D, k(\sqrt{a}) \otimes R_2)\\
+&&&\\
+&\alpha \otimes r &\longmapsto & \left[d \otimes \alpha \otimes r \longmapsto \alpha \otimes d(r)\right].\\\ea$$
+Furthermore, our two PV rings are isomorphic via the isomorphis defined on pg. \pageref{PVisomorph}, $R_1 \simeq R_2(\sqrt{a})$. As above, over Hopf algebra $D$ is $k[\partial]$ and $\Psi_k$ is trivial (i.e. subalgebra of $R^{\Psi_R}$). Next, we want to describe
+\paragraph{The prinicple $D$ module algebra}
+which in our case is simply $R_i$, $i = 1, 2$.
+\subsubsection{The Hopf-algebra and its module algebra}
+First, we note that $D$ is a cocommutative Hopf-algebra over $k = \currfield$, being a field, is simple (as a ring) and artinian since every descending chain of ideals stabilizes after finitely many steps ($(1)$ and $(0)$ are the only ideals). Next, we recall that $K = \currfield(y_1)$ with $\currfield$-derivation $\partial = [y_1 \longmapsto \sqrt{a} y_1, y_{-1} \longmapsto - \sqrt{a} y_{-1}]$. Now, we want to show the $D$-module algebra structure on $K$, or $R = \currfield[y_1,y_{-1}]$. Let $\Psi_K : D \otimes K \longrightarrow K,  
+d \otimes x = \sum_i d_i \partial^i \otimes x \longrightarrow \sum_i d_i \partial^i(x) =: d(x)$. We need to show $\Psi_K(d_1 \otimes \Psi_K(d_2 \otimes x)) = \Psi_K(\mu_D \otimes id_K(d_1 \otimes d_2 \otimes x))$, i.e. $K$ is a $D$-left module, which is immediately clear as the LHS simply says $d_1(d_2(x))$ and the RHS says $\mu_D(d_1 \otimes d_2)(x) = (d_1 \circ d_2)(x)$ being equal. Next, we want to introduce the $D$-left comodule structure on $K$. An obvious choice is $\rho := \eta \otimes id_K : K \simeq k \otimes K \longrightarrow k[\partial] \otimes K, x \longmapsto 1_D \otimes x$ providing the desired commutativity of the diagrams:
+$$\bao{cc}
+\xymatrix{
+K \ar[r]^\rho \ar[d]_\rho & D \otimes K\ar[d]^{id_D \otimes \rho}\\
+D \otimes K \ar[r]_{\Delta_D \otimes id_K} & D \otimes D \otimes K\\
+} &
+\xymatrix{
+K \ar[r]^\rho \ar[rd]_\sim & D \otimes K\ar[d]^{\eps \otimes id_K}\\
+&K,}\\
+\ea$$
+in particular, we get $\Psi_K(\rho(x)) = id_K(x) = x$ (i.e. $\Psi_K$ is the left inverse of $\rho$). To conclude, we have shown that both
+$$\bao{cc}
+\xymatrix{
+D \otimes K^{\otimes2} \ar[d]_{\Delta_D \otimes id_K \otimes id_K} \ar[rr]^{id_D \otimes \mu_K}& & D \otimes K \ar[r]^{\Psi_K} & K\\
+D^{\otimes2} \otimes K^{\otimes2} \ar[d]_{id_D \otimes \tau \otimes id_K}&&&\\
+(D \otimes K)^{\otimes2} \ar[rrr]_{\Psi_K \otimes \Psi_K} & & &K \otimes K \ar[uu]_{\mu_K}\\
+} &
+\xymatrix{
+D \ar[rr]^{id_D \otimes \eta_K} \ar[rrd]_{\eps \otimes id_K}&& D \otimes R.1_K\ar[d]^{\Psi_K}\\
+&&K\\
+}\\
+\ea$$
+commute. 
+\subsubsection{The Hopf-algebra of constants}
+More precisely, $H$ is the kernel of $\Delta_D(\partial) : R \otimes_k R \longrightarrow R \otimes_k R$. We are going to show this in a short instance. Reformulating the definition of $H$ more generally (i.e. $D = k[\partial]$, $k^{\Psi_k} = k^\partial = \currfield$ in our case):
+%$$\bao{rclcl}
+%\partial_R(X X^{-1}) &=& \partial_R(1_R) &=& \partial_R(X) X^{-1} + X \partial_R(X^{-1})\\
+%&&&&\\
+%&=& 0&&\\
+%&&\LRA&&\\
+%X\partial_R(X^{-1}) &=& - \partial(X) X^{-1} &=& -A X X^{-1}\\
+%&&\LRA&&\\
+%\partial_R(X^{-1}) &=& -X^{-1} A&&\\
+%\ea$$
+%We get the same result for $\partial(X^{-1} X)$. On the other hand, $X^{-1} = \det X^{-1} \left(\bao{cc}a x_1 & -x_2\\
+%-x_2 & x_1\\
+%\ea\right)$, hence $\partial(X^{-1}) = \partial(\det X^{-1}) \left(\bao{cc}a x_1 & -x_2\\
+%-x_2 & x_1\\
+%\ea\right) + \det X^{-1} \left(\bao{cc}a x_2 & -a x_1\\
+%-a x_1 & x_2\\
+%\ea\right) \stackrel{!}{=} X^{-1} A$ implying $\partial(\det X^{-1}) = -\frac{\partial(\det X)}{\det X^2} = 0$. Direct computation confirms this. Hence we see that $\det X^{i} \otimes \det X^{j} \in H$ for $i, j \in \{0, \pm1\}$. Now let us consider the two factor decompositions of $\det X = a x_1^2 - x_2^2 = (\pm\sqrt{a} x_1 + x_2)(\pm\sqrt{a} x_1 - x_2)$ (where the roots of $a$ are always having the same sign).
+%$$\bao{rcl}
+%\Delta(\partial)\left([\sqrt{a} x_1 + x_2] \otimes [\sqrt{a} x_1 - x_2]\right) &=&
+%(1\otimes \partial + \partial\otimes 1)\left([\sqrt{a} x_1 + x_2] \otimes [\sqrt{a} x_1 - x_2]\right)\\
+%&&\\
+%&=& (\sqrt{a} x_1 + x_2) \otimes \partial(\sqrt{a} x_1 - x_2)\\
+%&& + \partial(\sqrt{a} x_1 + x_2) \otimes (\sqrt{a} x_1 - x_2)\\
+%&&\\
+%&=& (\sqrt{a} x_1 + x_2) \otimes (\sqrt{a} x_2 - a x_1)\\
+%&& + (\sqrt{a} x_2 + a x_1) \otimes (\sqrt{a} x_1 - x_2)\\
+%&&\\
+%&=& 0\\
+%\ea$$
+%By symmetry, this holds for $(\sqrt{a} x_1 - x_2) \otimes (\sqrt{a} x_1 + x_2)$ and by Leibniz-rule for
+%$(\det X^{-1} \otimes \det X^{-1}) (\sqrt{a} x_1 \pm x_2) \otimes (\sqrt{a} x_1 \mp x_2)$. On the other hand, $\Delta(1) = 1 \otimes 1$ and clearly all elements fulfill
+$$H:= \left\{r_1 \otimes r_2 : \Psi_{R\otimes R}(d \otimes (r_1 \otimes r_2)) = \eps_D(d) (r_1 \otimes r_2)\right\}.$$
+With $\eps_D(\partial^i) = \delta_{0,i}$ and image of $1_D$ under comultiplication being $1_D\otimes 1_D$, we only need to compute $\ker \Delta_D(\partial)$
+$$\bao{rcl}
+H &=& (\partial_R \circ \mu_R)^{-1}(0)\\
+&&\\
+&=& \{r_1 \otimes r_2 \in R\otimes_k R : \partial_R \circ \mu_R (r_1 \otimes r_2) = 0\}\\
+&&\\
+&=& \{r_1 \otimes r_2 : (1 \otimes \partial + \partial \otimes 1)(r_1 \otimes r_2) = 0\}\\
+&&\\
+&=& (\Delta (\partial))^{-1}(0) = \ker \Delta(\partial)\\
+\ea.$$
+%As we just saw, the elements $\alpha (\pm \sqrt{a} x_1 \pm x_2) \otimes (\pm\sqrt{a} x_1 \mp x_2) \in H$ for $\alpha \in \{1 \otimes 1, \det X^{-1} \otimes \det X^{-1}\}$. On the other hand, we get that $r_1 \otimes r_2 \in H\bsl\{0, 1\otimes 1\}$ if and only if $r_1\otimes r_2 \in \mu_R^{-1}(\det X)$. This is obviously the case for the above defined elements. Additionally, $a x_1 \otimes x_1 - x_2 \otimes x_2$ is an element in $H$ which ca be verified either by direct computation or by our reformulated definition of $H$.\\
+As $\partial(y_{\pm 1}) = \pm \sqrt{a} y_{\pm 1}$ we get:
+$$\bao{rclcl}
+\Delta_D(\partial)(y_1 \otimes y_{-1}) &=& \sqrt{a} y_1 \otimes y_{-1} - \sqrt{a} y_{1} \otimes y_{-1} &=& 0\\
+&&&&\\
+\Delta_D(\partial)(y_{-1} \otimes y_{1}) &=& -\sqrt{a} y_{-1} \otimes y_{1} + \sqrt{a} y_{-1} \otimes y_{1} &=& 0\\
+\ea$$
+$$H \supset \currfield\left[y_1\otimes y_{-1},y_{-1} \otimes y_1\right].$$
+Following our notation from example \ref{twoD} on page \pageref{twoD}, since $a x_1 \otimes x_1 + x_2 \otimes x_2, \sqrt{a} (x_1 \otimes x_2 - x_2 \otimes x_1) \in \left(S(L_+)\oplus (L_-)\right)^{\otimes 2}$ are the only other generating elements already contained in $\currfield\left[y_1\otimes y_{-1},y_{-1} \otimes y_1\right]$, we get
+$$H \subset \currfield\left[y_1\otimes y_{-1},y_{-1} \otimes y_1\right].$$
+Next, we want to introduce the comultiplication and counit for the elements defined above as described in \ref{prop_hopf_struct}.% Since $H$ is generated by units in $R$ (or more explicitly its tenors in $R\otimes_k R$) we see that all generators form a group-like sub Hopf algebra in $H$, i.e. $\Delta_H(x) = x \otimes x, \eps_H(x) = 1, S(x) = x^{-1}$ for some generator $x \in H$. Hence, if $x, y \in H$ are generators of $H$ we get
+Hence, $\Delta_H = [y_{\pm 1} \otimes y_{\mp 1} \longmapsto y_{\pm 1} \otimes 1 \otimes 1 \otimes y_{\mp 1}], \eps = [y_{\pm 1} \otimes y_{\mp 1} \longmapsto y_{\pm 1} y_{\mp 1}]$ and $S = [y_{\pm 1} \otimes y_{\mp 1} \longmapsto y_{\mp 1} \otimes y_{\pm 1}]$.
+$$\eps_H(a \otimes b) = a b = \frac{1}{2}\eps_H(a \otimes b + b \otimes a),\ \eps_H(a \otimes b - b \otimes a) = 0,\ \Delta(x - y) = x\otimes x - y \otimes y.$$
+Expanding the coproduct:
+$$\bao{rcl}
+x - y &=& \underbrace{(\sqrt{a} x_1 + x_2)}_{y_1} \otimes \underbrace{(\sqrt{a} x_1 - x_2)}_{y_{-1}} - (\sqrt{a} x_1 - x_2) \otimes (\sqrt{a} x_1 + x_2)\\
+&&\\
+&=& a x_1 \otimes x_1 - \sqrt{a} x_1 \otimes x_2 + \sqrt{a} x_2 \otimes x_1 + x_2 \otimes x_2 \\
+&&\\
+&& - a x_1 \otimes x_1 - \sqrt{a} x_1 \otimes x_2 + \sqrt{a} x_2 \otimes x_1 - x_2 \otimes x_2\\
+&&\\
+&=& 2 \sqrt{a} (x_2 \otimes x_1 - x_1 \otimes x_2)\\
+\ea$$
+We remark that the coproduct is defined via $R^{\otimes 2} \otimes_R R^{\otimes 2}$. Hence, $R$-scalars in the inner positions cancel. Its coproduct is:
+$$\bao{rcl}
+\Delta_H(x - y) &=& x \otimes x - y \otimes y\\
+&&\\
+&=& (\sqrt{a} x_1 + x_2) \otimes (\sqrt{a} x_1 - x_2) \otimes (\sqrt{a} x_1 + x_2) \otimes (\sqrt{a} x_1 - x_2)\\
+&&\\
+&& - (\sqrt{a} x_1 - x_2) \otimes (\sqrt{a} x_1 + x_2) \otimes (\sqrt{a} x_1 - x_2) \otimes (\sqrt{a} x_1 + x_2)\\
+&&\\
+&=& (\sqrt{a} x_1 + x_2) \otimes 1_H \otimes 1_H \otimes (\sqrt{a} x_1 - x_2)\\
+&&\\
+&& - (\sqrt{a} x_1 - x_2) \otimes 1_H \otimes 1_H \otimes (\sqrt{a} x_1 + x_2)\\
+&&\\
+&=& 2 \sqrt{a} (x_2 \otimes 1 \otimes 1 \otimes x_1 - x_1 \otimes 1 \otimes 1 \otimes x_2)\\
+%&=& 2 a \sqrt{a} x_1 \otimes x_1 \otimes (x_2 \otimes x_1 - x_1 \otimes x_2) + 2 a \sqrt{a} (x_2 \otimes x_1 - x_1 \otimes x_2) \otimes x_1 \otimes x_1\\
+%&&\\
+%&& + 2 \sqrt{a} x_2 \otimes x_2 \otimes (x_2 \otimes x_1 - x_1 \otimes x_2) + 2 \sqrt{a} (x_2 \otimes x_1 - x_1 \otimes x_2) \otimes x_2 \otimes x_2\\
+%&&\\
+%&=& 2 \sqrt{a} (x_2 \otimes x_1 - x_1 \otimes x_2) \otimes (a x_1 \otimes x_1 - x_2 \otimes x_2)\\
+%&&\\
+%&& + 2 \sqrt{a} (a x_1 \otimes x_1 - x_2 \otimes x_2) \otimes (x_2 \otimes x_1 - x_1 \otimes x_2)\\
+%&&\\
+%&=& 2 \sqrt{a} (x - y) \otimes (a x_1 \otimes x_1 - x_2 \otimes x_2) + 2 \sqrt{a} (a x_1 \otimes x_1 - x_2 \otimes x_2) \otimes (x - y)\\
+%&&\\
+%&=& 2 \sqrt{a} [(a x_1 \otimes x_1 - x_2 \otimes x_2),x - y]_{R\otimes R},\\
+&&\\
+&=& y_1 \otimes 1 \otimes 1 \otimes y_{-1} - y_{-1} \otimes 1 \otimes 1 \otimes y_1\\
+\ea$$
+%where $[.,.]_{R\otimes R}$ denotes the Lie-bracket of $R\otimes R$ wrt to the tensor product (not the intrinsic Lie-bracket). This is a direct proof of cocommutativity (for the sub Hopf algebra $k[x - y]$). But clearly, if all generators are cocommutative then so are their linear combinations. However, the other generators differ only in the sign of $\sqrt{a}$ and/or in carrying a factor $\det X^i \otimes \det X^j$, $i, j = 0, -1$. But this is also a group-like element implying all coproducts are of the above form (modulo sign of root and factor). 
+In particular, following prop. \ref{GroupLikeHopfIdeal} we know the set of differences of group-like elements generates a bi-ideal in $H$. Since $H$ itself is generated by group-like elements, we get $I(\mathcal{G}(H)) := \left<g - h : g, h \in \mathcal{G}(H)\right>$ is a proper bi-ideal in $H$. It is enough to show that $I(\mathcal{G}(H))$ is stable under antipode action:
+$$S : H \otimes H \longrightarrow H,\ y_{\pm 1}^i \otimes y_{\mp 1}^j \longmapsto y_{\pm}^{-i} \otimes y_{\mp}^{-j}, i, j \in \zz.$$
+But $S$ maps the generators of $I(\mathcal{G}(H))$ to its generators:
+$$y_1 \otimes y_{-1} \longmapsto y_{-1} \otimes y_1,\ y_{-1} \otimes y_1 \longmapsto y_1 \otimes y_{-1},$$
+implying
+$$S(g) \in I(\mathcal{G}(H)), \forall g \in \mathcal{G}(H).$$
+Summarizing, we get:
+%This shows that the coalgebra $I$ generated by $x - y$, where $x = y_1 \otimes y_{-1}, y = \tau_{R\otimes R}(x) \in H$, is a sub coalgebra of $\ker \eps$. Next, we have to show %indeed a (two-sided) coideal $I$ in $H$.
+%$$\Delta(I) \subset H \otimes I + I \otimes H\ \wedge\ I \subset \ker \eps.$$
+%But clearly:
+%$$\bao{rcl}
+%\Delta_H(x-y) &=& \frac{1}{2} \underbrace{(y_1 \otimes y_{-1} - y_{-1} \otimes y_1)}_{\in I} \otimes_R \underbrace{(y_1 \otimes y_{-1} + y_{-1} \otimes y_1)}_{\in H}\\
+%&&\\
+%&& + \frac{1}{2} \underbrace{(y_1 \otimes y_{-1} + y_{-1} \otimes y_1)}_{\in H} \otimes_R \underbrace{(y_1 \otimes y_{-1} - y_{-1} \otimes y_1)}_{\in I},\\
+%\ea$$
+%showing skew-primitivity and subsequently, our claim. The ideal property simply follows from the fact that $\eps$ is an algebra homomorphism. To summarize:
+$$\bao{ccc}
+H &=& \currfield[y_1 \otimes y_{-1},y_{-1} \otimes y_1]\\
+&&\\
+I &=& H.(y_1 \otimes y_{-1} - y_{-1} \otimes y_1) \ \trm{Hopf-ideal}\\
+\ea$$
+We have already shown, that our differential equation $L(x) = 0$ decomposes into two factors. This was used in our last computations. However, in case $L$ does not decompose the primary computations (PV-ring is $R = k[x_1,x_2,1/(a x_1^2 - x_2^2)]$, etc.) are still valid. Only our Hopf-algebra $H$ is generated by different elements.
+%
+%We remark that both $R = \currfield[y_1,y_{-1}]$ and $H = \currfield[y_1\otimes y_{-1},y_{-1}\otimes y_1]$ do not have any $D = \currfield[\partial]$-stable ideals:
+%\bd
+%\item[Case $R$] Let $I \subset R$ be an ideal and we assume differential closedness - i.e. $\partial(I) \subset I$.
+%%As a noetherian $R$-submodule of a noetherian module $R$ (generated by $y_{\pm 1}$ over $\currfield$), $I$ is finitely generated. Hence, let $S:= \{s\} \subset I$ be one generating set. By differential closedness, we get for any $s \in S$:
+%%$$\partial(s) = \partial\left(\sum_{i=-m}^n s_i y_1^i\right) = \sum_{i=-m}^n s_i \partial(y_1^i) = \sum_{i=-m}^n i \sqrt{a} s_i y_1^i \in I$$
+%%$$\LRA \partial(s) - s = \sum_{i=-m}^n (i \sqrt{a} - 1) s_i y_1^i \in I$$
+%%But both, $s, \partial(s) - s$ are of degree $n$, or $m$ wrt. $y_{\pm 1}$ and $y_1^m (\partial(s) - s) \in \currfield[y_1]$.
+ %There is an $I' \subset \currfield[y_1]$, such that $S_{y_1}^{-1}(I') \subset I$. By definition of $I$, we get
+%$$y_1^m t \in I' \RA \partial(y_1^m t) = \underbrace{m \sqrt{a} y_1^m t}_{\in I'} + \underbrace{y_1^m \partial(t)}_{\in \partial(I')},$$
+%but identifying $I' := I \cap \frac{\currfield[y_1]}{1}$ we get $\partial(I') \subset I'$. Being a PID, $\currfield[y_1]$ all $I'$ are of the form $\left<s\right>$. On the other hand, $\partial$ operates on all weight spaces $\currfield.y_1^i$, $i \geq 1$, invariantly:
+%$$\bao{rrcl}
+%\partial_i := \partial\mid_{\currfield.y_1^i} : &\currfield.y_1^i &\longrightarrow& \currfield.y_1^i\\
+%&&&\\
+%&y_1^i &\longmapsto&i \sqrt{a} y_1^i\\
+%\ea$$
+%Hence, the degree of all polynomials in $\partial(I')$ and the preimages in $I'$ do agree. Each derivative of the generators $s$ agree in degree but also reduce to zero modulo $\left<s\right>$ contradicting our claim $\partial(s) \in \left<s\right>$. Thus, all $D$-stable ideals in $R$ are indeed trivial.
+%\item[Case $H$] Exactly as the case above, since $H \simeq \currfield[y_1,y_{-1}]$.
+%\ed
+%
+%i.e. both are simple $D$-module algebras over $\currfield$.
+\paragraph{Isomorphism}
+We claim, that $(H, \Psi_H) \simeq (R, \Psi_0)$ as $D$-module algebras and $\currfield$-Hopf algebras,
+ where
+$$\Psi_0 = [d \otimes r \longmapsto \eps_D(d) r].$$
+\bws Consider the map 
+$$\bao{rrcl}
+\varphi : &R &\longrightarrow &H\\
+&y_1^i&\longmapsto&y_1^i \otimes y_{-1}^i\\
+&y_{-1}^i&\longmapsto&y_{-1}^i \otimes y_1^i,\\
+\ea$$
+defining an $\currfield$-algebra homomorphism. We remark that $R$ has group-like generators $1, y_1, y_{-1}$ which are antipode-stable. Consequently, $\varphi$ does commute:
+$$(\varphi \otimes \varphi) \Delta_R = \Delta_H \varphi,\ S_H \varphi = \varphi S_R,\ \eps_H = \eps_R \varphi.$$
+Thus, it is enough to show that $\varphi$ is a bijection. As $1_R \longmapsto 1_R \otimes 1_R$ $\varphi$ is a monomorphism. And clearly, $\sum_{i=-m}^n \lambda_i y_1^i \in \varphi^{-1}\left(\sum_{i=-m}^n \lambda_i y_{1}^i \otimes y_{-1}^i\right)$, making $\varphi$ surjective. Therefore, $\trm{Spec}(R) \simeq \trm{Spec}(H)$. Consequently, we have that
+$$\trm{Spec}(H) \simeq \trm{Spec}(\currfield[y_1]) \bsl \left\{\left<y_1\right>\right\} = \left\{\left<y_1 - a\right> : a \in \currfield^\times\right\} \cup \{0\}.$$
+Recalling the definition of $H = \ker \Delta_D(\partial)$ clearly shows the first part. The set of maximal ideals $\max(R)$ forms indeed a group:
+$$X := \max(R) = \trm{Spec}(R) \bsl \{0\} = \left\{\left<y_1 - a\right> : a \in \currfield^\times\right\} \simeq \currfield^\times,$$
+as claimed in remark  \ref{HeidRemk} if we consider the following map:
+$$\bao{rrcl}
+m : &X \times X &\longrightarrow& X,\\
+&&&\\
+& \left(\left<y_1 - a\right>,\left<y_1 - b\right>\right) &\longmapsto& \left<y_1 - a b\right>.\\
+\ea$$
+Lastly, we recall the example \ref{example_Heid_add_mul_grp_law} on pg. \pageref{example_Heid_add_mul_grp_law}, second part. Analogously to the example of Heiderich, we have for any $A \in \trm{CAlg}_{\currfield(y_1)}$,
+$$\mathbb{G}_\cdot := \{ \varphi = [\lambda_0 + \lambda_1 w \longmapsto \lambda_0 + \lambda_1 (1 + a) w] : a \in N(A)\}$$
+defines the group functor - assigning to each $A$ the subgroup of all automorphisms its group of infinitesimal transformation group $\Gamma(1,A)$.% We fix one $n \geq 2$ and set $A = \currfield(y_1)[\eps_n] \simeq \currfield(y_1)[X]/\left<X^n\right>$. Therefore,
+%$$N(A) = \bigoplus_{i=1}^{n-1} \currfield(y_1).\eps_n^i$$
+%and $\Gamma(1,\currfield(y_1)[\eps_n]) = \{w \mapsto w (1 + a) : a \in N(\currfield(y_1)[\eps_n])\}$.
+%Next, we shall compute the algebras $\kappa$ and $\mathcal{K}$, or $\kappa \otimes A[[w]]$ and $\mathcal{K} \otimes A[[w]]$ respectively, for $A = K[\eps] \simeq K[X]/\left<X^2\right>$ and the univeral Taylor-morphism $\iota : K \longrightarrow K[[t]]$ and Umemura morphism $\theta_x : K \longrightarrow K[[w]]$
+%$$\bao{rcl}
+%\trm{im} \iota &=& \left\{\sum_{i \geq 0} \frac{1}{i!} \partial^i (a) t^i : a \in K\right\}\\
+%&&\\
+%&=& \left\{\sum_{i \geq 0} \frac{1}{i!} \partial^i \left(\frac{f}{g}\right) t^i : f, g \in \ov{\qz}[x_1,x_2], g \neq 0\right\}\\
+%&&\\
+%\trm{im} \iota\mid_k &:=& \left\{\sum_{i \geq 0} \frac{\partial^i(a)}{i!} t^i : a \in \ov{\qz}\right\}\\
+%&&\\
+%&=& \ov{\qz}\\
+%&&\\
+%\trm{im} \theta_x &=& \left\{\sum_{\alpha \in \nz_0^2} \frac{1}{\alpha!} \partial_x^\alpha(a) w^\alpha : a \in \ov{\qz}(x_1,x_2)\right\}\\
+%&&\\
+%\ea$$
+%Hence, $\kappa = K$ and $\mathcal{K} = \left<\partial_x^\alpha(\iota(a)), b : a, b \in \ov{\qz}(x_1,x_2)\right>$. The extension $\theta_x[[t]] : K[[t]] \longrightarrow K[[t]] \otimes_K K[[w]]$ yields
+%$$\bao{rcl}
+%\trm{im} \theta_x[[t]]\mid_\kappa &=& \left\{\sum_{\alpha \in \nz_0^2} \frac{1}{\alpha!} \partial_x^\alpha(a) w^\alpha : a \in \ov{\qz}(x_1,x_2)\right\}\\
+%&&\\
+%\trm{im} \theta_x[[t]]\mid_{\mathcal{K}} &=& \left\{\sum_{\alpha \in \nz_0^2} \frac{1}{\alpha!} \partial_x^\alpha(a) w^\alpha : a \in \mathcal{K}\right\}\\
+%&&\\
+%&=& \left\{\sum_{(i,\alpha) \in \nz_0^3} \frac{1}{\alpha! i!} \partial_x^\alpha(\partial^i(a)) t^i \otimes w^\alpha : a \in \ov{\qz}(x_1,x_2)\right\}\\
+%\ea$$
+%Furthermore, let $\Phi = (\phi_i)_{i=1}^2 \in A[[w]]^2$ with $\phi_i \equiv w_i \mod N(A)[[w]] \simeq \left<1_{K[[t]]} \otimes \eps \right>$, i.e. $\Phi \in \Gamma(K[\eps],2)$. That means $\phi_i = \sum_\alpha a_{i,\alpha} w^\alpha \in \Gamma(K[\eps],2) \LRA a_{i,\alpha} \equiv 0 \mod N(A)$ for all $\alpha \neq e_i$ and $a_{i,e_i} \equiv 1 \mod N(A)$ and $1 \leq i \leq 2$:
+%\commt{This is some stupid shit...}
+\paragraph{General constructs from Umemura and Heiderich}
+Next, we want to construt the differential subalgebras $\kappa$ and $\mathcal{K}$ in $K[[t]]$. As $k = \currfield$ we get that
+$$\kappa := \currfield(y)\{\iota(\currfield)\}_{\partial_y} = \currfield(y).$$
+This is obvious, as $\partial^i(\currfield) = \{0\}$ for all $i \geq 1$. We want to show that our PV-ring $R = \currfield[y,y^{-1}]$ is a differential subalgebra in the differential ring $(\currfield[[t]], \partial_t := \frac{d}{d t})$.
+$$\bao{rcl}
+y &=& \sum_{i \geq 0} y_i t^i,\ y_i \in \currfield\\
+\partial(y) &=& \partial_t(y)\\
+&=&\sum_{i \geq 0} (i + 1) y_{i + 1} t^{i} = \sqrt{a} y = \sqrt{a} \sum_{i\geq 0} y_i t^i\\
+&\LRA&\\
+y_{i} &=& \sqrt{a}\frac{y_{i-1}}{i}, \forall i \geq 1\\
+&=& \sqrt{a}^i \frac{y_0}{i!}\\
+\ea$$
+Hence, we get that $y = \sum_{i \geq 0} \frac{(\sqrt{a} y_0 t)^i}{i!}$. Since $\partial_t(y) = \sqrt{a} y_0 y$, we have $y_0 = 1$ or in short:
+$$y = \exp(\sqrt{a} t),$$
+with $\exp$ as defined in Analysis. The inverse $y^{-1}$ is easily compute in the same fashion. Computing the image of $y$ under $\iota$:
+$$
+\iota(y) = \sum_{i \geq 0} \frac{\partial^i(y)}{i!} t^i = \sum_{i \geq 0} \sqrt{a}^i \frac{y}{i!} t^i
+= y \exp(\sqrt{a} t),$$
+and applying the iterative derivation 
+$\theta_y(x) = \sum_{\alpha \in \nz_0^n} \frac{\partial_y^\alpha(x)}{\alpha!} w^\alpha$ to $\iota(y)$, we yield
+$$\theta_y(\iota(y)) = \theta_y(y \exp(\sqrt{a}t )) = \sum_{\alpha \in \nz_0^1} \frac{\partial_y^\alpha(y \exp(\sqrt{a}t ))}{\alpha!} w^\alpha = y \exp(\sqrt{a}t ) + w \exp(\sqrt{a}t ) = (y + w)\exp(\sqrt{a}t ).$$
+Umemura calls this the generalized solution of our differential equation in $\currfield(y)[[w]][[t]][t^{-1}]$ (\cite{Ume96b}, exp. 3.4.2). Now, let us pick $A = \currfield(y)[\eps] = \currfield(y)[X]/\left<X^2\right>$ then $$\trm{Ume}(\currfield(y)/\currfield)(A) = \{\phi \in \Gamma_{1 A} : \phi \equiv w \mod N(A)[[w]]\}$$
+Therefore, $N(A)$ is $\currfield(y).\eps$ and we get either of the two possible (affine group) schemes $\mathbb{G}_a$ and $\mathbb{G}_m$ as $A$ point of $\trm{Ume}(\currfield(y)/\currfield)$ as described by Heiderich. Checking both:
+$$\bao{rcl}
+\varphi_a &=& [(y + w) \exp (\sqrt{a} t) \longmapsto (y + w + a) \exp (\sqrt{a} t)] \in \mathbb{G}_a,\ a \in \currfield(y).\eps\\
+&&\\
+\varphi_m &=& [(y + w) \exp (\sqrt{a} t) \longmapsto (y + w (1 + a)) \exp (\sqrt{a} t)] \in \mathbb{G}_m,\ a \in \currfield(y).\eps
+\ea$$
+However, as $w \longmapsto 0$ does not commute with the first type of $\currfield(y)$ automorphisms we get that clearly the multiplicative group scheme is the $A$ point.
+\paragraph{Conclusion}
+In stead of working in the algebraic closure $\currfield$, we could have just as easily worked in $\qz$ and $\qz(\sqrt{a})$. The only difference would be the prime ideals in the PV ring $R$ or $R(\sqrt{a}) \simeq \qz \otimes_\qz R$, respectively. Both cases would rely on the fact where the polynomial $X^2 - a \in k[X]$ is irreducible over $k$. In the first case $\sqrt{a} \notin k$, we get a two-dimensional $k$ solution space, in the latter a one-dimensional solutions space.

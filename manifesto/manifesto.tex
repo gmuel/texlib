@@ -1,0 +1,47 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[all]{xy}
+\usepackage[usenames]{color}
+\definecolor{gray}{cmyk}{0,0,0,0.1}
+\definecolor{mgreen}{cmyk}{.5,0,.5,0.35}
+\definecolor{purple}{cmyk}{.1,1,0,.2}
+\newcommand{\bn}{\begin{enumerate}}
+
+\newcommand{\en}{\end{enumerate}}
+\newcommand{\call}[1]{\mathcal{#1}}
+\newcommand{\calc}{\call{C}}
+\newcommand{\cald}{\call{D}}
+\newcommand{\obj}[1]{\mathrm{Obj}({#1})}
+\newcommand{\objc}{\obj{\calc}}
+\newcommand{\mor}[1]{\mathrm{Mor}(#1)}
+\newcommand{\morc}{\mor{\calc}}
+
+\title{Manifesto}
+\author{moi}
+\lstdefinestyle{customc}{
+  backgroundcolor=\color{gray},
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  xleftmargin=\parindent,
+  language=C++,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{mgreen},%!40!black},
+  commentstyle=\itshape\color{purple},%!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\begin{document}
+\lstset{escapechar=@,style=customc}%C++}%escapechar=@,language=customc}
+\include{intro}
+\include{impl2}
+\include{impl3}
+\end{document}

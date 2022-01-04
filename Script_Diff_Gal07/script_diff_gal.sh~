@@ -1,0 +1,12 @@
+#!/bin/bash
+dr=/home/strem_vid/Dokumente/latex/Script_Diff_Gal
+if [ "$1" == "" ]
+then
+    dr="$dr"07/
+    echo $dr
+    texmaker $dr/script_diff_gal.tks
+else
+    dr="$dr"$1
+    echo $dr
+    texmaker $dr/script_diff_gal.tks
+fi

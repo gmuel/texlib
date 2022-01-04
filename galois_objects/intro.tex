@@ -1,0 +1,205 @@
+%intro
+\section{Introduction}
+
+We briefly dicuss the prerequisit of category theoretic basics. We implicitly assume for each object $X$ an Grothendieck universe $\calu(X)$ such that $X \in \calu(X)$.
+\\
+\subsection{Basic definitions}
+
+A category $\calc$ consists of the following four data -
+\bd
+\item[Objects] the class of objects - similar to elements in sets. The class of objects are denoted as
+$$\objc,$$
+however, for brevity and if no ambiguity can arise, $A \in \calc$ (reading - $A$ an object in category $\calc$).
+\item[Morphisms] for two objects $A, B$ in $\calc$ we call an arrow or simply a map $f : A \longrightarrow B$ a morphism and its class is denoted by
+$$\homcab.$$
+Irrespective of objects one writes $\mrm{Hom}^{\calc}$.
+\item[Identity] is always an object in the class of morphisms for any object $A \in \calc$:
+$$id_A = [a \longmapsto a] \in \mrm{Hom}^{\calc}(A,A).$$
+\item[Composition] For any triplet $A, B, C \in \calc$ and arrows
+$$f \in  \mrm{Hom}^{\calc}(A, B),\ g \in \mrm{Hom}^{\calc}(B, C)$$
+there exists a unique arrow
+$$h := g \circ f \in \mrm{Hom}^{\calc}(A,C).$$
+As a commutative diagram:
+$$\xymatrix{A \ar[r]^{f}\ar[rd]_{\exists!h}&B\ar[d]^g\\
+&C.}$$
+This is usually combined in the quadruplet $(\objc,\mrm{Hom}^{\calc},id,\circ)$.
+\ed
+Furthermore, we call $\calc$
+\bd
+\item[small] category if its class of objects is small - i.e. the class of its objects is set-like.
+\item[dual] given $\calc$ its opposite category $\mrm{C^{\mrm{op}}}$ has the same class of objects just with its arrows reverted:
+$$\op{f} \in \homcopab \Leftrightarrow f \in \homc{B}{A}.$$
+Its composition is for all $A, B, C \in \calcop$ and $\op{f} \in \homcopab$ and $\op{g} \in \homcop{B}{C}$:
+$$\op{g} \op{\circ} \op{f} \in \homcop{A}{C} \Leftrightarrow f \circ g \in \homc{C}{A}.$$
+\item[monomorphims] we call a morphism $f \in \mrm{Hom}(A,B)$ a monomorphism if for all $g_1, g_2 \in \mrm{Hom}(B,C)$
+$f \circ g_1 = f \circ g_2$ implies $g_1 = g_2$.
+\item[epimorphims] we call a morphism $f \in \mrm{Hom}(A,B)$ a epimorphism if for all $g_1, g_2 \in \mrm{Hom}(C,A)$
+$g_1 \circ f = g_2 \circ f$ implies $g_1 = g_2$ (aquivalently, $\op{f}$ is a monomorphism).
+\item[isomorphisms] $f \in \homcab$ is an isomorphism if it is an epimorphism and a monomorphism within the same category. An automorphism is an isomorphism in $\homc{A}{A}$.
+\item[initial] we call $\calc$ a category with initial object $\ast$ if for each object $A \in \calc$ we get
+$$\exists ! f \in \homc{\ast}{A}.$$
+$\ast$ is its initial object
+\item[terminal] we call $\calc$ a category with terminal object $\ast$ if for each object $A \in \calc$ we
+get
+$$\exists ! f \in \homc{A}{\ast}.$$
+\item[null] a null object is terminal and inital.
+\item[equalizer] given two objects $A, B \in \calc$ and two morphisms $f, g \in \homcab$, we call an object $X \in \calc$ an equalizer if for any object $O \in \calc$ and arrow $h \in \homc{O}{A}$ we get two unique morphisms $o \in \homc{O}{X}, e \in \homc{X}{A}$ 
+$$\xymatrix{
+&O\ar[rd]^h\ar[ld]_h\ar[d]_o&\\
+A\ar[rd]_f&X\ar[l]_e\ar[r]^e&A\ar[ld]^g\\
+&B&\\
+}$$
+commutes. Not all category have equalizers for all pairs of morphisms. But, if they exist they are unique up to isomorhism. Coequalizers are equalizers in $\op{\calc}$.
+\item[products] we call $\calc$ a category with finite products if 
+\bn
+\item for each $A, B$ in $\calc$ there exists an object $P$ and two morphisms $\pi_A : P \longrightarrow A, \pi_B : P \longrightarrow B$ such that for each $O \in \calc$ with $f \in \homc{O}{A}$ and $g \in \homc{O}{B}$ there is a unique $h \in \homc{O}{P}$ so that the following diagram:
+$$\xymatrix{
+&O\ar[d]^h\ar[dl]_f\ar[dr]^g&\\
+A&P\ar[l]^{\pi_A}\ar[r]_{\pi_B}&B\\
+}$$
+commutes. $P$ is usually denoted by the cartesian product notation $P = A \times B$. This, in turn, enables us to define the $\call{J}$ products: given a subclass of objects $A_J$ indexed by $\call{J}$ then its product is defined to be an object $P \in \calc$ such that
+$$\xymatrix{
+O \ar[dd]_{h}\ar[rd]_{f_J}\ar[rrrd]_{f_{J'}}\ar[rrrrrd]_{f_{J''}}\\
+&A_J && A_{J'} && A_{J''}&\ldots\\
+\prod_{J \in \call{J}} A_J =: P\ar[ur]^{\pi_J} \ar[urrr]^{\pi_{J'}}\ar[urrrrr]^{\pi_{J''}}\\
+}$$
+\en
+Coproducts are products in $\op{\calc}$.
+\item[pullback] Given three objects $A, B, C \in \calc$ and two morphisms $f: A \longrightarrow C, g : B \longrightarrow C$ we call an object $P \in \calc$ the pullback of $(f,g)$ if $P$ is the equalizer of $(\pi_A \circ f, \pi_B \circ g)$ in $\homc{A \times B}{C}$ and projections $\pi_A : A \times B \longrightarrow A, \pi_B : A \times B \longrightarrow B$:
+$$\xymatrix{
+&O\ar[rd]^h\ar[ld]_h\ar[d]_o&\\
+A \times B\ar[d]_{\pi_A}&P\ar[l]_e\ar[r]^e&A \times B\ar[d]^{\pi_B}\\
+A\ar[rd]_f&&B \ar[ld]^g\\
+&C&\\
+}$$
+$P$ is denoted by $A \times_{C} B$ and can be thought off as 
+\ed
+Given two categories $\calc$ and $\call{D}$ - we call 
+\begin{defi}[Functors]
+a pairing $F : \calc \longrightarrow \call{D}$ a functor for any two objects $A, B \in \calc$ with arrow  $f \in \homcab$ - if one of the following holds:
+\bd
+\item[Covariant] $$\xymatrix{
+A \ar[d]_F\ar[r]^f &B\ar[d]^F\\
+F(A) \ar[r]_{F(f)}&F(B).\\
+}$$ and $F(id_A) = id_{F(A)}$. In particular, $F(f) \in \homo{\call{D}}{F(A)}{F(B)}$.
+\item[Contravariant] $$\xymatrix{
+A \ar[d]_F\ar[r]^f &B\ar[d]^F\\
+F(A) &F(B)\ar[l]_{F(f)}\\
+}$$ and $F(id_A) = id^{-1}_{F(A)}$. In particular, $F(f) \in \homo{\op{\call{D}}}{F(A)}{F(B)}$.
+\ed
+\end{defi}
+\subsection{Examples} 
+We will be discussing some promiment examples:
+\subsubsection{General categories}
+\paragraph{Category $\mrm{Set}$}
+The category of sets is denoted by $\mrm{Set}$ and consists of all objects the behave "set-like" (the most basic property is the choice property - $\chi_{x} : \{A \subset X\} \longrightarrow \{Y: Y \subset X,\ |Y| = 0,1 \}$ mapping singleton subsets to itself or empty set
+$$\chi_{x} = \left[A \longmapsto \begin{cases}
+\emptyset, & x \notin A\\
+\{x\},& \mrm{else}\\\end{cases}\right]$$
+). With these classes of maps we may define the equality property - elements are equal if and only if the choice function collide. Its class of arrows are simply all maps among sets.
+The category of pointed spaces is denoted by $\mrm{pspc}$ and consists of objects $X$ with a "choice function":
+$ \chi : X \longrightarrow \mrm{sing}, x' \longmapsto \ast$. With $\ast$ the base point. This definitions is equivalent to $\mrm{Set}$ except that no subspace (sub object) may ever be empty (empty set is not an object in $\mrm{pspc}$. Its morphisms are the base point preserving maps in $\mrm{Set}$.
+
+\paragraph{Power set as functor} Given an arbitrary set $X$, its power set $\call{P}(X)$ defines a functor
+$$\calp : \mrm{set} \longrightarrow \mrm{set},\ X \longmapsto \calp(X).$$
+which is contravariant and covariant at the same time. Consider a map $f : A \longrightarrow B$:
+\bn
+\item is covariant as  $\calp(f) : \calp(A) \longrightarrow \calp(B)$ simply maps each subset of $A$ to the subsets of $B$ containing images of each subset mapped:
+
+$$f(A') \cap \calp(B) = \{f(A') \cap B' : B' \subset B\},\ \forall A' \subset A.$$
+\item is contravariant as with the same we get
+$$\calp(f) : \calp(B) \longrightarrow \calp(A),\ B' \longmapsto f^{-1}(B') \subset A.$$
+\en
+Thus, within $\mrm{set}$ both concepts (Co/Contravariance), with respect to $\calp$, are isomorphic.
+\subsection{Algebraic catories}
+There a some prominent examples we will be discussing algebraic categories as we will be revisiting some of them later on.
+
+\subsubsection{Semi groups} We call $(S, m) \in \mrm{SGrp}$ - if $m : S \times S \longrightarrow S$ is a closed associative binary operation:
+\bn
+\item Closedness:
+$$m(s,t) \in S\ \forall (s,t) \in S^2,$$
+$$\Leftrightarrow m^{-1}(S) \supset S^2.$$
+\item Associativity: 
+$$\xymatrix{
+S^3 \ar[r]^{m \times id_S}\ar[d]_{id_S \times m}& S^2 \ar[d]^m\\
+S^2 \ar[r]_m &S\\
+}
+$$
+\en
+We remark that the empty set is a semi group as clearly the diagonal projection defines a map $\emptyset \times \emptyset \longrightarrow \emptyset$.
+\subsubsection{Monoids} A semi group is a monoid or, $(M, m, e) \in \mrm{Mon}$, if there is an initial object $\ast \in \mrm{Mon}$ and an arrow $e : \ast \longrightarrow M \in \homo{\mrm{Mon}}{\ast}{M}$, such that
+$$\xymatrix{
+\ast \times M \ar[rr]^{e \times id_M}\ar[rrd]_\simeq&&M^2 \ar[d]_m&&M \times \ast\ar[ll]_{id_M \times e} \ar[lld]^{\simeq}\\
+&&M&&\\
+}$$
+commutes. The map $e$ is is called the unit.
+\subsubsection{Groups} Monoids are the quatuple $(G,m,e,S)$ with map $S : G \longrightarrow G$ such that
+$$\xymatrix{
+&G \ar[rd]^\Delta\ar[ld]_\Delta\ar[dd]&\\
+G^2\ar[dd]_{S \times id_G}&&G^2\ar[dd]^{id_G \times S}\\
+&\ast\ar[dd]_e&\\
+G^2\ar[rd]_m&&G^2\ar[ld]^m\\
+&G&\\
+}$$
+with $\Delta : G \longrightarrow G^2$, the diagonal map:
+$$\xymatrix{
+G \ar[r]^\Delta\ar[d]_\Delta\ar[rd]_\simeq&G^2\ar[d]^{\pi_1}\\
+G^2\ar[r]_{\pi_2}&G\\
+}$$
+for the two projections $\pi_1, \pi_2$ in the first and second factor, respectively. The map $S$, the so called antipode, is ań antiisomorphism - that is it is an isomorphism in $\grp$, but its image object is in general not $G$ itself. Rather, it is the so called opposite group:
+$$\op{G} \in \grp: \op{G} := G \in \obj{\grp},\ \op{m} := m_G \circ \tau.$$
+The object is $G$ itself but its multiplication is is the flipped version of $m_G = m$. We remark that the object $G$ need not to be an object in $\grp$ - it suffice for $G$ to be a semi group. Inversion and unity are of no consequence.
+\subsubsection{Abelian groups} We call an object $(A,m,e,S,\tau) \in \abel \subset \grp$ abelian (group) if $\op{A} = A$, that is $\op{m} = m$. Aquivalently, $S$ is a group automorphism. The map $\tau$ is the flip isomorphism:
+$$\tau = \tau_{A\times B}: A \times B \longrightarrow B \times A$$
+such that
+$$\xymatrix{
+&A \times B \ar[ld]_{\pi_A}\ar[rd]^{\pi_B}\ar[dd]_\tau&\\
+A & & B\\
+&B \times A\ar[lu]^{\pi_A}\ar[ru]_{\pi_B}\\
+}$$
+commutes.
+\subsubsection{Rings} Rings $(R,m_+,e_+,S_+,m_*,\tau) \in \mrm{Rng}$ are subobjects $(R,m_+,e_+,S_+,\tau) \in \mrm{Abel}$ such that $(R,m_*)$ is a semi group and the following diagrams commute:
+$$\bao{cc}
+\xymatrix{
+R^4\ar[rrr]^{id_R \times \tau \times id_R}&&&R^4\ar[d]^{m_* \times m_*}\\
+R^3\ar[d]_{id_R \times m_+}\ar[u]^{\Delta \times id_{R^2}}&&&R^2\ar[d]^{m_+}\\
+R^2 \ar[rrr]_{m_*}&&
+&R\\
+} & \xymatrix{
+R^4\ar[rrr]^{id_R \times \tau \times id_R}&&&R^4\ar[d]^{m_* \times m_*}\\
+R^3\ar[d]_{m_+ \times id_R}\ar[u]^{id_{R^2} \times \Delta}&&&R^2\ar[d]^{m_+}\\
+R^2 \ar[rrr]_{m_*}&&
+&R\\
+}
+\ea$$
+The left hand side represents the left dissociativity and the right hand side the right dissociativity. We call $R \in \mrm{Rng}$ unital or $R \in \mrm{URng}$ is there is an arrow $e_* : \ast \longrightarrow R$ such that $(R,m_*,e_*)$ is a monoid and commutative or $R \in \mrm{CRng}$ if $\op{(R,m_*)} = (R,m_*)$.
+\newcommand{\htalpha}{\hat{\alpha}}
+\subsubsection{Modules} Given a ring $(R,m_+,e_+,S_+,m_*)$ we call an abelian group $(M,m_M,e_M,S_M) \in \abel$ an $R$ left module if there is an arrow $$\alpha \in \homo{\grp}{R}{S(M) := \mrm{Aut}^{\grp}(M)}$$ such that for $\htalpha : R \times M \longrightarrow M, \htalpha = eval \circ (\alpha \times id_M)$ and $eval: S(M) \times M \longrightarrow M,$:
+$$\bao{cc}
+ \xymatrix{
+R^2 \times M^2\ar[rr]^{id_R \times \tau_{R \times M} \times id_M}&&(R \times M)^2\ar[d]^{\htalpha \times \htalpha}\\
+R \times M^2\ar[d]_{id_R \times m_M}\ar[u]^{\Delta_R \times id_{M^2}}&&M^2\ar[d]^{m_M}\\
+R \times M \ar[rr]_{\htalpha}&&M\\
+}
+& \xymatrix{
+R^2 \times M \ar[d]_{m_* \times id_M}\ar[r]^{id_R \times \htalpha}&R \times M\ar[d]^\htalpha\\
+R \times M \ar[r]_\htalpha &M\\
+}
+\\ \xymatrix{
+R^2 \times M^2\ar[rr]^{id_R \times \tau_{R \times M} \times id_M}&&(R \times M)^2\ar[d]^{\htalpha \times \htalpha}\\
+R^2 \times M\ar[d]_{m_+ \times id_M}\ar[u]^{id_{R^2} \times \Delta_M}&&M^2\ar[d]^{m_M}\\
+R \times M \ar[rr]_{\htalpha}&&M\\
+}
+\ea$$
+commute. The first column represents the ring and module dissociativities, respectively. The second column is the semi group torsor property - $\htalpha$ commutes with ring multiplication $m_*$. $R$ right modules are $\op{R}$ left modules and aquivalently, an $R$ left module is an $\op{R}$ right module. Here, $\op{m_+} = m_+$ and $\op{m_*} = m_* \circ \tau_{R^2}$. Therefore,
+$$\op{\alpha} = \alpha,\ \op{eval} = eval \circ \tau_{S(M) \times R} \ \mrm{and}\ \op{\htalpha} = \op{eval} \circ (id_M \times \alpha).$$
+A two sided module is left and right sided $R$ module. Two sided modules are of specifial interest as they do have products: given two ts-$R$ modules $M$ and $N$ for any bi-linear map $f : M \times N \longrightarrow P$ and module $P$ there is the following universal property:
+$$\xymatrix{
+M \times N \ar[r]^{\otimes_R}\ar[rd]_{f}&M \otimes_R N\ar[d]^{\exists! g \in \mrm{Hom}_R(M\otimes N,P)}\\
+&P\\
+}$$
+We call $M \otimes_R N$ the tensor product of $M$ and $N$ being also a two sided module. In general, a right module $M$ can have (tensor) products $M \otimes_R N$ with left modules $N$. However, these objects are no longer modules. They are merely objects in $\abel$. 
+\subsubsection{Algebras} A two sided $R$ module $A$ is an algebra if there is an $R$ linear map $\mu : A \otimes_R A \longrightarrow A$ making $A$ a two-sided $A$ module.
+
+
+

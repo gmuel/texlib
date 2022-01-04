@@ -1,0 +1,34 @@
+\section{Introduction}
+In this paper we are going to study Lie algebras over unital commutative rings $R$, with $2 \nmid \mathrm{char}(R)$ which are projective of finite type as $R$-modules.
+\subsection{Lie algebras and their coalgebras}
+A Lie algebra $\lieg$ is an $R$-module with $R$-linear map:
+$$\mu : \lieg \otimes_R \lieg \longrightarrow \lieg$$
+that is antisymmetric ($\mu = -\tau \mu$) and Jacobi-identity holds:
+$$\mu (1 \otimes \mu) (1 + \zeta_3 + \zeta_3^2)(x_1 \otimes x_2 \otimes x_3) = 0, x_i \in \lieg$$
+where $\zeta_3$ is the cyclic permutation of the tensors, $\tau = [x \otimes y \longmapsto y \otimes x]$ the flip map and $1$ the identity map. In \cite{SongSu}, they proposed
+$$\ker (1 - \tau) \subset \ker \mu$$
+as an alternative for antisymmetry.
+\begin{defi}
+An $R$-module $\lieg$ with $R$-linear map $\Delta : \lieg \longrightarrow \lieg \otimes \lieg$ is called an Lie $R$-coalgebra if:
+\bi
+\item $\mathrm{im} \Delta \subset \mathrm{im} (1 - \tau)$
+\item $(1 + \zeta_3 + \zeta_3^2) (1 \otimes \Delta) \Delta = 0$.
+\ei
+\end{defi}
+We recall that an coassociative coalgebra fulfills $(1 \otimes \Delta)\Delta = (\Delta \otimes 1)\Delta)$. For clarity we repeat:
+a bialgebra is an $R$-module $B$, with multiplication $\mu$, comultiplication $\Delta$ (and optional unit and counit), such that $\mu, \eta$ are homomorphisms of coalgebras and $\Delta, \eps$ are homomorphisms of algebras over $R$.
+\begin{defi}
+An Lie bialgebra $(\lieg,\mu,\Delta)$ is a:
+\bi
+\item Lie algebra $(\lieg,\mu)$ and
+\item Lie coalgebra $(\lieg,\Delta)$,
+\ei
+such that the following diagram commutes:
+$$\xymatrix{
+\lieg \otimes \lieg \ar[rr]^\mu\ar[d]_{D \otimes D} && \lieg \ar[rr]^\Delta && \lieg \otimes \lieg\\
+\lieg^{\otimes 4} \ar[d]_{id \otimes \tau\otimes id} &&&&\\
+\lieg^{\otimes 4} \ar[d]_{id \otimes id \otimes \tau} &&&&\\
+\lieg^{\otimes4} \ar[rr]_{id \otimes \Delta \otimes id \otimes \Delta} &&\lieg^{\otimes 6} \ar[rr]_{\mu \otimes id \otimes \mu \otimes id} && \lieg^{\otimes4}\ar[uuu]_{\pi_1 - \pi_2}\\
+}$$
+where $D : \lieg \longrightarrow \lieg \otimes \lieg, x \longmapsto x \otimes x$, $\pi_1 : \lieg^{\otimes 4} \longrightarrow \lieg\otimes\lieg, x \otimes y \otimes z \otimes u \longmapsto x \otimes y$, $\pi_2 : \lieg^{\otimes 4} \longrightarrow \lieg \otimes \lieg$, $x \otimes y \otimes z \otimes u \longmapsto z \otimes u$.
+\end{defi}

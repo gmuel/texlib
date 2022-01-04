@@ -1,0 +1,184 @@
+\section{Introduction}
+This paper is a brief summary of differential algebra. We will discuss some introductory defintions and theorems and, later on, some examples. Basic knowledge of commutative algebra is required. We assume each ring $R$ to be commutative and unital. Furthermore, we omit subscripts where they can be inferred from context. The dual of an $R$ module $M$ is denoted by $M^*$.
+\subsection{Basics}
+Let $R$ be a ring and $A$ an $R$ algebra, that is $A$ is an $R$ module with $R$ linear map
+$$\mu : A \otimes A \longrightarrow A,\ a \otimes a' \longmapsto a a'.$$
+We denote an algebra $A$ with multiplication $m$ by $(A, \mu)$. We call $A$ associative if
+$$\xymatrix{
+A^{\otimes 3} \ar[r]^{\mu \otimes id_A} \ar[d]_{id_A \otimes \mu} & A^{\otimes 2}\ar[d]^{\mu}\\
+A^{\otimes 2} \ar[r]_{\mu} &A\\
+}$$
+commutes. We call a map $\eta \in \mathrm{Hom}(R,A)$ unit map if
+$$\xymatrix{
+&A^{\otimes 2}\ar[d]^\mu&\\
+R \otimes A \ar[r]_{\simeq}\ar[ru]^{\eta \otimes id_A} &A&A \otimes R \ar[lu]_{id_A \otimes \eta}\ar[l]^\simeq\\
+}$$
+commutes. In this case, we call $A$ a unital algebra over $R$ (denoted by $(A, \mu, \eta)$).
+\subsubsection{Derivations}
+\begin{defi}[Leibniz-rule]
+We call a map $\partial \in \mathrm{End}_R(A)$ an $R$ derivation if
+$$\partial(a a') = \partial(a) a' + a \partial(a'),\ \forall a, a' \in A.$$
+A unital (associative) algebra $(A, \mu, \eta)$ with derivation $\partial$ is denoted by
+$$(A, \mu, \eta, \partial).$$
+The subset $B \subset A$ with $\partial(b) = 0$ for all $b \in B$ is called the set of constants and is denoted by
+$$A^\partial := \{a \in A : \partial(a) = 0\}.$$
+\end{defi}
+From this definition we get
+\begin{koro}
+Let $A$ and $A^\partial$ be as above and let $A^\times = \{b \in A : \exists b' \in A, b b' = 1_A\} \neq \emptyset$.
+\bn
+\item The set of constants $A^\partial$ is an $R$ subalgebra of $A$,
+\item the unit $1_A \in A$ is constant and
+\item if $A$ is a division algebra (field) then $A^\partial$ is a division algebra (field).
+\en
+\end{koro}
+\bws is straight forward.
+\bn
+\item Clearly, $A^\partial$ is an $R$ submodule. Thus, it suffice to show that $A^\partial$ is an algebra over $R$. Let $a, a' \in A^\partial$ then
+$$\partial(a a') = \partial(a) a' + a \partial(a') = 0 \cdot a' + a \cdot 0 = 0$$
+proving that products of constants are also constant.
+\item Let $2 \neq \chr R$. By definition, we have
+$$\partial(1_A) = \partial(1_A \cdot 1_A) = \partial(1_A) 1_A + 1_A \partial(1_A) = 2 \partial(1_A) \Leftrightarrow 0 = \partial(1_A)$$
+showing our claim, in parts. Let us assume that $\chr R = 2$ and fix some $n \in 2 \nz$ (i.e. an even number). We have that
+$$1_A = \underbrace{1_A \cdot \ldots \cdot 1_A}_{n-\mathrm{times}} \Rightarrow \partial(1_A) = \sum_{i=1}^n \underbrace{1_A \cdot \ldots \cdot 1_A}_{n-1\mathrm{-times}} \partial(1_A) = 0 \mod 2$$
+again showing our assumption under given circumstances. Note, that an odd $n$ would yield
+$$\partial(1_A) = \partial(1_A) \Leftrightarrow \partial(0) = 0.$$
+\item If $a \in A^\times \cap A^\partial := \{b \in A^\partial : \exists b' \in A, b b' = 1_A\}$ and $a^{-1} \in A^\times$ its inverse then:
+$$\partial(a a^{-1}) = \partial(1_A) \stackrel{!}{=} 0 = \partial(a) a^{-1} + a \partial(a^{-1}) = a \partial(a^{-1}) \Leftrightarrow a^{-1} \in A^\partial.$$
+\en
+\bmk Obviously, the algebra of constants over any differential ring $(R, \partial)$ is called the ring of constants. As we just saw, a differential division algebra has a division algebra as algebra of constants, therefore we get that the ring of constants of a differential field is a field.
+\bsp Let $R$ be a ring.
+\bn
+\item With $\chr R = 0$ then $\left(R[X],\mu_{R[X]}, \eta, \partial = \left[X \longmapsto 1_R\right]\right)$ has $R$ as its sole ring of constants.
+\item With $\chr R = p$, the ring of constants can be non-trivial - let $p \in \zz_{>0}$ be prime:
+$$
+\bao{rrcl}
+\partial : &R[X^p] &\longrightarrow& R[X^p],\\
+&&&\\
+&\sum r_k X^{p^k}& \longmapsto& \sum r_k \partial\left(X^{p^k}\right)\\
+&&&\\
+&& = & \sum r_k p^k X^{p^k-1}\partial(X)\\
+&&&\\
+&&=& 0\\
+\ea$$
+Thus, in prime characterisic, the ring of constants is strictly larger than $R$: $R[X]^\partial = R[X^p]$.
+\en
+
+\section{Generalisations}
+There are two prominent ways to formalise and generalise the concept of derivations and their algebras.
+\subsection{Lie Algebras}
+The first way of formalisations are Lie algebras. 
+\begin{defi}
+
+An $R$ algebra $(\lieg,\mu)$ is called a Lie algebra if $\mu : \lieg \otimes \lieg \longrightarrow \lieg$ fulfills:
+\bn
+\item Jacobian identity:
+$$\sum_{i=0}^2 \mu \circ (\mu \otimes id_{\lieg}) \circ \sigma_3^i(g_1 \otimes g_2 \otimes g_3) = 0,\ \mathrm{for~all}\ g_1 \otimes g_2 \otimes g_3 \in \lieg^{\otimes 3}.$$
+Here, $\sigma_3 := (1,2,3) \in \mathrm{Gl}_R(\lieg^{\otimes3})$ is a $3$-cycle with $\sigma_3^3 = id$.
+\item Antissymmetry:
+$$\mu \circ \tau = - \mu,\ \mathrm{for}\ \tau = [g \otimes h \longmapsto h \otimes g].$$
+\en
+\end{defi}
+\begin{koro}
+Given any associative algebra $(A,\mu)$:
+\bn
+\item The commutator
+$$[,] = [a \otimes b \longmapsto \mu(a \otimes b) - \mu(b \otimes a)] = \mu - \mu \tau,$$
+defines a Lie algebra $(\lieg(A),[,])$ on $A$. As $R$ modules, they are identical.
+\item The module of $R$ derivations on $A$ forms a Lie algebra $\mathrm{Der}_R(A)$ with commutator 
+$$[,] : \lieg(\mathrm{End}_R(A)) \otimes \lieg(\mathrm{End}_R(A)) \longrightarrow \lieg(\mathrm{End}_R(A)),$$
+restricted to the sub Lie algebra.
+\en
+\end{koro}
+\bmk The proof is left to the reader. We shall extend our
+\begin{defi}
+Let $(\lieg,\mu)$ be an $R$-Lie algebra. We call an $R$-submodule $\lieh \subset \lieg$ an $R$-Lie subalgebra if
+$$(\lieh,\mu\mid_{\frk{h}}) \subset (\lieg,\mu)$$
+is a Lie algebra in its own right. Given two Lie algebras $(\lieg,\mu_{\lieg})$ and $(\lieh,\mu_{\lieh})$ and a homomorphism $f \in \mathrm{Hom}_R(\lieg,\lieh)$. We call $f$ a homomorphism of Lie algebras if
+$$\xymatrix{
+\lieg^{\otimes 2}\ar[r]^{f\otimes f}\ar[d]_{\mu_{\lieg}}&\lieh^{\otimes 2}\ar[d]^{\mu_{\lieh}}\\
+\lieg \ar[r]_f& \lieh\\
+}$$
+commutes. We call a Lie subalgebra $\liea \subset \lieg$ a Lie ideal if
+$$\mu(\liea \otimes_R \lieg) \subset \liea.$$
+We call a Lie algebra $\lieg$ nilpotent if each sequence $(g_n) \in \lieg^{\nz}$ with
+$$\mu^{n-1}(g_1 \otimes g_2 \otimes \ldots \otimes g_n) = 0$$
+has finite length. Here, $\mu^n := \mu^{n-1}(\mu \otimes id_{\lieg^{\otimes (n - 1)}})$, $\mu^0 = id_\lieg$ and $\mu^1 = \mu$. For each Lie algebra $\lieg$ we get a chain of descending ideals: the so called $n$-th derived Lie algebra:
+$$\mathcal{D}^n(\lieg) := \mu(\mathcal{D}^{n-1}(\lieg) \otimes \lieg),\ \mathrm{and}\ \mathcal{D}^0(\lieg) = \lieg.$$
+We call $\lieg$ solvable if $\mathcal{D}(\lieg) = \mathcal{D}^1(\lieg)$ is nilpotent. 
+\end{defi}
+
+\bsp Let $R$ be a ring and $A = R[X]$ - its ring of polynomials. The endomorphism $\partial_X = [X \longmapsto 1] \in \mathrm{End}_R(A)$ is the classical example of a non-trivial $R$-derivation. Moreover, $\mathrm{Der}_R(R[X])$ contains $R[X]$-left modules:\\
+\indent Claim: for any derivation $\partial : R[X] \longrightarrow R[X]$, the $R$-submodule
+$$R[X].\partial \subset \der{R[X]}$$
+is an $R[X]$-left module in $\der{R[X]}$.
+\paragraph{Proof} Given a derivation $\partial \in \der{R[X]}$ and two polynomials $p, q \in R[X]$:
+$$\bao{rcl}
+[p \partial,q \partial] &=& p \partial(q \partial) - q \partial(p \partial)\\&&\\ &=& p \partial(q) \partial + p q \partial^2 - q \partial(p) \partial - q p \partial^2\\
+&&\\
+&=& (p \partial(q) - q \partial(p)) \partial + (p q - p q) \partial^2\\
+&&\\
+&=& (p \partial(q) - q \partial(p)) \partial \in R[X].\partial\\
+\ea$$
+\bmk This proof actually applies to any differential algebra - given any derivation $\partial \in \dera$, the $R$-submodule $R . \partial$ generates an $A$-left submodule in $\dera$.
+\begin{defi}
+
+\end{defi}
+\subsection{Coalgbras}
+Speaking in a categorical manner, for every ring $R$ algebras are the dual category of the category of $R$ coalgebras. We compare the diagrams defining algebras and coalgebras. Again, $(A, \mu, \eta)$ is an unital associative $R$ algebra - we call an $R$ module $C$ a coalgebra if there is an $R$ linear map $\Delta : C \longrightarrow C^{\otimes2}$. In addition, we call a coalgebra $(C, \Delta)$ coassociative or counital for a given $\eps \in \mathrm{Hom}(C,R) = C^\ast$ if 
+$$(\eps \otimes id_C) \Delta = (id_C \otimes \eps) \Delta = id_C$$
+and the following diagrams commute:
+\begin{longtable}{|c|cc|}
+\hline
+Coalgebras: &$$
+\xymatrix{
+C^{\otimes 3}  & C^{\otimes 2}\ar[l]_{id_C \otimes \Delta}\\
+C^{\otimes 2} \ar[u]^{\Delta \otimes id_C}&C\ar[l]^{\Delta} \ar[u]_{\Delta}\\
+}$$
+&$$
+\xymatrix{
+&C^{\otimes 2}\ar[ld]_{\eps \otimes id_C}\ar[rd]^{id_C \otimes \eps}&\\
+R \otimes C  &C\ar[u]_\Delta\ar[r]_{\simeq}\ar[l]^\simeq&C \otimes R \\
+}$$\\
+&Coassociativity & Counitality\\
+\hline
+&&\\
+Algebras: &$$
+\xymatrix{
+A^{\otimes 3} \ar[r]^{\mu \otimes id_A} \ar[d]_{id_A \otimes \mu} & A^{\otimes 2}\ar[d]^{\mu}\\
+A^{\otimes 2} \ar[r]_{\mu} &A\\
+}$$
+&$$
+\xymatrix{
+&A^{\otimes 2}\ar[d]^\mu&\\
+R \otimes A \ar[r]_{\simeq}\ar[ru]^{\eta \otimes id_A} &A&A \otimes R \ar[lu]_{id_A \otimes \eta}\ar[l]^\simeq\\
+}$$\\
+&Associativity & Unitality\\
+\hline
+\end{longtable}
+Clearly, each column is simply the inversion of arrows within the respective diagram. More interesting is the fact that the dual module $C^\ast$ for each coalgebra $(C, \Delta, \eps)$ is an algebra with multiplication
+$$\mu_{C^\ast} := \Delta^\ast = \left[\alpha \otimes \beta \longmapsto (\alpha \otimes \beta) \Delta = \left[c \longmapsto \mu_R(\alpha \otimes \beta)\Delta(c) = \sum_{(c)} \alpha(c_{(1)}) \beta(c_{(2)})\right]\right],$$
+with Sweedler notation $\Delta(c) = \sum_{(c)} c_{(1)} \otimes c_{(2)}$ and $\mu_R$ denoting the multiplication on $R$. With the dual of the counit we get a unit: $\eta_{C^\ast} = \eps^\ast = [1_R \longmapsto \eps]$.\\
+We call a coalgebra $C$ cocommutative if
+$$\xymatrix{
+&C \ar[rd]^\Delta \ar[dl]_\Delta&\\
+C^{\otimes2} \ar[rr]_\tau &&C^{\otimes2}\\
+}$$
+commutes for $\tau : C^{\otimes2} \longrightarrow C^{\otimes2}, c \otimes c' \longmapsto c' \otimes c$ the flip isomorphism.
+\subsubsection{Group-likes and skew primitives}
+Unless stated otherwise, we will always assume a coalgebra $C$ to be coassociative and counital.
+\begin{defi}
+We call an element $c \in C$ group-like if
+$$\Delta(c) = c \otimes c.$$
+We call an element $c$ $(g,h)$ skew primitive, for two group-like elements $g, h \in C$, if
+$$\Delta(c) = g \otimes c + c \otimes h.$$
+\end{defi}
+Firstly, a group-like element $c \in C$ has $\eps(c) = 1$ as $(id_C \otimes \eps)\Delta(c) = id(c) \otimes \eps(c) = \eps(c) c \stackrel{!}{=} 1 \Leftrightarrow \eps(c) = 1$. Secondly, for two group-like $g, h \in C$ we have that a $(g,h)$ skew primitive element $c \in C$:
+$$\bao{rcl}
+c &\stackrel{!}{=}& (id_C \otimes \eps)\Delta(c) = id_C(g) \otimes \eps(c) + id_C(c) \otimes \eps(h)\\
+&&\\
+&\stackrel{!}{=}& (\eps \otimes id_C)\Delta(c) = \eps(g) \otimes id_C(c) + \eps(c) \otimes id_C(h)\\
+\Leftrightarrow\\
+\eps(c) &=& 0\\
+\ea$$
+\bmk Consider Skew primitive elements are, in essence, a generalisation of derivations - each derivation is simply a 

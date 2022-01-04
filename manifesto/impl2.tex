@@ -1,0 +1,142 @@
+\section{Mathematical basics}
+This section is going to describe the mathematical concepts of an general computer algebra library which shall be implemented. Although a swath of computer algebra programs is available none of these programs comes with a library the an interested user may simply include in his/her own project.\\
+\indent In addition, as anyone can imagine no single program can provide all objecs which are currently investigated. Worse, the user is forced to delve into each programs programming structures and restrictions and potentially has to change the program if desires and needs are not met.
+\subsection{Categories and functor}
+As we briefly outlined in the first chapter, we discuss the functorial approach. Firstly, we like to explain some the features needed.
+\subsubsection{Basic concepts}
+We will denote an arbitrary category with $\mathcal{C}$.
+\paragraph{Categories} Categories comprise of three concepts or data encoding it:
+\begin{description}
+\item[Objects] are the instances of a category. They are not necessarily sets in a set theoretic sense rather classes. They are denoted by $\mathrm{Obj}_{\mathcal{C}}$ or $\objc$.
+\item[Morphisms] are maps connecting objects in a category sometimes trivially called arrows. These maps are not arbitrary but preserve or respect the structure of each object. The class of morphisms are denoted by $\morc$.
+\item[Identity] is a unique map, actually a functor mapping each object $A \in \objc$ to its identity morphism $id_A : A \longrightarrow A$.
+\end{description}
+The last point is of utmost importance: the identity map is always a morphism in a given category. Furthermore, given a triple $A, B, C \in \objc$ and morhisms $f : A \longrightarrow B, g : \longrightarrow C \in \morc$ the composition yields a new morphism:
+$$g \circ f : A \longrightarrow C \in \morc.$$
+Some authors require all five properties to be fulfilled to called a category others omit some.
+\paragraph{Functors}
+Functors can be thought of as maps between categories. To specify given two categories $\mathcal{C}$ and $\mathcal{D}$, a functor $F$ is a pairing $F : \mathcal{C} \longrightarrow \mathcal{D}$ of these two such that:
+\begin{description}
+\item[Variance] For $A, B \in \objc$ and $f \in \morc$ either of the two diagrams commutes:
+$$\begin{array}{cc}
+\xymatrix{
+A \ar[d]_F\ar[r]^f& B\ar[d]^F\\
+F(A) \ar[r]_{(f)} &F(B)\\
+} & \xymatrix{
+A \ar[d]_F\ar[r]^f& B\ar[d]^F\\
+F(A)  &F(B).\ar[l]^{F(f)}\\
+} 
+\end{array}
+$$
+The left diagram represents a so called covariant functor $F$ - the right one a so called contravariant functor.
+\item[Morphism and identity] The map $F(f) : F(A) \longrightarrow F(B)$ in the covariant case and the map $F(f) : F(B) \longrightarrow F(A)$ in the contravariant case are morphisms in $\mor{\mathcal{D}}$. In particular, $F(id_A) = id_{F(A)}$ and $F(id_A) = id_{F(B)}$ are a morphisms.
+\end{description}
+There are categories consisting of categories or functors. We will leave it to the reader to explore those. In addition, we may get new categories 
+\subsubsection{Examples}
+As any brief discussion, we will a some examples to illustrate these concepts.
+\paragraph{The categories $\mathrm{Set}$ and $\mathrm{Top}$}
+The most general category we are going to discuss is the category of all sets, $\mathrm{Set}$, with morphisms $\mor{\mathrm{Set}}$ simply as maps
+$$f \in \mathrm{map}(A,B) = B^A \subset \mor{\mathrm{Set}},$$
+for all $A, B \in \obj{\mathrm{Set}}$.\\
+We call a category $\calc$ small if the class of all its objects is a set in a set theoretic sense. The above example is not small, therefore appropiately called large (i.e. a large category).\\
+\indent The next example is the category of all topological spaces, $\mathrm{Top}$, with continuous maps as morphisms:
+Furthermore, we may define two pairings
+$$\begin{array}{rrcl}
+\call{O} :& \mathrm{Top} &\longrightarrow& \mathrm{Set},\\
+&&&\\
+& (A, \tau) &\longmapsto &\left\{U \in \tau :  U\ \mathrm{open}\right\},\\
+&&&\\
+\call{F} :& \mathrm{Top}&\longrightarrow& \mathrm{Set},\\
+&&&\\
+&(A, \tau) &\longmapsto& \left\{F \in \tau : F \ \mathrm{closed}\right\}\\
+\end{array}\\
+$$
+then we get a map $f \in C(A,B) \subset \mor{\mathrm{Top}}$ if and only if the following diagrams:
+$$\begin{array}{ccc}
+\xymatrix{
+A \ar[r]^f\ar[d]_{\call{F}} & B\ar[d]^{\call{F}}\\
+\call{F}(A) &\call{F}(B)\ar[l]^{\call{F}(f)}\\
+}&\mathrm{and}&\xymatrix{
+A \ar[r]^f\ar[d]_{\call{O}} & B\ar[d]^{\call{O}}\\
+\call{O}(A) &\call{O}(B)\ar[l]^{\call{O}(f)}\\
+}\\
+\end{array}
+$$
+commute. Moreover, what we simply called a pairing from topological spaces with their respetive sub topologies of open or closed sets, respectively, are in fact two contravariant functors.
+\paragraph{Pointed spaces and partially ordered sets}
+Given a set $X$ and an element $x_0 \in X$, we call the pair $(X,x_0)$ a pointed space and $x_0$ its base point. The class of all pointed spaces forms a category $\mathrm{Pt}$ wrt. to maps preserving base points as morphisms. By this defintion, $\mathrm{Pt}$ is a proper subcategory of $\mathrm{Set}$ as the empty set is not a member of its object class. However, the terminal objects are the singletons - objects with exactly one element.\\
+\indent We call a category $\calc$ with an object $\cdot$ a category with terminal object $\cdot$ if and only if for any pair of objects $A, B \in \objc$ with arrow $f \in \objc(A,B)$ there exist two unique morphisms $\pi_A : A \longrightarrow \cdot, \pi_B : B \longrightarrow \cdot \in \morc$ such that the following diagram commutes:
+$$\xymatrix{
+A \ar[r]^f \ar[dr]_{\pi_A} & B\ar[d]^{\pi_B}\\
+&\cdot.\\
+}$$
+Clearly, each pointed space $(X,x_0)$ is an object with terminal object.\\
+\indent Reversing arrows, we call a category $\calc$ with object $\ast$ a category with initial object if for all objects $A, B \in \objc$ and arrow $f : B \longrightarrow A$ there are two unique morphisms $\iota_A : \ast \longrightarrow A, \iota_B : \ast \longrightarrow B \in \morc$ such that
+$$\xymatrix{
+A & B\ar[l]_f\\
+&\ast\ar[u]_{\iota_B} \ar[ul]^{\iota_A} .\\
+}$$
+commutes.\\
+\indent We call an object $\ast \in \objc$ a null object if it is initial and terminal. The category of sets, $\mathrm{Set}$, has the empty set as initial and the class of singletons as terminal object. The category of pointed spaces has its singletons as null object.\\
+\indent A relation $R \subset X^2$ is called a partial order on a set $X$ if for all $x, y, z \in X$:
+\begin{enumerate}
+\item $x R x$ (reflexive),
+\item $x R y$ and $y R x$ implies $x = y$ (antisymmetry) and
+\item $x R y$ and $y R z$ implies $x R z$ (transitivity).
+\end{enumerate}
+Partially ordered sets are of great importance in conjunction with algebraic categories which we will describe shortly.
+\paragraph{Algebraic categories}
+In its very beginning, category theory was mainly an algebraic endeavour. As it became apparent that certain theoremes had a wider application then initially anticipated.\\
+Since an algebraic library is the aim of this essay we shall spend some time on algebraic categories.
+\subparagraph{Semigroups, monoids and groups}
+Before we start a short definition. We call a category $\calc$ a category with finite products if for all objects $A, B \in \objc$ the set theoretic product 
+$$A \times B = \{(a,b) : a \in A, b \in B\} \in \objc.$$
+In particular, each canonical projection $\pi_X : A \times B \longrightarrow X$ and their respective embeddings $\iota_X : X \longrightarrow A \times B$, $X = A, B$ are morphisms in $\calc$.\\
+\begin{enumerate}
+\item Let $S$ be a set and $m : S \times S \longrightarrow S$ be a binary operation. We call a pair $(S, m)$ a semi group if for all $(s, s')$ there is a $s'' \in S$ such that $m(s,s') = s''$ and the following diagram commutes 
+$$\xymatrix{
+S \times S \times S \ar[rr]^{id_S \times m}\ar[d]_{m \times id_S} && S \times S\ar[d]^{m}\\
+S \times S \ar[rr]_{m} &&S.\\
+}$$
+We call the first property closedness (under operation) and the second associativity. Similarily to the category of sets, the category of semi groups has empty set as initial and singletons as terminal object.\\
+\item Let $(M, m)$ be a semi group. We call $M$ a monoid if there is a initial object $\ast$ and an embedding $e : \ast \longrightarrow M$ such that the following diagram commutes:
+$$\xymatrix{
+& M \times M \ar[dd]_{m}& \\
+\ast \times M \ar[ur]^{e \times id_M}\ar[dr]_{\simeq} && M \times \ast \ar[ul]_{id_M \times e}\ar[dl]^{\simeq} \\
+&M.&\\
+}$$
+The map $e$ is a morphism in $\mathrm{Mon}$ and called the unit (map). We denote a monoid with triple $(M, m, e)$. Note that $\mathrm{Mon}$ is a category with null object (initial and terminal are isomorphic). Moreover, it is a subcategory of pointed spaces with trivial submonoid as null object.
+\item We call a monoid $(G, m, e)$ a group if there is a map $S : G \longrightarrow G$ such that the following diagram commutes:
+$$\xymatrix{
+&G \ar[ld]_{\Delta} \ar[ddd] \ar[dr]^{\Delta}&\\
+G \times G \ar[d]_{S \times id_G} & & \ar[d]^{id_G \times S} G \times G\\
+G \times G \ar[dr]_{m} & & \ar[dl]^{m} G \times G\\
+&\ast.&\\
+}$$
+The map $S$ is called the antipode or more popularly, the inverse/inversion. It induces a group (anti-) isomorphism:
+$$S : G \stackrel{\sim}{\longrightarrow} G^{\mathrm{op}},$$
+$$m^{\mathrm{op}} = m \circ (S \times S) \circ \tau = \left[(g, h) \longmapsto m(h^{-1},g^{-1}) = h^{-1} g^{-1}\right]$$
+It is an anti isomorphism if considered as map $G \longrightarrow G$ and an isomorphism $(G,m,e,S) \longrightarrow (G^{\mathrm{op}},m^{\mathrm{op}},e^{\mathrm{op}} = e, S^{op} = S)$ (we exchange the multiplication map $m$ with $m^{\mathrm{op}}$). A group is called abelian if
+$$\xymatrix{
+G \times G \ar[d]_{m^{\mathrm{op}}} \ar[r]^{m} &G\ar[ld]^{S}\\
+G 
+}$$
+commutes. They form a proper subcategory of $\mathrm{Grp}$, denoted $\mathrm{Abel}$. Again, they have a null object (trivial subgroup). Furthermore, this category has finite products (at least two distinct in as far as):
+$$\begin{array}{rrcl}
+\times : &\mathrm{Grp} \times \mathrm{Grp}& \longrightarrow &\mathrm{Grp},\\ &\left((G, m_G, e_G, S_G), (H, m_H, e_H, S_H)\right)& \longmapsto &(G \times H, m_{G} \times m_H, e_{G} \times e_{H},\\
+&&& S_G \times S_H)\\
+&&&\\
+\times_{\alpha} : &\mathrm{Grp} \times \mathrm{Grp} &\longrightarrow& \mathrm{Grp}\\
+&(G,m_G,e_G,S_G),(H,m_H,e_H,S_H))&\longmapsto&(G \times H, m^{\alpha}_{G \times H}, e_G \times e_H, S_{G} \times S_{H})\\
+\end{array}$$
+with
+$$\begin{array}{rcl}
+m^\alpha_{G \times H} &=& (m_G \times m_H) (id_G \times \alpha \times id_H \times id_G \times id_H)\\&&(id_G \times id_H \times \tau_{H\times G}\times id_H)(id_G \times \Delta_H \times id_G \times id_H),\\
+&&\\
+&=& [(g_1,h_1,g_2,h_2) \longmapsto (g_1,h_1,h_1,g_2,h_2) \longmapsto (g_1,h_1,g_2,h_1,h_2) \longmapsto\\&&~ (g_1, \alpha(h_1)(g_2),h_1,h_2) \longmapsto (g_1 \alpha(h_1)(g_2), h_1 h_2)] \ \mathrm{and}\\
+&&\\
+\alpha &=& [h \longmapsto \alpha(h)] \in \mathrm{Grp}(H,\mathrm{Aut}_{\mathrm{Grp}}(G))\\
+\end{array}$$
+The former product is called direct (only the neutral element is in both groups and both are normal in $G \times H$), the latter is called the semi direct product for a given group homomorphism $\alpha : H \longrightarrow \mathrm{Aut}(G)$. They coincide if $\alpha$ reduces to the trivial map
+$$\alpha = e_{\mathrm{Aut}(G)} \circ \pi_H = [ h \longmapsto e_H \longmapsto id_G].$$
+\end{enumerate}

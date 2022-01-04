@@ -1,0 +1,14 @@
+\section{Introduction}
+We assume basic knowledge of commutative algebra. Let $R$ be a unital commutative ring.
+\subsection{Algebras}
+\dfi{Algebras}{Let $A$ be an $R$ module. We call $A$ an $R$ algebra if there is an $R$ linear map
+$$\mu : A \otimes_R A \longrightarrow A.$$
+We call $A$ associative if the following diagram commutes:
+$$\xymatrix{A \otimes_R A \otimes_R A\ar[rr]^{\mu\otimes id_A}\ar[d]_{id_A \otimes \mu}&&A\otimes_R A\ar[d]^\mu\\A\otimes_R A \ar[rr]_{\mu}&&A.\\}$$
+We call $A$ unital if there is an $R$ linear map $\eta : R \longrightarrow A$ such that
+$$\xymatrix{R\otimes_R A \ar[rr]^{\eta \otimes id_A}\ar[rrd]_\simeq&&A \otimes_R A\ar[d]^\mu&&A \otimes_R R\ar[ll]_{id_A \otimes \eta}\ar[lld]^\simeq\\&&A&&\\}$$ commutes. We call $A$ commutative if
+$$\xymatrix{A \otimes_R A \ar[r]^\tau\ar[rd]_\mu&A\otimes_R A\ar[d]^\mu\\&A\\}$$commutes. Here $\tau = \tau_{A\otimes A} : A \otimes_RA \longrightarrow A \otimes_RA,\ x \otimes y \longmapsto y \otimes x$ is the flip isomorphism. A unital associative algebra $A$ is denoted by $(A, \mu, \eta)$.
+}
+\subsubsection{Examples of algebras}
+Clearly, very ring $R$ itself is an $R$ algebra. But more prominent examples are
+\paragraph{Polynomial ring}

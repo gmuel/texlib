@@ -1,0 +1,103 @@
+%qna
+\section{Topological basisc}
+We are going to repeat some basic concepts from topology for the sake for coherence. A topological space is the pair of an object in the category of sets $X \in \mrm{Set}$ and a family of subsets $\tau \subset \mathcal{P}(X)$, called topology, fulfilling
+\bn
+\item $\emptyset, X \in \tau$,
+\item at least one of
+\bd
+\item[Open] arbitrary unions and any finite intersection are elements in $\tau$:
+$$U_i \in \tau \forall i \in I \Rightarrow \bigcup_{i \in I} U_i \in \tau,\ F_i \in \tau\ \forall i \in I' \subset I \wedge |I'| < \infty \Rightarrow \bigcap_{i \in I'} U_i \in \tau\ $$
+for any given indexing set $I$.
+\item[Closed] arbitrary intersections and any finite union are elements in $\tau$:
+$$F_i \in \tau \forall i \in I \Rightarrow \bigcap_{i \in I} F_i \in \tau,\ \bigcup_{i \in I'} F_i \in \tau\ \forall I' \subset I \wedge |I'| < \infty$$
+for any given indexing set $I$.
+\ed
+\en
+A topology $\tau$ whose elements are open and closed at the same time is called clopen.
+\exmpl For any object $X \in \mrm{Set}$ we get
+\bd
+\item[Lump topology] $(X,\{\emptyset,X\})$ is a topological space, with $\tau$ called the lump topology.
+\item[Discrete topology] $(X,\mathcal{P}(X))$ with the power set $\mathcal{P}(X) = \{A \subset X\}$.
+\item[Standard topology] on the real number line:
+$$U = \bigcap_{i \in I} \bigcup_{j \in J} U_{ij} \in \mathcal{O}(\tau_{\mrm{std}}),\ U_{ij} := (a_{ij},b_{ij})\ \forall (i,j) \in I \times J$$
+$$F = \bigcap_{i \in I} \bigcup_{j \in J} F_{ij} \in \mathcal{F}(\tau_{\mrm{std}}),\ F_{ij} := [a_{ij},b_{ij}]\ \forall (i,j) \in I \times J$$
+\ed
+Note that both topologies are examples of clopen topologies - each element is closed and open. If $X = \emptyset$ then both topologies collide.
+We denote
+$$\mathcal{O}(\tau) := \{U \in \tau: U\ \mrm{open}\}$$
+as the open (sub) topology on $\tau$ and
+$$\mathcal{F}(\tau) := \{F \in \tau: F\ \mrm{closed}\}$$
+\begin{defi}
+Let $(X, \tau_X)$ and $(Y,\tau_Y)$ be two topological spaces. We call a map $f : X \longrightarrow Y$ a continous map if either
+\bn
+\item if $V \in \mathcal{O}(\tau_Y) \Rightarrow f^{-1}(V) \in \mathcal{O}(\tau_X)$,
+\item if $G \in \mathcal{F}(\tau_Y) \Rightarrow f^{-1}(G) \in \mathcal{F}(\tau_X)$,
+\en
+holds.
+We call $f$ open if the images of open sets in $\tau_X$ are open in $\tau_Y$:
+$$U \in \mathcal{O}(\tau_X) \Rightarrow f(U) \in \mathcal{O}(\tau_Y).$$
+\end{defi}
+\begin{prop}
+The class of all topological spaces forms a category with continuous maps as morphisms and open, continous bijections (= homeomorphis) as automorphisms.
+\end{prop}
+\subsection{Filters and basis}
+\begin{defi}
+Let $(X,\tau)$ be a topological space. We call a family $\mathcal{F} \subset \tau$ of elements $F \in \mathcal{F}$ a filter if
+\bn
+\item $F \neq \emptyset \forall F \in \mathcal{F}$,
+\item $F \subset F' \vee F' \subset F, \forall F, F' \in \mathcal{F}$.
+\en
+We call a family of elements $U \in \tau$ a basis if 
+\end{defi}
+\section{Topological groups}
+In parlance with category theory, a topological group is the group object of the category of topological spaces.
+
+\subsection{Noetherian groups}
+Repeating the definition for noetherian spaces:
+\begin{defi}
+A topological space $(X,\tau_X)$ is called noetherian if
+\bn
+\item each strictly ascending chain of open subspaces $\emptyset \subset \ldots \subset U \subset U' \subset \ldots \subset X$ is stationary after finitely many steps, or
+\item each strictly descending chain of closed subspaces $X \supset \ldots \supset F \supset F' \supset \ldots \supset \emptyset$ is stationary after finitely many steps.
+\en
+\end{defi}
+We get immediately
+\begin{coro}
+The following statements are equivalent:
+\bn
+\item a topological group $(G, m, e, S, \tau_G)$ is noetherian,
+\item each strictly ascending chain of open subgroups is finite (stationary after finitely many steps),
+\item each strictly descending chain of closed subgroups is finite (stationary after finitely many steps),
+\item each set of generators of $G$ has a finite subset.
+\en
+\end{coro}
+Note, that noetherianicity is indeed a topological property - it only relies upon open/closed-ness and the subgroup property.
+
+\subsection{Modules and topological spaces}
+Let $R$ be a ring and $M$ an $R$ module. Following our convention from category theory, the class of submodules $N$ contained in $M$ is denoted by
+$$\mrm{Mod}_R(M).$$
+Let $F$ be an arbitrary family of submodules $N$, we get
+$$\bigcup_{\substack{N \in F'\\F' \subset F\\|F'| < \infty}} N \subseteq \sum_{\substack{N \in F'\\F' \subset F\\|F'| < \infty}} N,\ \bigcap_{\substack{N \in F'\\F' \subset F\\}} N \in \mrm{Mod}_R(M).$$
+The first part says that any finite union of submodules is a subset of the finite sum of the same modules. However, the union is in general not a module. The arbitrary intersection of submodules is, nevertheless, a submodule of $M$ and therefore, we get:
+$$\mathcal{F}(M) := \left\{F \in \mathcal{P}(M) : F := \bigcup_{\substack{\mathcal{N} \subset \mathcal{N'}\\|\{\mathcal{N}\}| < \infty\\}} \bigcap_{N \in \mathcal{N}} N,\ \mathcal{N'} \subset \mrm{Mod}_R(M)\right\}$$
+a closed topology by adding the empty set.
+\subsubsection{Filters and neighbourhoods}
+Given a topological space $(X, \tau)$ and a non-empty subset $Y \in \tau$, we call a class of subspaces $F(Y) := \{X_I : X_I \in \tau,\ \forall I \in \mathcal{I}\}$
+\begin{defi}{Filter} of $Y$ if all of the following conditions hold:
+\bn
+\item $$X' \in \mathcal{F}(Y) \Rightarrow X' \neq \emptyset,$$
+\item $$\forall X', X'' \in \mathcal{F}(Y)\ \Rightarrow X' \subset X'' \vee X'' \subset X'.$$
+\en
+$$$$
+\end{defi}
+Note that only the empty set as a topological space has no filters. Having at least one element provides us with at least one filter
+$$\exists x_0 \in X:\ X\backslash \{x_0\} = \emptyset \Rightarrow \mathcal{F}(x_0) = \{X\}.$$
+Also note that each ascending chain of open subsets forms an open filter and equivalently, a descending chain of closed subsets forms a closed filfter.
+\paragraph{Example} Let $(\rz, \tau_{\mrm{std}})$ where $\tau_{\mrm{std}}$ is the standard topology induced by the metric $d = \left[(x,y) \longmapsto |x - y|\right]$.
+\section{Group objects}
+Given a category $\catc$ with terminal object $\ast$ we call an object $G \in \catc$ a group object of $\catc$ if $\grpobj$ is a functor of type
+$$\catc \longrightarrow \mathrm{Grp}.$$
+To specify, we say $G$ is a group object if and only if\\
+\begin{enumerate}
+\item $m : \grpobj \times \grpobj \longrightarrow \grpobj$
+\end{enumerate}

@@ -1,0 +1,495 @@
+\section{Conclusion}
+The aim of this paper was to introduce a Galois theory for general differential equations in characteristic zero. To accomplish this we had to introduce a large body of algebraic concepts.
+\subsection{Summary}
+We are giving a biref summary of the concepts introduced.
+\subsubsection{Algebras and coalgebras}
+The primer was clearly the introduction of algebras and a certain type of algebra extensions, the so called Ore-extensions. In summary, for a given algebra $A$ over a ring $R$, an algebra automorphism $\alpha \in \trm{Aut}_{R-\trm{alg}}(A)$ and an $\alpha$-derivation $\delta \in \trm{End}_R(A)$ which is
+$$\delta(a b) = \alpha(a) \delta(b) + \delta(a) b,\ \forall a, b \in A$$
+the Ore extension $A[X,\alpha,\delta]$ is an $A$-algebra, with
+$$X a = \alpha(a) X - \delta(a)$$
+for all $a \in A$. In addition, we provided the basic concepts of Lie algebras and their enveloping algebras. A Lie algebra is an $R$-module over a ring $R$ with a antisymmetric multiplication map $\mu$ fulfulling the Jacobi-identity. Their enveloping algebras are unital associative algebras in the above sense. Lie algebras are intimitely connected to derivations and differential rings.\\
+Coalgebras a categorically dual to algebras, that is the dual module $C^*$ for any coalgebra $C$ is an algebra over the same ring. Furthermore, the module $\trm{Hom}_R(C,A)$ is an algebra as well, with convolution
+$$\mu : \trm{Hom}_R(C,A) \otimes \trm{Hom}_R(C,A) \longrightarrow \trm{Hom}_R(C,A),\ f \otimes g \longmapsto \mu_A \circ (f \otimes g) \circ \Delta_C$$
+as multiplication and $\eta_A \circ \eps_C$ as unit.
+\subsubsection{Bialgebras, module algebras and Hopf algebras}
+A bialgebra $(D,\mu_D,\eta_D,\Delta_D,\eps_D)$ has both, the structure of an algebra $(D,\mu_D,\eta_D)$ and that of a coalgebra $(D,\Delta_D,\eps_D)$, such that multiplication and unit map are homomorphisms of coalgebras and comultiplication and counit are homomorphisms of algebras.\\
+For a bialgebra $D$, a $D$-module algebra $(A,\Psi_A)$ is an algebra $(A,\mu_A,\eta_A)$ such that
+$$\Psi (a b) = \sum_{(d)} \mu_A(d_{(1)}(a) \otimes d_{(2)}(b)),\ \Psi_A(1_D \otimes a) = \eps_D(1_D) a$$
+holds.\\
+A Hopf algebra $D$ is a bialgebra, with a bialgebra antihomomorphism $S$:
+$$S : D \longrightarrow D^{\trm{copop}}$$
+such that $\eta \eps(d) = \mu(id_D \otimes S(\Delta(d))) = \mu(S \otimes id(\Delta(d)))$ holds for all $d \in D$.
+\subsubsection{Differential modules and their constructs}
+We introduced the concept of derivations over arbitrary modules over differential rings. Next, we introduced the ring of differential operators and showed that this ring is an Ore extension of the differential ring. This is followed by the defintion of the ring of differential polynmials. We showed that this ring is a module algebra over the ring of differential operators.\\
+Furthermore, we discussed the basic Picard-Vessiot theory for linear differential equations in characteristic zero. We showed that any simple differential ring containing all solutions for suchs an equations is isomorphic to the PV ring. Moreover, algebraic elements over the field of constants are constant over the PV ring and any constant algebraic element over the PV ring is already algebraic over the field of constants. We defined the Galois group for this type of equations to be all $k^\partial$-linear bijections commuting with the derivation $\partial$. Concluding this section, we showed to simple examples over a non-trivial and a trivial differential ring:
+$$L_1 = \partial - a, \ k = \currfield(z),\ L_2 = \partial^2 - a, \ k = \currfield,\ a \in \currfield^\times$$
+in both cases. We computed the PV rings $R_1 = \currfield(z)[y,y^{-1}], \partial(y) = a y$ and $R_2 = \currfield[y,y^{-1}], \partial(y) = \sqrt{a} y$ and with Galois group $\currfield^\times$.
+\subsubsection{General theory by Heiderich}
+Next, we introduced the concept of iterative derivations and the universal Taylor homomorphism for differential ring extensions in characteristic zero. This was followed by the definition of the Umemura functor which assigns to each commutative algebra over a differential ring extension the group of algebra automorphisms leaving the image of the differential ring under the Taylor homomorphism fixed and making the following diagram commutative:
+%diagram!
+This led us the the definition of the Lie-Ritt functor assigning to each non-reduced algebra over $K$ the group of infinitesimal coordinate transformation. Heiderich proved that the Umemura functor is such a Lie-Ritt functor. Lastly, we compared the general theory with the PV theory and revisited our previous example $L_2$. There, we computed the Hopf algebra $H = R \otimes R^{\Psi_R \otimes \Psi_R}$ and saw that its set of prime ideals is indeed isomorphic to the spectrum of the ring of Laurent polynomials over $\currfield$.
+\subsection{Outlook}
+As we only computed a linear example over a trivial differential ring, it would be most interesting to extend this to non-trivial differential rings. Furthermore, the theory is general enough to deal with non-linear differential equations. Rather simple examples as $\partial(x) - x^2$ could be a starting point to further our understanding of this intriguing theory.\\
+Secondly, the theory developed by Umemura and Heiderich does not involve non-commutative cases as the definition of the Lie-Ritt functors heavily depends on commutativity of the underlying algebras. An inverstigation  into this would seem promissing.
+%We broadly introduced the concepts of module algebras and their Galois theory according to \cite{Heid10,Heid13}. This concept got applied to a rather simple example. In addition, we compared the classical Galois theory in the sense of Picard-Vessiot with the expanded theory.\\
+%\indent To conclude, this theory provides alternative means not only to linear differential equations but rather to a wide range of similar problems, as iterative derivatives, difference equations and, of course, non-linear (ordinary or partial) differential equations.
+\newpage
+\section*{Acknowledgements}
+First of all, I would like to thank professor Gro\ss{}e-Kl\"onne for offering me this challenging topic and providing invaluable hints, as well as doctor R\"uhling. Furthermore, I am grateful to Greta, Uwe, Anne and Anne W. for supporting me almost endlessly. In addition, Verena and Alex are not to be forgotten, last but not least Christian and Otis.
+\newpage
+\section{Appendix}\label{appendix}
+%\subsection{Basic category theory}
+%To generalize or abstract certain statements it is convenient to introduce the notion of categories. Here, we give a brief introduction for the sake of clarity following loosely \cite{Awo} and \cite{Borc}. % In short, a category is a class of sets $\trm{Obj}$ sharing a common mathematical structure. Maps for two objects in $\trm{Obj}$ are called morphism on $\trm{Obj}$ if they preserve the structure. More formally, 
+% A category $\mathcal{C}$ conists of the class of objects $\trm{Obj}(\mathcal{C})$ and morphisms for two objects $A, B$ in $\trm{Obj}(\mathcal{C})$ which is denoted by $\mathcal{C}(A,B)$, $\mathcal{M_C}$ or $\trm{Morph}_{\mathcal{C}}(A,B)$. Moreover, if $A, B, C$ are three (not necessarily distinct) objects in $\mathcal{C}$, the composition of two morphisms $f: A \longrightarrow B$ and $g : B \longrightarrow C$ is denoted by $g \circ f : A \longrightarrow C$ and is a morphism in $\mathcal{C}(A,C)$. Lastly, the identity map $id : A \longrightarrow A$ is a morphism for all objects $A$ in $\trm{Obj}(\mathcal{C})$.%if $X$ and $Y$ are two objects in $\trm{Obj}$ %(with structure maps $\phi$, $\psi$ or tuples of structure maps), then a map $f : X \longrightarrow Y$ is called a morphism in the category of $\trm{Obj}$ if and only there is a map $\wt{f} : \im \phi \longrightarrow \im \psi$ such that the diagram commutes\index{Index}{category}\index{Index}{morphism}
+%%$$\xymatrix{
+%%X \ar[r]^f \ar[d]_\phi & Y \ar[d]^\psi\\
+%%\trm{im} \phi \ar[r]_{\wt{f}} & \im \psi.\\
+%%}$$
+%%The class of 
+%\bsp Some prominent examples
+%\bn
+%\item the category of sets with morphisms simply all maps between two sets.
+%\index{Index}{category!of sets}
+%\item the category of pointed spaces $\trm{PSpc}$, which can be considered as all non-empty sets with a designated element - the basepoint - and its morphisms are maps preserving the basepoints (the mandatory element in each object).
+%\item the category of abelian groups $\trm{Abel}$, where morphisms are group homomorphisms,
+%\index{Index}{category!of groups!abelian}
+%\item the category of non-abelian groups $\trm{NAbel}$, where morphisms are also group homomorphisms, in case we do not know if a given group belongs to either of the two categories we simply assign it to $\trm{Grp}$,
+%\index{Index}{category!of groups}
+%\index{Index}{category!of groups!non-abelian}
+%\item the category of rings $\trm{Rng}$, with ring homomorphisms as morphisms (note this is a proper subcategory of $\trm{Abel}$), with its prominent subcategory $\trm{CRng}$, the category of commutative rings and unital rings $\trm{URng}$.
+%\index{Index}{category!of rings}
+%\index{Index}{category!of rings!commutative}
+%\index{Index}{category!of rings!unital}
+%\item the category of differential manifolds, with smooth maps as morphisms,
+%\index{Index}{category!of differential manifolds}
+%\item the category of topological spaces $\trm{Top}$, with continuous maps as morphisms,
+%\index{Index}{category!of topological spaces}
+%\en
+%We note, that in general there is no concept of union, products etc. - that is the union or product of to objects in the same category does not necessarily constitute an other object in same category, respectively. Therefore, we avoid talking about sets of certain mathematical objects (rather classes).
+%\begin{defi}[Covariant and contravariant functors]
+%Let $\mathcal{C}$ and $\mathcal{D}$ be two categories with morphisms $\mathcal{M_C}$ and $\mathcal{M_D}$, respectively. A (co/contravariant) functor $F$ is a pairing of $\mathcal{C}$ and $\mathcal{D}$ such that
+%\bd
+%\item[covariant]
+%\bn
+%\item for all $X \in \mathcal{C}$ the image $F(X)$ is an object in $\mathcal{D}$,
+%\item for all morphisms $f : X \longrightarrow Y$, $X, Y \in \mathcal{C}$, the map $F(f) : F(X) \longrightarrow F(Y)$ is a morphism of $\mathcal{D}$
+%\item $F(id_X) = id_{F(X)}$.
+%\en
+%\item[contravariant] as in covariant except:
+%\bn
+%\item for all morphisms $f : X \longrightarrow Y$, $X, Y \in \mathcal{C}$, the map $F(f) : F(Y) \longrightarrow F(X)$ is a morphism of $\mathcal{D}$, as well as
+%\item $F(id_{F(X)}) = id_X$.
+%\en
+%\ed
+%\index{Index}{functor!covariant}
+%\index{Index}{functor!contravariant}
+%\end{defi}
+%\bsp Classical examples are
+%\bn
+%\item from main theorem of (classical Galois theory): let $L/K$ be a field extension
+%$$\trm{Fix} : \trm{Grp} \longrightarrow \trm{CRng},\ H \longmapsto L^H := \{x \in L : g x = x\ \forall g \in H\}$$
+%$$\trm{Gal} : \trm{CRng} \longrightarrow \trm{Grp},\ M \longmapsto \{\varphi \in \trm{Aut}_K(M) : \varphi\mid_K = id_K\},$$
+%both define functors. Although, these functors are only defined on subcategories. In particular, the second functor is only well defined for normal separable fields $K \subset M \subset L$.
+%\item in algebraic geometry, the (pre-) sheave defines a functor from the category of topolocial subspaces (of a variety - affine, projective, ...) to the category of associative algebras over a given ground field,
+%\item furthermore, the so called forgetful functor: let $\mathcal{C}$ be a subcategory of $\mathcal{D}$, then $F : \mathcal{C} \longrightarrow \mathcal{D}$ is called the forgetful functor (informally, we simply omit some of the structure maps from $\mathcal{C}$), e.g
+%$$F : \trm{Grp} \longrightarrow \trm{Set},$$
+%\item the set of all automorphisms $\trm{Aut}$ on a given algebraic category (e.g. $\trm{Vec}$, $\trm{Grp}$, $\trm{Rng}$,...) is also a functor - assigning to an object $X$ the set of all structure preserving bijections $(X,\phi) \longrightarrow (X,\phi)$, i.e.
+%$$\trm{Aut} : \trm{AlgCat} \longrightarrow \trm{Grp}.$$
+%More generally, any structure preserving bijection (i.e. each map having a two-sided inverse which still preserves $\phi$) defines the $\trm{Aut}$ functor on their respective category.
+%\en
+%\begin{defi}
+%For a given category $\mathcal{C}$ we construct a new category $\mathcal{C}^{\trm{op}}$ by simply reversing arrows and composition order of morphisms:
+%$$f, g \in \mathcal{M_C},\ g \circ f \in \mathcal{M_C} \RA f^{\trm{op}}, g^{\trm{op}} \in \mathcal{M}_{\mathcal{C}^{\trm{op}}},\  (g \circ f)^{\trm{op}} := f^{\trm{op}} \circ g^{\trm{op}} \in \mathcal{M}_{\mathcal{C}^{\trm{op}}}.$$
+%We call $\mathcal{C}^{\trm{op}}$ the opposite or dual category of $\mathcal{C}$.
+%\index{Index}{category!dual}
+%\end{defi}
+%We already encountered the opposite category in case of $C$-coalgebras and $C$-algebras (i.e. coalgebras are dual to the algebras).
+%\begin{defi}
+%We call a category small if it defines an actual set. Otherwise it is called a large category. In addition, we call a category $\mathcal{C}$ a category with initial object, if there is an object $I$ in $\mathcal{C}$ such that for all $X$ in $\mathcal{C}$ there is exactly one morphism $\iota : I \longrightarrow X$. The dual notion is the category with terminal object: if there is an object $T$ in $\mathcal{C}$ such that for every object $X$ in $\mathcal{C}$ there is one morphism $\tau : X \longrightarrow T$.
+%\index{Index}{category!small}
+%\index{Index}{category!large}
+%\index{Index}{category!with initial object}
+%\index{Index}{category!with terminal object}
+%\end{defi}
+%\bsp To illustrate the last definitions:
+%\bn
+%\item $\trm{Set}$ is a large category.
+%\item Usually the class of morphisms for a given category $\mathcal{C}$ is also large. However, some counter examples are for instance module homomorphisms.
+%\item The category of unital rings is a category with initial object $(\zz,+,\cdot,1)$.
+%\item Dually, the category of schemes over unital rings is a category with terminal object (by duality: $\trm{Spec}(\zz)$).
+%\en
+%\begin{defi}
+%A natural transformation $\zeta$ for two given categories $\mathcal{C}$, $\mathcal{D}$ and two functors $F, G$ between the two categories is a family of morphisms such that
+%\bn
+%\item it assigns to each object $X \in \mathcal{C}$ a morphism $\zeta_X : F(X) \longrightarrow G(X)$ and
+%\item for each morphism $f : X \longrightarrow Y$ in $\mathcal{C}$ we have
+%$$\bao{cc}
+%\xymatrix{
+%F(X) \ar[r]^{F(f)} \ar[d]_{\zeta_X} & F(Y)\ar[d]^{\zeta_Y}\\
+%G(X) \ar[r]_{G(f)} & G(Y)\\
+%} & 
+%\xymatrix{
+%F(Y) \ar[r]^{F(f)} \ar[d]_{\zeta_Y} & F(X)\ar[d]^{\zeta_X}\\
+%G(Y) \ar[r]_{G(f)} & G(X)\\
+%}\\
+%\trm{covariant} & \trm{contravariant},\\
+%\ea$$
+%where covariant stands for covariant functors $F, G$ and contravariant stands for the other case.
+%\index{Index}{natural transformation}
+%\en
+%\end{defi}
+%Let $\mathcal{C}$ be a category. For two objects $A, B$ in $\mathcal{C}$ we denote the class of morphisms $\mathcal{M}_{\mathcal{C}}(A,B)$ simply by $\trm{Hom}_{\mathcal{C}}(A,B)$ or $\trm{Hom}(A,B)$ if there is no ambiguity. Every object $A \in \mathcal{C}$ defines a functor $F_A := \trm{Hom}(A,\_) : \mathcal{C} \longrightarrow \trm{Set}, B \longmapsto \trm{Hom}(A,B)$ such that for all maps $\varphi : B \longrightarrow B'$:
+%$$F_A(\varphi)(f) := \varphi \circ f,\ \forall f \in F_A(B).$$
+%Each morphism $\varphi : A' \longrightarrow A$ in $\mathcal{C}$ defines a map $f \longmapsto f \circ \varphi : F_A(B) \longrightarrow F_{A'}(B)$ being natural wrt $B$, i.e. this map is a natural transformation. In particular, the pairing $A \longmapsto F_A$ is a contravariant functor.
+%\begin{defi}
+%A functor $F : \mathcal{C} \longrightarrow \trm{Set}$ is called representable if it is isomorphic to $F_A$ for some $A \in \mathcal{C}$.
+%\index{Index}{functor!representable}
+%\end{defi}
+%\subsubsection{Direct products and coproducts}
+% %From now on, let $\mathcal{C}$ is a category with finite products.
+%Given a category $\mathcal{C}$ and an index set $I$ we define
+%\begin{defi}[direct product]
+%for a family of objects $\{X_i : i \in I\}$ in $\mathcal{C}$ the direct product $X$ to be the object in $\mathcal{C}$ such that for each canonical projection $\pi_i : X \longrightarrow X_i$, $i \in I$ and an indexed family of morphisms $f_i : Y \longrightarrow X_i$ for all $i \in I$ and $Y \in \mathcal{C}$, there is a unique morphism $f : Y \longrightarrow X$ making
+%$$\xymatrix{
+%Y \ar[rd]_f\ar[r]^{f_i}&X_i\\
+%&X\ar[u]_{\pi_i}\\
+%}$$
+%commutative. Sometimes the direct product is denoted by $\prod_{i \in I} X_i$.
+%\index{Index}{product!direct}
+%\end{defi}
+%The coproduct is simply:
+%\begin{defi}[coproduct]
+%For a family of objects $\{X_i : i \in I\}$ in $\mathcal{C}$ the coproduct $X$ to be the object in $\mathcal{C}$ such that for each (not necessarily injective) inclusion $\iota_i : X_i \longrightarrow X$ and a family of morphisms $f_i : X_i \longrightarrow Y$ for all $i \in I$ and $Y \in \mathcal{C}$ there exists a unique $f : X \longrightarrow Y$ making
+%$$\xymatrix{
+%Y &X_i\ar[l]_{f_i}\ar[d]^{\iota_i}\\
+%&X\ar[lu]^f\\
+%}$$
+%commutative. The coproduct $X$ is sometimes denoted by $\coprod_{i \in I} X_i$ or $\bigoplus_{i \in I} X_i$.
+%\index{Index}{coproduct}
+%\end{defi}
+%\bmk For a finite index set $I$ both notions are equivalent. Consider for instance for any ring $R$ the left module $\prod_{i \leq n} R$ and $\bigoplus_{i \leq n} R$. However, if $I$ is not finite, then the coproduct is a strict subset of the direct product. Furthermore, the products and coproducts are only unique up to isomorphism (within their respective category).
+%\begin{defi}
+%$\mathcal{C}$ is called a category with finite products, if for any finite subcategory of $\mathcal{C}$ its coproduct is in $\mathcal{C}$ and there exists a finite object in $\mathcal{C}$, denoted by $*$ - called the empty product - and an isomorphism:
+%$$S \times * \simeq S \simeq * \times S$$
+%for all $S \in \mathcal{C}$.
+%\index{Index}{category!with finite product}
+%\index{Index}{category!empty object}
+%\end{defi}
+%$\trm{PSpc}$, the category of pointed spaces is an example of a category with finite products with one element sets as empty products.
+%\subsubsection{Co-/limits, formal schemes and group schemes}
+%
+%To complete our defintions we need:
+%\begin{defi} Let $\mathcal{C}$ be a category.
+%\bn
+%\item A diagram of type $\mathcal{J}$ is a functor $F : \mathcal{J} \longrightarrow \mathcal{C}$, where $\mathcal{J}$ is an index category and $F$ indexes objects and morphisms in $\mathcal{C}$. A diagram $F$ of type $\mathcal{J}$ is called small or finite if $\mathcal{J}$ is a small or finite category.
+%\item Let $F : \mathcal{J} \longrightarrow \mathcal{C}$ be a diagram of type $\mathcal{J}$. A cone to $F$ is an object $N$ in $\mathcal{C}$ and a family of morphisms $\psi_X : N \longrightarrow F(X)$ indexed by $X$ in $\mathcal{J}$ such that for all morphisms $f : X \longrightarrow Y$ in $\mathcal{J}$ we get
+%$$F(f) \circ \psi_X = \psi_Y.$$
+%A cone is denoted by $(N,\psi)$.
+%\item A co-cone is dual to cone: co-cone of a diagram $F$ is an object $N$ in $\mathcal{C}$ and family of morphisms $\psi_X : F(X) \longrightarrow N$ for every $X$ in $\mathcal{J}$ such that for any morphism $f : X \longrightarrow Y$ in $\mathcal{J}$ we have: $\psi_X \circ F(f) = \psi_Y$.
+%The pair $(N,\phi)$ denotes the co-cone.
+%\item A limit of a diagram of type $\mathcal{J}$ is a cone $(L,\phi)$ of $F$ such that for any other cone $(N,\psi)$ of $F$ there exists a unique morphism $u : N \longrightarrow L$ such that following diagram commutes:
+%$$\xymatrix{
+%& N \ar[ldd]_{\psi_X} \ar[d]^u \ar[rdd]^{\psi_Y}&\\
+%&L\ar[ld]^{\phi_X} \ar[rd]_{\phi_Y}&\\
+%F(X) \ar[rr]_{F(f)} & & F(Y)\\
+%}$$
+%\item A colimit of a diagram $F$ is a co-cone $(L,\phi)$ of $F$ such that for any other co-cone $(N,\psi)$ of $F$ there is a unique morphism $u : N \longrightarrow L$ such that the following diagram commutes:
+%$$\xymatrix{
+%F(X) \ar[rd]^{\phi_X}\ar[rdd]_{\psi_X}\ar[rr]^{F(f)} && F(Y)\ar[ld]_{\phi_Y}\ar[ldd]^{\psi_Y}\\
+%&L\ar[d]_u&\\
+%&N&\\
+%}$$
+%\en
+%\index{Index}{diagram}
+%\index{Index}{cone}
+%\index{Index}{cocone}
+%\index{Index}{limit}
+%\index{Index}{colimit}
+%\end{defi}
+%\bmk A cone $(N,\psi)$ of a diagram $F : \mathcal{J} \longmapsto \mathcal{C}$ is characterized by the following commutative diagram:
+%$$\xymatrix{
+% & F(X) \ar[dd]^{F(f)} & X \ar[l]_F \ar[dd]^f\\ 
+%N \ar[ru]^{\psi_X} \ar[rd]_{\psi_Y}& &\\
+%& F(Y) & Y\ar[l]^F.\\
+%}$$
+%A co-cone $(N,\phi)$ of a diagram $F : \mathcal{J} \longrightarrow \mathcal{C}$ is characterized by the following commutative diagram:
+%$$\xymatrix{
+% & F(X) \ar[ld]_{\phi_X}\ar[dd]^{F(f)} & X \ar[l]_F \ar[dd]^f\\ 
+%N & &\\
+%& F(Y) \ar[lu]^{\phi_Y}& Y\ar[l]^F.\\
+%}$$
+%\subsubsection{Monoidal and group category}
+%Let $\mathcal{C}$ is a category with finite products.
+%\begin{defi}
+%A monoid $G$ in $\mathcal{C}$ is a triple $(G, m, e)$, with operation morphism $m : G \times G \longrightarrow G$ and unit morphism $e : * \longrightarrow G$ satisfying the following commutative diagrams:
+%\bd
+%\item[associativity] $$\xymatrix{
+%G \times G \times G \ar[rr]^{id_G \times m}\ar[d]_{m \times id_G} && G\times G\ar[d]^m\\
+%G \times G \ar[rr]_m && G,\\
+%}$$
+%\item[unit] $$\xymatrix{
+% & G \ar[ld]_{\simeq} \ar[rd]^{\simeq} & \\
+% \ast \times G\ar[d]_{e \times id_G} & & G \times \ast \ar[d]^{id_G \times e}\\
+% G \times G \ar[rd]_{m} & & G \times G \ar[ld]^m\\
+% & G &\\
+%}$$
+%\ed
+%We denote by $\trm{Mon}$ the monoidal category.
+%\index{Index}{category!monoidal}
+%\end{defi}
+%\bmk Compare the two diagrams with the definition of associative unital algebras over some ring $R$ (replacing direct products with tensor products, then here the empty product is indeed $* = R$ and unit $\eta = e$).\\
+%For each monoid $G$ we define the opposite monoid $G^{\trm{op}}$ being the same set with operation $(g, h) \longmapsto h g$.
+%\begin{defi}
+%A group $G$ in $\mathcal{C}$ is a quadruple $(G, m, e, S)$ being a monoid in $\mathcal{C}$ and $S : G \longrightarrow G$ defines a commuting diagram:
+%$$\xymatrix{
+%&G\ar[ld]_\Delta\ar[rd]^\Delta&\\
+%G \times G \ar[rd]^{S \times id}\ar[dd]_{\pi \times \pi} && G \times G\ar[ld]_{id \times S}\ar[dd]^{\pi \times \pi}\\
+%& G \times G \ar[d]_m &\\
+%\ast \ar[r]_e & G & \ast\ar[l]^e,\\
+%}$$
+%where $\Delta : G \longrightarrow G \times G$ is the diagonal map, $f_1 \times f_2 = \left[(g,h) \longmapsto \left(f_1(g),f_2(h)\right)\right]$ and $\pi : G \longrightarrow \ast \simeq G/G$ is the trivial projection, such that
+%$$S : G \longrightarrow G^{\trm{op}}$$
+%is a group homomorphism.
+%\index{Index}{category!of groups}
+%\end{defi}
+%\subsubsection{Schemes}
+%Now, we introduce some important notations in the field of algebraic geometry. Let $\trm{UCRng}$ denote the category of unital commutative rings, $\trm{Mod}_R$ the category of $R$-modules over $R$ in $\trm{UCRng}$ and $\trm{Mod}_R \cap R$ the subcategory of $R$-submodules in $R$ (i.e. ideals). We have
+%\begin{defi}[Spectrum of ring]
+%The functor
+%$$\trm{Spec} : \trm{UCRng} \longrightarrow \trm{Set},\ R \longmapsto \{\mathfrak{p} \in \trm{Mod}_R \cap R :  \trm{Ann}(R/\mathfrak{p}) = 0\}$$
+%assigns to each commutative unital ring $R$ its spectrum, i.e. the set of its prime ideals.
+%\index{Index}{spectrum}
+%\end{defi}
+%\bsp We have:
+%\bn
+%\item $\spec \zz = \left\{(p) : p \trm{~prime~number}\right\} \cup \{0\}$,
+%\item for $n \geq 2$, $\spec \zz_n = \left\{(\ov{p}) : p \mid n \wedge p \trm{~prime}\right\} \cup \{\ov{0}\}$, in particular the first subset may be empty if $n$ is prime,
+%\item $\spec \zz_2[X]$:
+%$$\left\{\left<f = \sum_{i \leq n} f_i X^i\right> :\exists m \in \nz,\ X^m \mid (f + \ov{1}) \wedge |\{f_i : f_i \neq \ov{0}\}| \in 2 \nz + 1\right\} \cup \left\{\left<\ov{0}\right>, \left<X\right>, \left<X + \ov{1}\right>\right\},$$ in words:
+%all polynomials $f$ with odd non-zero coefficients and $f \equiv 1 \mod X^m$ for some $m \geq 1$, zero and the two polynomials of degree one.
+%\item in general, for any field $k$ we have
+%$$\spec k[X] = \{(f) : f \trm{~irreducible}\} \cup \{0\},$$
+%in case of algebraic closeness, $\spec k[X] = \{\left<X - a\right> : a \in k\} \cup \{\left<0\right>\}$.
+%\item $R$ integral domain, iff $\{0\} \in \spec R$,
+%\item $R$ a field, iff $\{0\} = \spec R$.
+%\en
+%Note, that the non-unitary ring $R := \left(\bao{cc} 0 & k\\0 & 0\\\ea\right)$ for some field $k$ has no prime ideal (but a maximal ideal (!)). Thus, unitality ensures the existence of prime ideals. % However, let us recall some further definitions.
+%%\begin{defi}
+%%Let $R = k$ be a algebraically closed field and identify the affine space $A_k^n$ with the coordinate space.
+%%\bn
+%%\item For some $S \subset k[X]$, the set $Z(S) = \{x \in k^n : f(x) = 0 \forall f \in S\}$ is called the zero set or algebraic set of $S$.
+%%\item For each $Z \subset k^n$ an algebraic set, we have the ideal $I(Z) := \{f \in k[X] : f(x) = 0 \forall x \in Z\}$ and call $A(Z) := k[X]/I(Z)$ the coordinate ring of $Z$.
+%%\item If $A(Z)$ is an integral domain, we call $Z$ an affine variety.
+%%\item For $k^{n+1}$ we define projective space $\prjn_k$ the over $k$ as the quotient
+%%$$\prjn_k := \left(k^{n+1} \bsl \{0\}\right)^2 /\sim,\ \sim := \left\{(x,y) \in \left(k^{n+1} \bsl \{0\}\right)^2 : \exists \lambda \in k^\times, y = \lambda x\right\}.$$
+%%\item A polynomial is called homogeneous of degree $n$, if we have
+%%$$f = \sum_{|\alpha| = n} f_\alpha X_\alpha, f_\alpha \in k, X_\alpha = \prod_{i \leq k} X^{s_i}_{\alpha_i}\ \trm{and}\ \sum s_i = n.$$
+%%An ideal is called homogeneous, if it is generated by homogeneous polynomials and a projective algebraic set is simply the zero set of a homogeneous polynomial $f$, i.e. $Z(f) := \{x \in \prjn_k : f(x) = 0\}$. A projective variety is simply the zero set of homogeneous prime ideal.
+%%\item Let $Z \subset k^n$ be an affine variety and $f \in k[X]$ some polynomial such that $Z(f) \nsubset Z$. We call $U_f := Z\bsl Z(f)$ the principal open sets of $Z$.
+%%\item For some affine variety $Z$, the structure presheaf is defined as the functor $\trm{Top} \longrightarrow \trm{Alg}$ with
+%%$$\bao{rrcl}
+%%\mathcal{O}_Z :& \{U : U \subset Z\trm{~open}\} &\longrightarrow &\mathcal{O}_Z(U) := S^{-1}A(Z),\\
+%%&&&\\
+%%&S &:=& \{f \in A(Z) : f(x) \neq 0 \forall x \in U\}\\
+%%\ea$$
+%%assigning to every open set $U$ the ring of regular functions on $U$ with the following condition:
+%%\bn
+%%\item $\mathcal{O}_Z(\emptyset) = \{0\}$,
+%%\item $\mathcal{O}_Z\mid_{V}(U) = \mathcal{O}_Z(V)$ for all $V \subset U$ open,
+%%\item $\mathcal{O}_Z\mid_W \circ \mathcal{O}_Z\mid_V = \mathcal{O}_W$ for all $W \subset V \subset U$ open.
+%%\en
+%%\item We call a (structure) presheaf of an affine variety $X$ a sheaf, if there is the following glueing property. Let $\mathcal{U}$ be an open cover of some open $U \subset X$. For all $V, W \in \mathcal{U}$ and $f_V \in \mathcal{O}_X(V), f_W \in \mathcal{O}_X(W)$ such that $f_V\mid_{V \cap W} = f_W\mid_{V \cap W}$ then there exists a unique $f \in \mathcal{O}_X(U)$ such that $f\mid_V = f_V$ and $f\mid_W = f_W$.
+%%\item A ringed space for some topological space $X$ consists of the pair $(X, \mathcal{O}_X)$, where $\mathcal{O}_X$ is the structure sheaf of $X$.
+%%\en
+%%\end{defi}
+%%First, we note that our definition of algebraic sets induces a topology on $k^n$, the so called Zariski-topology by simply putting our algebraic sets as closed subsets of $k^n$. In particular, any affine variety defines an irreducible topological space. The definition of projective sheafs is omitted but the interested reader may consult \cite{Hart}\\
+%%Furthermore, we may reformulate affine varieties as follows:
+%We are omitting the definitions of presheafs, sheafs and ringed spaces and refer the interested reader to \cite{Hart}.
+%%\begin{defi}
+%%Let $(X, \mathcal{O}_X)$ be a ringed space. We call $X$ a scheme, if for any open cover $\mathcal{U}$ of $X$ and $U \in \mathcal{U}$ the ringed space $(U, \mathcal{O}_X\mid_{U})$ is isomorphic to some affine scheme.
+%%\end{defi}
+%\begin{defi}
+%For some ideal $I \subset R$, the affine scheme $X_I$ is the set of all prime ideals $\mathfrak{p} \supset I$. 
+%%$$X_I :=  \{\mathfrak{p} \in \tmr{Spec}(R) : a \notin \mthfrak{p}\}$
+%A principal open set $U(a)$, for some $a \in R\bsl R^\times$, is $\{\mathfrak{p} \in \trm{Spec} R : a \notin \mathfrak{p}\}$. A scheme $X$ is simply some ringed space $(X,\mathcal{O}_X)$ such that for every open cover $\mathcal{U}$ of $X$ the restrictions $\mathcal{O}_X\mid_U$ as ringed spaces $(U, \mathcal{O}_X\mid_U)$ define affine schemes for all $U \in \mathcal{U}$.
+%\index{Index}{scheme}
+%\index{Index}{scheme!affine}
+%\index{Index}{Set!principal open}
+%\end{defi}
+%In short, a scheme is a (topological) space with structure sheaf $\mathcal{O}_X$ that is locally isomorphic to some affine variety.
+%\bsp For any ring $R$ in $\trm{UCRng}$:
+%$$S^{-1}_{\mathfrak{p}}(R),\ S_{\mathfrak{p}} = R \bsl \mathfrak{p},$$
+%the pair $(\trm{Spec}(R), S^{-1})$ is a scheme.% Here in obuse of notation, we use the multiplative system $S_{\mathfrak{p}}$ as a functor $\trm{Set} \longmapsto \trm{Mon}$.
+%\begin{lemm}
+%The following statements are equivalent:
+%\bn
+%\item the ringed space $(X, \mathcal{O}_X)$ is an affine variety,
+%\item and:
+%\bn
+%\item $X$ is an irreducible topological space,
+%\item $\mathcal{O}_X$ is a structure sheaf,
+%\item $X$ is isomorphic to an affine variety.
+%\en
+%\en
+%\end{lemm}
+%A proof can be found in \cite{Hart}.
+%\begin{defi}
+%A formal scheme is a functor $X : \trm{CRng} \longrightarrow \trm{Set}$, that is a small filtered colimit of affine schemes. Its category is denoted by $\trm{FSch}$ - its morphisms are natural transformations. Given a scheme $S$, we define the formal schemes over $S$ as follows, all objects are morphisms $X \longrightarrow S$ of formal schemes and as morphisms between $X \longrightarrow S$ and $Y \longrightarrow S$ all morphisms $X \longrightarrow Y$, such that
+%$$\xymatrix{
+%X \ar[r] \ar[rd]& Y\ar[d]\\
+%&S\\
+%}$$
+%commutes. We denote the formal schemes over $S$ with $\trm{FSch}_S$.
+%\index{Index}{scheme!formal scheme}
+%\end{defi}
+%\bmk According to \cite{Strickl} a formal scheme to $\mathcal{X}$ is as follows: given a small filtered category $\mathcal{J}$ and a functor $i \longmapsto X_{i}$ from $\mathcal{J}$ to $\mathcal{X} = \{\trm{CRng}, \trm{Set}\}$ such that
+%$$X = \lim_{\substack{\longrightarrow\\i}} X_{i} \in \mathcal{X}$$
+%or equivalently $X(R) = \lim_{\substack{\longrightarrow\\i}} X_{i}(R)$ for all $R$.
+%\bsp Two examples to illustrate the definition of formal schemes (following \cite{Strickl}):
+%\bn
+%\item Let $R$ be an object in $\trm{CRng}$ with unit and $N(R)$ denote its nilradical. The functors
+%$$\hat{\mathbb{A}}_n = \left[R \longmapsto N(R)^n\right]$$
+%are a prominent example.
+%\item Let $X$ be some scheme and $Y = V(I)$ a closed subscheme then
+%$$X_{\hat{Y}} := \lim_{\substack{\longrightarrow\\N}} V(I^N)$$
+%defines a formal scheme.
+%\en
+%%An scheme is simply a ringed space $(Z,\mathcal{O}_Z)$ such that for ... open cover $\mathcal{U}$ the restriction $\mathcal{O}_Z\mid_U$ is an affine scheme for all $U \in \mathcal{U}$.
+%\begin{defi}
+%A group scheme is a scheme $X = X(G)$ which has a group structure $G$ as well, i.e. a functor $m : X \times X \longrightarrow X$. A principal homogeneous space - or torsor - for a given group (group scheme) $G$ is a pair $(G,X)$, with $X$ some set, such that the map
+%$$\alpha : (X, G) \longrightarrow (X, X),\ (x, g) \longmapsto (x, g x)$$
+%is a bijection.
+%\index{Index}{group scheme}
+%\index{Index}{space!principal homogeneous}
+%\index{Index}{torsor}
+%\end{defi}
+%\begin{koro}
+%The following statements are equivalent.
+%\bn
+%\item $(G, X)$ is a principle homogeneous space.
+%\item The action $\alpha : G \times X \longrightarrow X$ is transitive on $X$ and its stabilizer $\trm{Stab}_G(X)$ is trivial.
+%\en
+%\end{koro} \bws The proof is simply the application of the above definitions.
+%
+%%Again, our notation, not incidentally, resembles the notation of Hopf-algebras. Now an important classification of affine groups:
+%\begin{defi}
+%An affine group is a representable functor $G : \trm{Alg} \longrightarrow \trm{Set}$ with natural transformation $\mu : G \times G \longrightarrow G$ such that $(G(A),\mu(A),e(A))$ is a group for all $A \in \trm{Alg}$. $G$ is called affine algebraic group if $G$ is represented by a finite presented algebra $A$.
+%\index{Index}{affine group}
+%\index{Index}{affine algebraic group}
+%\end{defi}
+%Formal group laws will be discussed in a later section.
+%\newpage
+\subsection{Topological basics}
+We take some notions from topology as given.
+\subsubsection{Basis and neighborhood basis}
+\begin{defi}
+Let $(X, \tau)$ be a topological space.
+\bd
+%\item[Filter] A subset $F \subset \tau$ is called a filter if:
+%\bn
+%\item for all $A, B \in F$, we have $A \cap B \in F$,
+%\item the empty set $\emptyset$ is not in $F$,
+%\item if $A \in F$ and $A \subset B$, then $B \in F$ for all $B \subset X$.
+%\en
+\item[Basis] A subset $\beta \subset \tau$ is called an open neighborhood basis for $x \in X$ if:% ein topologischer Raum. Eine Teilmenge $\beta \subset \tau$ hei\ss{}t Basis von $x \in X$, oder auch Umgebungsbasis von $x$, falls
+\bn
+\item for every open $V \subset X$ with $x \in V$ there is an $U \in \beta$ open in $X$ such that $x \in U \subset V$.%f\"ur alle offene $V \subset X$ offen, mit $x \in V$ gibt es ein $U \in \beta$ mit $x \in U \subset V$ offen,
+\item for all $U, V \in \beta$ we have $x \in U \cap V$.%f\"ur $U_1, U_2 \in \beta$ ist $x \in U_1 \cap U_2$.
+\en
+A subset $\beta \subset \tau$ is called (open) basis of $X$ if
+%Eine Teilmenge $\beta \subset \tau$ hei\ss{}t Basis von $X$, falls
+\bn
+\item all $U \in \beta$ are open in $X$,
+\item every open subset of $X$ is a union of elements in $\beta$.%jede offene Teilmenge $V \in \tau$ eine Vereinigung von $U \in \beta$ ist.
+\en
+\ed
+A neighborhood basis $\beta$ of $x \in X$ is called a fundamental basis of $x \in X$ if every neighborhood $x \in U$ is a finite intersection of elements in $\beta$.%Eine Umgebungsbasis $\beta$ von $x \in X$ eines topologischen Raums $(X, \tau)$ hei\ss{}t  Fundamentalbasis, falls jede offene Umgebung $V$ von $x$ einen endlichen Durchschnitt von $U_i \in \beta$ enth\"alt.
+\index{Index}{filter}
+\index{Index}{basis}
+\index{Index}{basis!neighborhood}
+\index{Index}{basis!fundamental}
+\end{defi}
+\subsubsection{Linear topological rings}
+Topological rings $R$ are topological spaces $(R,\tau_R)$ such that addition and multiplication are continuous wrt. the product topology:
+$$+, \cdot \in C(R\times R,R).$$%Topologische Ringe sind Ringe $R$, mit einer Topologie $\tau$, sodass
+%$$+ : R \times R \longrightarrow R,\ \cdot : R \times R \longrightarrow R$$
+%stetige Abbildungen in der Produkttopologie $\tau_{R \times R}$ sind. Die Menge der Ideale in $R$ definiert eine Umgebungsbasis der $0 \in R$. %Im Allgemeinen ist diese Basis abgeschlossen in $R$, 
+\index{Index}{topological ring}
+The set of ideals in $R$ is neighborhood basis of $0 \in R$. In general, the elements generated by union are not ideals but are contained in larger ideals (in general $I \cup J$ is not an ideal but is contained in its sum $I + J$).
+\begin{defi}[Linear topological rings]
+A topological ring $R$ is called linear if there is a fundamental neighborhood basis $\beta$ of $0 \in R$.
+%Ein topologischer Ring $R$ hei\ss{}t linear, falls es eine fundamentale Umgebungsbasis von $0 \in R$ gibt.
+\index{Index}{topological ring!linear}
+\end{defi}
+Is $R$ a linear topological ring with fundamental neigborhood basis $\beta(0)$ then any open neighborhood of zero contains at least one ideal, trivially $(0)$, since the intersection of ideals is again an ideal. Let $\{I_i \in \eta(0) : i \in \mathcal{I}\}$ be a system of ideals then the union:
+$$\bigcup_{i \in \mathcal{I}'} I_i,\ \forall \mathcal{I}' \subset \mathcal{I},\ |\mathcal{I}'| < \infty$$
+is a subset of $R$ containing each $I_i$. Consequently, $\beta(0)$ is an open neighborhood basis for zero. In addition, elements in $\beta(0)$ are also intersection stable. Hence, we get a clopen basis.
+%Ist nun $R$ ein linear topologischer Ring, mit fundamentaler Umgebungsbasis $\beta(0)$, dann enth\"alt jede offene Umgebung der Null mindestens ein Ideal $I \in \beta(0)$, trivialerweise mindestens $(0)$, da der Schnitt beliebiger Ideale wieder ein Ideal ergibt. Sei $\{I_i \in \beta(0) : i \in \mathcal{I}\}$ ein System von Idealen, dann ist deren Vereinigung eine Teilmenge von $R$, die alle Ideale der Form
+%$$\bigcap_{i \in \mathcal{I}'} I_i, \forall \mathcal{I}' \subset \mathcal{I}\ \trm{und}\ |\mathcal{I}'| < \infty$$
+%enth\"alt und definiert damit eine offene Umgebung der Null. Andererseits sind die Schnitte der Ideale auch Umgebungen der Null, d.h. damit sind alle Ideale \textit{clopen} in $R$.
+\begin{defi}
+Let $R$ be a linear topological ring with fundamental neighborhood basis of zero: $\beta(0)$. $\hat{R}$ is called the completion of $R$, if
+%Sei $R$ ein linear topologischer Ring mit Fundamental-UB $\beta(0)$. Ein Ring $\hat{R}$ hei\ss{}t Vervollst\"andigung von $R$, falls
+$$\hat{R} \simeq \lim_{\substack{\longleftarrow\\I \in \beta(0)}} R/I,$$
+i.e. the profinite limit of $(R/I)_{I \in \beta(0)}$, with ring homomorphisms $R/I \longrightarrow R/J$ for all $I \subset J$ and $\beta(0)$ ordered by wrt. inclusion.
+%ist, d.h. der pro-endliche (oder inverse) Limes von  $(R/I)_{I \in \beta(0)}$, mit Ringmorphismen $R/I \longrightarrow R/J$ f\"ur alle $I \subset J$ und $\beta(0)$ angeordnet bzgl. Inklusion.
+\index{Index}{topological ring!completion of}
+\end{defi}
+\bmk In terms of co/limits, the completion of a linear topological ring $R$ with neighborhood basis of zero is simply the limit.
+\bsp Consider $(0) \neq \idealp = (p) \subset \zz$ and $S := \prod_{n \geq 1} \zz/\idealp^n$ with component-wise ring operations and inclusion map:
+$$\zz \longrightarrow S, z \longmapsto (z \mod p^n)_{n\geq1}.$$
+Furthermore, there are projections $\pi_{ij} : \zz/\idealp^i \longrightarrow \zz/\idealp^j, x \mod p^i \longmapsto x \mod p^j$ for all $i \geq j$. Clearly, $\beta(0) := \{\idealp^n : n \geq 1\}$ defines a neighborhood system of zero (all intersections contain the zero ideal) and via inclusion a partial order on $\beta(0)$ (in this cases total).
+%\subsection{Commutative algebra}
+%
+%\subsubsection{Invariant and equivariant rings}
+%Given a finite family of polynomials $\mathcal{F} \subset k[x]$, its invariant group is defined to be
+%the set of all $k$-linear maps $\varphi : k[x] \longrightarrow k[x]$ such that $f \circ \varphi = f$ for all $f \in \mathcal{F}$. Conversely:
+%\begin{defi}
+%the invariant ring of a given group $G$ is the set of all polynomials in $k[x]$ such that $f g = f$ for all $g \in G$. This ring is denoted by
+%$$k[x]^G.$$
+%\end{defi}
+%Since the invariant group only acts on the monomials of degree $\geq 1$ we have $g\mid_{k.1_{k[x]}} = id_{k.1_{k[x]}}$. For $n \in \nz$ the most prominent example is the ring of symmetric polynomials:
+%$$k[x]^{S_n} = k[s_1,\ldots,s_n],$$
+%with $s_i = \sum_{\substack{\alpha \in \nz_0^n\\|\alpha| = i}} x^\alpha$ the symmetric polynomials. They are of utmost importance in classical Galois theory.
+%\begin{defi}
+%For a given finite family of polynomials $\mathcal{F}$ we call the set of all $k$-linear maps $\varphi$ commuting with all $f \in \mathcal{F}$ the equivariant group of $\mathcal{F}$. Conversely, for a given group $G$ the set of all polynomials in $k[x]$ commuting with all $g \in G$ is called the equivariant ring of $G$ and is denoted by
+%$$k[x]^G_G.$$
+%\end{defi}
+%\bsp Consider $\varphi = [x^i \longmapsto (-x)^i] \in \trm{End}(k[x])$, with $n = 1$ for all $i \geq 0$. The invariant ring is obviously $k[x^2]$.
+
+%Although rather complicated, we simply recall our definition of linear topological rings $(R,+,\cdot,1,\tau)$, where the completion, in the above sense, is a colimit, indexed via some neighborhood basis $\beta(0)$ of zero (also filtered, as all ideals contain zero ideal):
+%\bd
+%\item[Index category] all neighborhood basis of zero:
+%$$\mathcal{J} \subset \trm{Mod}_R(R) \subset \trm{Mod}_R$$
+%clearly form a sub-category of all $R$-submodules. 
+%\item[Diagram to $F$]  
+%\item[Co-cone to $F$] 
+%\ed
+%\newpage
+%\subsection{Formal group laws}
+%Here we follow \cite{Strickl}.
+%\begin{defi}
+%Let $C$ be a commutative ring and $n \in \nz$. An $n$-dimensional formal group law $F$ is a formal power series in $C[[x_1,\ldots,x_n,y_1,\ldots,y_n]]^n := C[[x,y]]^n$ such that
+%\bn
+%\item $F(0,x) = x \in C[[x]]^n$,
+%\item $F(x,y) = F(y,x) \in C[[x,y]]^n$,
+%\item $F(F(x,y),z) = F(x,F(y,z)) \in C[[x,y,z]]^n$ and
+%\item there is an map $m$ on $C[[x]]$ such that $F(m(x),x) = 0$.
+%\en
+%\index{Index}{formal group law}
+%\end{defi}
+%\bsp Some examples taken from Strickland 2011:
+%\bn
+%\item the map $F(x,y) = x + y \in C[[x,y]]^n$ is called the $n$-dimensional formal additive group law, with $m = [x \longmapsto -x]$,
+%\item let $c \in C$, the map $F(x,y) = x + y + c x y \in C[[x,y]]$ is a 1-dimensional formal group law, with $m = [x \longmapsto -x/(1 + c x)]$ (recall if the constant term of a power series is a unit, then the formal power series itself is a unit - hence $1 + c x$ is a unit),
+%\item if $c \in C^\times$, then $F(x,y) = \frac{x + y}{1 + \frac{xy}{c^2}}$ is a formal group law, with
+%$m$ as in the first example. It is well-known in relativistic geometry - the so called Lorenz-FGL.
+%\en
+%\begin{lemm}
+%Let $F$ be an $n$-dimensional formal group law over some commutative ring $R$. There exists a $\Psi \in R[[x_1,\ldots,x_n]]^n$ such that $\Psi(0) = 0$ and
+%$$F(u, \Psi(u)) = F(\Psi(u),u) = 0.$$
+%\end{lemm}
+%A proof is given in \cite{Serr}.
+%\bmk For any $n$-dimensional formal group law $F \in R[[x,y]]^n$, we define a formal group scheme over $\trm{Spec}(R)$ via
+%$$\mathbf{F} : \trm{CAlg}_R \longrightarrow \trm{Grp},\ A \longmapsto N(A)^n$$
+%where the operation is given via $(u,v) \longmapsto F(u,v)$.

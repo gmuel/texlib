@@ -1,0 +1,158 @@
+%intro
+
+\section{Prerequisits}
+
+Following the standard notation from Bourbaki, we will denote for a given set $X$ the power set $\calp(X) = 2^X = \{A : A \subset X\}$.
+\begin{defi}
+A universe $\calu$ is a set satisfying the following properties:
+\begin{enumerate}
+\item $\emptyset \in \calu$,
+\item $U \in \calu$ implies $U \subset \calu$,
+\item $U \in \calu$ implies $\{U\} \in \calu$,
+\item $U \in \calu$ implies $\calp(U) \in \calu$,
+\item if $I \in \calu$ and $U_i \in \calu$ for $i \in I$ then
+$$\bigcup_{i \in I} U_i \in \calu,$$
+\item $\nz \in \calu$.
+\end{enumerate}
+We call a set $U$ a $\calu$-set if $U \in \calu$. We call a set $U$ $\calu$-small if it is isomorphic to a set in $\calu$.
+\end{defi}
+Following Grothendieck we shall add to the axiom system of Zermelo-Fraenkel the axiom demanding for any set $X$ there is a universe $\calu$ containing $X$.
+\begin{defi}
+An order on a set $I$ is a relation $\leq$ which is reflexive, antisymmetric and transitive. We call an order directed or filtrant if $I$ is non empty and if for any pair $i, j \in I$ there is $k \in I$ such that $i \leq k$ and $j \leq k$. We call an order total if for all $i, j \in I$ we have either $i \leq j$ or $j \leq i$ (or both). An ordered set $I$ is inductively ordered if any totally ordered subset $I' \subset I$ has an upper bound. 
+\end{defi}
+We remark that following the axiom of choice any inductively ordered set as an maximal element (Zorn's lemma).
+
+\subsection{Categories and functors}
+\begin{defi}
+A category $\calc$ consists of the following data:
+\begin{enumerate}
+\item the class of objects $\objc$,
+\item the class of morphisms $\morc$ which consists for all $X, Y \in \mrm{Ob}(\calc)$ of the classes of morphisms $\homc{X,Y}$ and 
+\item the composition law of morphisms: for any triple $X, Y, Z$ of objects in $\calc$ and morphisms $f \in \homc{X,Y}$ and $g \in \homc{Y,Z}$ we get a morphism $h = g \circ f \in \homc{X,Z}$.
+\end{enumerate}
+For each object $X \in \objc$ there is a morphism $e \in \homc{X,X}$ such that $f \circ e = f$ and $e \circ g = g$ for all $f \in \homc{X,Y}$ and $g \in \homc{Y,X}$.
+\end{defi}
+We remark that the composition is associative and the latter morphism is simply the identity map. We call a category $\calc$ $\calu$-category if for all $X, Y \in \objc$ the class $\homc{X,Y}$ is $\calu$-small. A $\calu$-small category is a $\calu$-category $\calc$ such that $\objc$ is $\calu$-small.
+\begin{defi}
+Given a category $\calc$ we define the opposite category $\calc^{\mrm{op}}$ to be:
+$\obj{\calc^{\mrm{op}}} = \objc$ and $\homo{\calc^{\mrm{op}}}{X,Y} = \homc{Y,X}$ for all $X, Y \in \objc$.
+The composition is simply inverted: for $f \in \homo{\calc^{\mrm{op}}}{X,Y}$ and $g \in \homo{\calc^{\mrm{op}}}{Y,Z}$ we get:
+$$g \circ^{\mrm{op}} f = f \circ g.$$
+\end{defi}
+A morphism $f : X \longrightarrow Y$ in $\calc$ is called an isomorphism if there exists a morphism $g : Y \longrightarrow X$ in $\calc$ such that
+$$ f \circ g = id_Y  \ \mrm{and}\ g \circ f = id_X.$$
+An endomorphism is a morphism with target object $Y = X$ - an automorphism is and endomorphism and isomorphism. Two morphism $f, g$ are parallel if they have the same source and targets:
+$$f, g : X\  \substack{\longrightarrow\\\longrightarrow}\ Y.$$
+A morphism $f : X \longrightarrow Y$ is a monomorphism if for any parallel morphisms $g_1 , g_2 : Z\  \substack{\longrightarrow\\\longrightarrow}\ X$ we have
+$$g_1 \circ f = g_2 \circ f\ \Rightarrow\ g_1 = g_2.$$
+A morphism $f : X \longrightarrow Y$ is an epimorphism if $f^{\mrm{op}}$ is a monomorphism.
+We call a category $\calc'$ a subcategory of $\calc$ if $\obj{\calc'} \subset \objc$ and $\homo{\calc'}{X,Y} \subset \homc{X,Y}$ for all $X, Y \in \obj{\calc'}$. We call a subcategory $\calc'$ of $\calc$ full if $\homo{\calc'}{X,Y} = \homc{X,Y}$. A full subcategory $\calc'$ of $\calc$ is saturated if $X \in \calc$ belongs to $\calc'$ whenever $X$ is isomorphic to an object in $\calc'$. A category is discrete if all morphism are identity morphisms. A category $\calc$ is non empty if $\objc$ is non empty. A category is a groupoid if all morphisms are isomorphisms. A category $\calc$ is finite if $\morc$ is finite as a set. A category is connected if its non empty and for any pair objects $X, Y \in \calc$ there is a finite sequence of objects $X = X_0, \ldots, X_i = Y$ such that at least one of the sets $\homc{X_j,X_{j+1}}$ or $\homc{X_{j+1},X_j}$ is non empty for all $0 \leq j \leq i - 1$.\\
+\indent A diagram in a category $\calc$ is a family of symbols representing objects in $\calc$ and arrows betweens these representing morphisms of these objects. The definition of a commutative diagrams follows in an obvious fashion.
+\bsp 
+\begin{enumerate}
+\item $\mrm{Set}$ is the category of $\calu$-sets and maps, $\mrm{Set}^f$ the full subcategory of finite $\calu$-sets.
+\item The category $\mrm{Rel}$ of binary relations is defined to be:
+$\obj{\mrm{Rel}} = \obj{\mrm{Set}}$ and $\homo{\mrm{Rel}}{X,Y} = \power{X \times Y}$, the set of subsets of $X \times Y$. The composition law is defined as follows: if $f : X \longrightarrow Y$ and $g : Y \longrightarrow Z$ then $g \circ f$ is
+$$\{(x,z) \in X \times Z : \exists y \in Y,\ (x,y) \in f \wedge (y,z) \in g\}.$$
+The identity morphism is the diagonal map $\Delta : X \longrightarrow X \times X$.
+\item  Let $R$ be a unital ring (not necessarily commutative, $R \in \calu$). The category of $R$ left modules belonging to $\calu$  is denoted $\mrm{Mod}(R)$. The category of $R$ right modules is simply the $R^{\mrm{op}}$ left modules where $R^{\mrm{op}}$ is the opposite ring (with multiplication flipped). Its class of morphisms is
+$$\homo{\mrm{Mod}(R)}{\;\cdot,\;\cdot} = \homo{R}{\;\cdot,\;\cdot}.$$
+We denote with $\mrm{End}_R(M)$ the ring of $R$ endomorphisms on $M$ and $\mrm{Aut}_R(M)$ the group of automorphisms on $M$. We denote by $\mrm{Mod}^{\mrm{f}}$ the category of finitely generated modules over $R$ (recall: finitely generated iff there is a surjective $R$ linear map $u : R^\oplus \longrightarrow M$ for some $n \geq 1$). They are also called modules of finite type.\\
+\indent We denote by $\mrm{Mod}^{\mrm{fp}}$ the category of finitely presented $R$ modules. Recall a module is finitely presented if it is of finite type and $\ker u$, as defined above, is also of finite type.
+\item Let $(I,\leq)$ be an ordered set. We associate to it a category $\call{I}$ as follows:
+$$\begin{array}{rcl}
+\obj{\call{I}} &=& I\\
+&&\\
+\homo{\call{I}}{i,j} &=& \begin{cases}
+\ast,& i \leq j\\
+\emptyset, & \mrm{else}\\
+\end{cases}\\
+\end{array}$$
+where $\ast$ stands for some pointed space. Thus, the set of morphisms is either single-pointed or empty.
+\item We call a category of boolean type or a boolean category if there three maps
+$$\begin{array}{rrcl}
+a : & B \times B & \longrightarrow& B\\
+&&&\\
+o : & B \times B & \longrightarrow& B\\
+&&&\\
+n : & B &\longrightarrow& B\\
+\end{array}$$
+such that the following diagrams commute:
+$$\begin{array}{cc}
+\xymatrix{
+B \ar[rd]_{id_B}\ar[r]^n&B\ar[d]^n\\
+&B\\
+} &
+\xymatrix{
+B \ar[d]_n & B \times B \ar[l]_a \ar[r]^o \ar[d]_{n \times n} & B\ar[d]^n\\
+B & B \times B \ar[l]^o \ar[r]_a &B\\
+}\\
+\end{array}$$
+Its morphisms are simply the maps preserving the each of the three maps.
+\end{enumerate}
+\subsubsection{Topological spaces as category}
+
+\subsection{Functors}
+
+\subsection{Yoneda functors and Yoneda lemma}
+Given a universe $\calu$ and a $\calu$-category $\calc_\calu$ we define two functors:
+$$\begin{array}{rrcl}
+\hat{h} : &\calc_\calu &\longrightarrow& \hat{\calc}_\calu\\
+&&&\\
+&C& \longmapsto& \homo{\calc_{\calu}}{\;\cdot\;,C}\\
+&&&\\
+\hat{k} :&\calc &\longrightarrow& \check{\calc}_\calu\\
+&&&\\
+&C&\longmapsto&\homo{\calc_{\calu}}{C,\;\cdot\;}\\
+\end{array}$$
+
+
+
+\subsection{Group objects}
+Given a category $\calc$ with initial object $\ast$ and finite products we call an object $G \in \calc$ a group object (in $\calc$) %there are morphisms $e \in \homo{\calc}{\ast,G}$, $m \in \homo{\calc}{G \times G, G}$ and $S : G \longrightarrow G$ if and only if $\mrm{im} m \supset G$ and the following diagrams commute:
+if there is a functor $\overline{G} : \calc^{\mrm{op}} \longrightarrow \mrm{Grp}$ such that $G$ represents the composition functor $\mrm{For} \circ \overline{G}$ given in the following diagram:
+$$\xymatrix{ \calc^{\mrm{op}} \ar[r]^{\overline{G}} \ar[rd]_{\mrm{For}\;\circ\;\overline{G}}& \mrm{Grp}\ar[d]^{\mrm{For}}\\
+&\mrm{Set}.\\
+}$$
+Here, $\mrm{For}$ is simply the forgetful functor:
+$$\mrm{Grp} \longrightarrow \mrm{Set}.$$
+Furthermore, representation means that $\overline{G} \simeq h_{\calc}(G) = \homo{\calc}{\;\cdot\;,G}$. Therefore, we may identify $G$ and $\overline{G}$ ($G$ thought of as a functor). Furthermore, there is a functorial isomorphism:
+$$G(X) \times G(X) \simeq (G \times G)(X)$$
+making $m : G \times G \longrightarrow G$ a morphism in $\hat{\calc}$.
+we get functors% $m : \hat{\calc} \times \hat{\calc} \longrightarrow \hat{\calc}$, $e : \hat{h}
+\begin{description}
+\item[Unity:]
+$$\xymatrix{
+\ast \times G \ar[rd]_\simeq \ar[r]^{e \times id_G}& G\times G \ar[d]^m&G\times \ast\ar[l]_{id_G \times e}\ar[ld]^\simeq\\
+&G&\\
+}$$
+\item[Associativity]
+$$\xymatrix{
+G \times G \times G \ar[rr]^{m \times id_G}\ar[d]_{id_G\times m} && G\times G \ar[d]^m\\
+G \times G \ar[rr]_m &&G\\
+}$$
+\end{description}
+\subsubsection{Functors and schemes}
+Two prominent examples of functors are the following:
+\paragraph{Additive group scheme}
+
+\paragraph{Multiplicative group scheme}
+Given a commutative ring $R$ with unit, we define the following functor:
+$$\mathbb{G}_m : \mrm{CURng} \longrightarrow \mrm{Grp},\ R \longmapsto \mrm{Gl}_1(R).$$
+In this case the base scheme is simply the spectrum of $R$ and its affine scheme is:
+$$\mrm{Spec} \left(R\left[x,x^{-1}\right]\right)$$
+as follows: the ring of Laurent polynomials $R[x,x^{-1}]$ over $R$ has the comultiplication
+$$\Delta : R[x,x^{-1}] \longrightarrow R[x,x^{-1}]^{\otimes 2},\ x \longmapsto x \otimes x,$$
+and counit
+$$\varepsilon : R[x,x^{-1}] \longrightarrow R,\ x \longmapsto 1.$$
+Now, we take the dualisation via the spectrum functor as follows:
+\begin{enumerate}
+\item we pick a minimial prime ideal $\mathfrak{p}$ over zero in $R$ and form a singleton $(\{\mathfrak{p}\},\mathfrak{p})$ and the map:
+$$\mrm{Spec}(\varepsilon) : \{\mathfrak{p}\} \longrightarrow \mrm{Spec} R[x,x^ {-1}],\ \mathfrak{p} \longmapsto \left<x - 1\right>$$
+Note that if $R$ is some integral domain this chosen prime ideal is naturally the zero ideal. This map becomes our inclusion $e : \ast \longrightarrow R^\times$ of the trivial subgroup.
+\item Next, we note that the tensor product $R[x,x^{-1}] \otimes R[x,x^{-1}]$ is isomorphic to $R[x,x^{-1},y,y^{-1}] = S^{-1}_{x,y} R[x,y]$ and we therefore only need to discuss the prime ideals in the latter ring (actually only those in $R[x,x^{-1}]$ as only those will be in the preimage of $\Delta$):
+$$\bao{rrcl}
+\mrm{Spec}(\Delta) : &\mrm{Spec} (R[x,x^{-1}] \otimes R[x,x^{-1}]) &\longrightarrow &\mrm{Spec}(R[x,x^ {-1}])\\
+& \left<a x - 1\right> \otimes \left<b x - 1\right> &\longmapsto & \left<a b x - 1\right>\\
+\ea$$
+\end{enumerate}

@@ -1,0 +1,28 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+
+\newtheorem{defi}{Defintion}
+
+\author{moi}
+\begin{document}
+\section{Introduction}
+We shall concentrate our discussion on fixed points and its implication with regard to algebra. We assume the reader confident with basic ring and module theory. In particular, unless stated otherwise we assume each ring $R$ to be commutative and unital (i.e. with one $1_R \in R$.
+\subsection{Polynomial example}
+Let $R$ be a ring. Firstly, let us discuss the specialisation of fixed points in the polynomial case.
+\begin{defi}[Polynomial case]
+Fix $f \in R[X]\backslash R$. An element $r_f \in R$ is a fixed point wrt. to $f$, if $f \in \ker \phi_{r_f}$ or equivalently if $r_f \in \ker \rho \circ \psi (f)$, where
+$$\begin{array}{rrclcrcl}
+ev_r : & R[X] & \longrightarrow & R,&& \sum_i f_i X^i & \longmapsto & \sum_i f_i r^i\\
+\rho : &R& \longrightarrow &\mathrm{CRng}(R[X],R),&& r &\longmapsto& ev_r\\% = \left[\sum_i f_i X^i \longmapsto \sum_i f_i r^i\right],\\
+\psi :& R[X] &\longrightarrow& R[X],&& f &\longmapsto &f - x,\ \mathrm{and}\\
+\phi_r := ev_r \circ \psi :& R[X]& \longrightarrow& R&,& f &\longmapsto& ev_r (f - x).\\
+\end{array}$$
+\end{defi}
+Firstly, we note that $\psi$ is an $R$ module automorphism and $ev_r$ is a ring homomorphism (hence, the notation of the class of ring homs $\mathrm{CRng}(R[X],R)$). The equivalence is obvious. However, the map $\phi_r$ is not a module 
+
+\end{document}

@@ -1,0 +1,1121 @@
+\section{Mathematical Prerequists}
+Let $R$ be a unital commutative ring (in literature one finds also unitary with the same meaning, i.e. a ring with one). Let us recall some important definitions from commutative and non-commutative algebra. For simplicity, let $\trm{Hom}$, $\otimes$ denote $\trm{Hom}_R$, $\otimes_R$, resp.
+\index{Index}{ring!unital}
+\index{Index}{ring!unitary}
+\index{Index}{ring!with one}
+\subsection{\texorpdfstring{Basics in commutative and\\non-commutative algebra}{Basics in commutative and non-commutative algebra}}
+\begin{defi}\label{defi01}
+An \tb{$R$-algebra} $A$ is an $R$-module, with an $R$-linear map $\mu : A \otimes A \longrightarrow A$. \bn
+\item If $\mu$ is associative, i.e.
+$$\xymatrix{
+A \otimes A \otimes A \ar[rr]^{id_A \otimes \mu} \ar[d]_{\mu \otimes id_A} & & A \otimes A \ar[d]^{\mu}\\
+A \otimes A \ar[rr]_{\mu} &&A\\
+}$$
+commutes we call $A$ associative.
+\index{Index}{algebra!associative}
+\item\label{alg_unital} %If there is an element $1_A \in A$, with left- and right action as identity (i.e. $\mu(1_A \otimes\_)= [x \longmapsto 1_A \cdot x] = id_A = \mu(\_ \otimes 1_A) = [x \longmapsto x \cdot 1_A]$) $A$ is said to be \tb{unital}. Alternatively, 
+If there is an $R$-linear map $\eta : R \longrightarrow A$ called the unit such that
+$$\xymatrix{
+R \otimes A  \ar[rr]^{\eta \otimes id_A} \ar[rrd]_\sim& & A \otimes A\ar[d]_\mu& & A \otimes R\ar[ll]_{id_A \otimes \eta} \ar[lld]^\sim\\
+&&A&&\\
+}$$
+commutes, we call $A$ unital.
+\index{Index}{algebra!unital}
+\item If $\mu(x \otimes y) = \mu(y \otimes x)$ holds for all $x, y \in A$ then $A$ is commutative.
+\index{Index}{algebra!commutative}
+\item An $R$-submodule $B \subset A$ is an $R$-subalgebra, if $\trm{im} \mu\mid_{B\otimes B} \subset B$.
+\item An $R$-subalgebra $I \subset A$ is an left-, right- or two-sided ideal if $\mu(A \otimes I) \subset I$, $\mu(I \otimes A) \subset I$ or both, respectively.
+\index{Index}{algebra!ideal}
+\item $A$ is (left-, right-,two-sided-) noetherian, if for every chain of ascending (left-, right-, two-sided-) ideals $\ldots \subset I_{n} \subset I_{n+1} \subset \ldots$ in $A$ there is some $m \in \nz$ such that $I_m = I_{m+1}$.
+\item $A$ is called artinian if for every chain of descending (left-, right-, two-sided) ideals $\ldots \supset I_n \supset I_{n+1} \supset \ldots$ in $A$ there is some $m \in \nz$ sucht that $I_{m} = I_{m+1}$.
+\index{Index}{algebra!noetherian}
+\index{Index}{algebra!artinian}
+\index{Symbol}{$\mu$}
+\index{Symbol}{$\eta$}
+\en
+\end{defi}
+\bmk \label{alg_general} Some alternative remarks:\\
+\bn
+\item The reader may find an alternative definition of multiplication in the literature, as an $R$-bilinear map $A \times A \longrightarrow A$. However, due to the universal properaty of the tensor product we will use them interchangeably. Furthermore, being a unital algebra is equivalent in demanding a unique element $1_A \in A$ such that its left action $\mu(1_A \otimes \_) = [a \longmapsto \mu(1_A \otimes a)]$ is identity on $A$.%We may define an algebra $A$ as follows: $A$ is an $R$-module with an $R$-bilinear map $\cdot : A \times A \longrightarrow A$. However, due to the universal property of the $R$-tensor product, we get the following commuting diagram:
+%$$\xymatrix{A \times A \ar[rd]_\cdot\ar[r]^\otimes & A \otimes A \ar[d]^\mu\\&A\\}$$
+%meaning, we may either start with an $R$-bilinear map $\cdot : A \times A \longrightarrow A$ and define $\mu(a \otimes b) := \cdot(a,b)$ or start with an $R$-linear map $\mu$ and the tensor product and may define $\cdot(a,b) := \mu(\otimes(a,b))$. Hence, both definition are equivalent. Therefore, we call both maps multiplication and use them interchangeably.\\
+\item Commutativity can be rephrase as a commutative diagram wrt. to the flip isomorphism:
+$$\tau : A \otimes A \longrightarrow A\otimes A,\ a \otimes b \longmapsto b \otimes a:$$
+$A$ is commutative if and only if
+$$\xymatrix{
+A \otimes A \ar[r]^\tau \ar[rd]_{\mu} & A \otimes A \ar[d]^\mu\\
+&A\\
+}$$
+commutes.
+\index{Index}{isomorphis!flip}
+\index{Symbol}{$\tau$}
+%\item \label{alg_unital} For any unital $R$-algebra $A$ we define an additional $R$-linear map:
+%$$\eta : R \longrightarrow A,\ 1_R \longmapsto 1_A,$$
+%with commuting diagram:
+%$$\xymatrix{
+%R \otimes A \ar[r]^{\eta \otimes id_A}\ar[rd]_\sim & A \otimes A\ar[d]^\mu & A \otimes R\ar[l]_{\id_A \otimes \eta}\ar[ld]^\sim\\
+%&A.&\\
+%}$$
+%\en
+\item The triplet $(A,\mu,\eta)$ characterizes uniquely any unital, associative algebra over $R$.
+\en
+From our definitions we get immediately
+\begin{prop}\label{prop01}
+Let $(A,\mu,\eta)$ be an unital associative $R$-algebra and $T A$ denote the tensor algebra over $A$. There is a unique two-sided ideal $I A \subset T A$ wrt. $\mu$, s.t. $T A /I A \simeq A$.% up to isomorphism.
+\end{prop}
+%\commt{
+\bws We offer two alternative proofs.
+\bn
+\item Note, that $T A = \sum_{n \geq 0} A^{\otimes n}$ - in particular, we have $A^{\otimes 0} = R \simeq R.1_A$, $A^{\otimes 1} = A$. Thus, $T A = \bigoplus_{n \geq 1} A^{\otimes n}$. Then, put $J A := \left<a \otimes b - a b : a, b \in A\right>$. Now, it is enough to show that $J A = I A$. First, let us define $\varphi : T A \longrightarrow T A/I A$ and the degree map
+$$\deg : \bigcup_{i \geq 0} A^{\otimes i} \longrightarrow \zz \cup \{-\infty\},\ x \in A^{\otimes i} \longmapsto \begin{cases}
+i & x \neq 0\\
+-\infty & \trm{else}\\
+\end{cases},$$ extended on $T A\bsl\{0\}$ by $x = \sum_i x_i \longmapsto \max\{\deg x_i : x_i \in A^{\otimes i}\bsl\{0\}\}$,
+ being sub additive (additive in the case $A$ is a domain). Then by definition, all elements in our quotient algebra $B: = T A/J A$ are represented by elements of at most degree 1, i.e. $\ov{x} = x + J A \in B \RA \deg x \leq 1$. Take the inclusion $f : J A \longrightarrow T A$ and the projection $\pi : T A \longrightarrow B$ defining a short exact sequence of (ass) $R$-algebras:
+$$0 \longrightarrow J A \stackrel{f}{\longrightarrow} T A \stackrel{\pi}{\longrightarrow} B \longrightarrow 0.$$
+For the inclusion map $\iota : A \longrightarrow T A$ we clearly have $\pi \circ \iota \equiv id_A$ which shows the claim.\\
+\item We recall the universal property of the $R$-tensor product: i.e.
+$$\xymatrix{
+A \times A \ar[rd]_{\cdot}\ar[r]^{\otimes} & A \otimes_R A\ar[d]^{\mu}\\
+& A\\
+}$$
+commutes. Hence, we may define:
+$$A \otimes_A A := A \otimes_R A/\sim,\ \trm{where}\ \sim := \left\{(a \gamma \otimes b, a \otimes \gamma b) \in \left(A^{\otimes_R 2}\right)^2 : \gamma \in A\right\}$$
+and by universal prop.: $A \simeq A\otimes_A A$ and therefore
+$$\xymatrix{
+A \times A \ar[r]\ar[d] & A \otimes_R A \ar[d]\ar[ld]_{\mu}\\
+A & A \otimes_A A.\ar[l]_{\sim}\\
+}$$
+Hence, the two-sided $A$-submodule $I A := \sum_{a \otimes b \in A \otimes A}T A.(a \otimes b - a b). T A$ is also a two-sided $T A$-submodule and has the required property:
+$$T A/I A \simeq A,\ a \otimes 1_A \equiv 1_A \otimes a \equiv a, a \otimes b \equiv ab \mod I A,\ \forall a, b \in A.$$
+Summarizing, we get the following commuting diagram:
+$$\xymatrix{
+A \ar@{^{(}->}[r]^\iota \ar[rd]_\sim& T A\ar[d]^\pi\\
+& T A/I A\\
+}$$
+%It suffice to show that $I A$ is stable under $A$-automorphisms, i.e. a $G := \trm{Aut}_{R-\trm{alg}}(A)$-equivariant space/module.
+%\indent By definition, $I A$ is stable under conjugation, i.e. $G' = \left\{\varphi_h \in G : \varphi = \left[g \longmapsto h^{-1} g h\right], h \in A^\times\right\}$, since:
+%$$a \otimes b - a b \equiv 0 \mod I A\LRA \gamma^{-1} a \gamma \otimes \gamma^{-1} b \gamma - \gamma^{-1} a b \gamma \equiv 0 \mod I A.$$
+%Now we assume there is a $\varphi \in \trm{Out}(A)$, where $\trm{Out}(A) := G/G'$ s.t. $\varphi(a) \otimes \varphi(b) - \varphi(a) \varphi(b) \nequiv 0 \mod I A$. First, we extend $G$ on $T A$ by simply defining
+%$$\bao{crrcl}
+%\hat{\varphi} = \sum_{n \geq 1} \hat{\varphi}_n,&\hat{\varphi}_n : &T^n A &\longrightarrow& T^n A\\
+%&&&&\\
+%&&a_{i_1} \otimes \ldots \otimes a_{i_n} &\longmapsto& \varphi(a_{i_1}) \otimes \ldots \otimes \varphi(a_{i_n}),\\
+%&&&&\\
+%&&\hat{\varphi}_n\mid_{T A \bsl T^n A} &=& 0 \in \trm{End}(T A)\\
+%\ea$$
+%The quotient $I A/G' := \sum T A.(a \otimes b - a b). T A/G' = \{[c a c' \otimes d b d' - c a c' d b d'] : c, c', d, d' \in T A, \varphi_h(c a c') \otimes \varphi_h(d b d') - \varphi_h(c a c') \varphi_h(d b d') \in [c a c'\otimes d b d' - c a c' d b d'],\ \forall \varphi_h \in G'\}$.
+\en
+\begin{defi}\label{defi04}
+Let $A$ be an algebra.
+\bn
+\item $A$ is called graded if there exist submodules $A_n$, such that
+$$A = \bigoplus_{n\geq 0} A_n\ \trm{and}\ \mu_A(A_n \otimes A_m) \subset A_{n+m}.$$
+\item $A$ is called filtered if there exist submodules $A^{\leq n}$, such that
+$$A = \bigcup_{n \geq 0} A^{\leq n}\ \trm{and}\ \mu_A(A^{\leq n} \otimes A^{\leq m}) \subset A^{\leq n + m}.$$
+\item For a filtered algebra $\mathcal{A} = \bigcup \mathcal{A}^{\leq n}$ we call
+$$\trm{gr} \ \mathcal{A} := \bigoplus_{n \geq 1} A^n,\ \trm{where}\ A^n := \mathcal{A}^{\leq n}/\mathcal{A}^{\leq n - 1}$$
+the associated graded algebra. Multiplication $\mu_{\trm{gr} \mathcal{A}}$ is defined by $[x y] \in A^{n + m}$ for all $x \in \mathcal{A}^{\leq n}, y \in \mathcal{A}^{\leq m}$.
+\item An algebra $A$ is called a deformation of a filtered algebra $\mathcal{A}$ if $\trm{gr} \mathcal{A} \simeq A$.
+\en
+\index{Index}{algebra!graded}
+\index{Index}{algebra!filtered}
+\index{Index}{algebra!associated graded}
+\end{defi}
+\bmk Deformation theory is fundamental in the study of singularity theory. For instance, deformation theory of Kleinian singularities $\cz^2/\Gamma$ leads to the classification scheme also found in simple Lie algebras (the ADE-system), where $\Gamma$ is a finite subgroup of $\trm{Sl}_2(\cz)$.\\
+\indent The submodules $A_n$ for a given grading are sometimes called the homogeneous submodules and its elements homogeneous.
+\subsubsection{Algebras and their modules}
+Let $(A,\mu,\eta)$ be an $R$-algebra and $M$ an $R$-module. $A$ is assumed to be associative and unital.
+\begin{defi}
+$M$ is called a left A-module, if there is a homomorphism $\rho : A \longrightarrow \trm{End}_R(M)$ of $R$-algebras - i.e. the following diagrams commute:
+$$\bao{cc}
+\xymatrix{
+A \otimes A \otimes M \ar[rr]^{\id_A \otimes \Psi}\ar[d]_{\mu_A \otimes id_M} && A \otimes M \ar[d]^\Psi\\
+A \otimes M\ar[rr]_\Psi && M\\
+} & 
+\xymatrix{
+R \otimes M \simeq M \ar[rrd]_\sim \ar[rr]^{\eta \otimes id_M} && A \otimes M \ar[d]^\Psi \\
+&&M\\
+}
+\ea$$
+where $\Psi : A \otimes M \longrightarrow M, a \otimes m \longmapsto \rho(a)(m)$.
+\end{defi}
+\bmk A right $A$-module is constructed similarly (just reversing sides). The pair $(M,\rho)$ is called an $A$-representation. The associativity is not needed for its definition, hence modules over non-associative algebras are permitted.
+\subsection{Ore Extensions}
+Unless mentioned otherwise, $A$ is always an unital associative algebra over $R$. Let $X$ be a non-empty set. The $R$-algebra $T X$ is defined as the tensor algebra
+$$T X := \bigoplus_{n \geq 0} M(X)^{\otimes n},\ \trm{where}\ M(X) := \bigoplus_{x \in X} R.x \ \trm{and}\ M(X)^{\otimes 0} := R.$$
+\begin{defi}\label{defi02}
+Let $A[X]$ be the left $A$-module $A \otimes T X$ with left $A$ action $a \cdot 1_A \otimes x = a \otimes x$, for all $x \in T X$, $a \in A$.
+\bn
+\item For an injective algebra homomorphism $\alpha : A \longrightarrow A$ an $\alpha$-derivation $\delta : A \longrightarrow A$ is an $R$-linear map such that
+$$\delta(a b) = \alpha(a) \delta(b) + \delta(a) b\ \forall a, b \in A.$$
+\item If in addition, $\alpha$ is surjective, the triple $A[X, \alpha, \delta]$ is called the Ore extension of $A$ with
+$$x a = \alpha(a) x + \delta(a), \forall x \in X, a \in A.$$
+In other words, $A[X]$ has a unique right $A$-module structure, as well, defining an $A$-algebra.% with structure maps:
+%$$\bao{rrclcl}
+%\eta :& A & \longrightarrow&A[X]\\
+%& 1_A&\longmapsto&1_A x^0 =: 1_{A[X]}\\
+%&&&\\
+%\mu_{A[X]} :&A[X] \otimes A[X] & \longrightarrow& A[X]\\
+%& a x \otimes b y &\longmapsto& a \alpha(b) x y + a \delta(b) y,\ \forall x, y \in X,\ a, b \in A\\
+%&a x \otimes b y &\longmapsto& %a x_1 \ldots x_n b y\\
+%%& &=& a x_1 \ldots x_{n-1} (\alpha(b) x_{n} + \delta(b)) y\\
+ %%&&=& 
+%a \alpha^n(b) x_1 \ldots x_n y + a \delta(\alpha^{n-1}(b)) x_2 \ldots x_n y +\ldots\\
+%&&&a \alpha^{n-1}(\delta(b)) x_1 \ldots x_{n-1} y + a \delta^2 (\alpha^{n-2}(b) x_3 \ldots x_n y + \\
+%&&&a \delta(\alpha(\delta(\alpha^{n-3}(b)))) x_2 x_4 \ldots x_n
+%\ea$$
+\en
+\index{Index}{extension!Ore}
+\index{Symbol}{$A[X,\alpha,\delta]$}
+\end{defi}
+Clearly, the definition of an Ore extension is analogous to the situation of adjoining a transcendental element to a field/ring as in polynomial rings. However, as $A$ or the action of $\alpha$ does not need to be commutative there are obstacles with regard to right and left-sidedness. The aim is to define a right $A$-module structure on $A[X]$. Firstly, we identify $A \otimes X$ with $A \otimes M(X)$ and set $B^n := (A \otimes X)^{\otimes n} \otimes A$ for all $n \geq 1$ and $B^0 = A$.
+%\begin{lemm}
+%The two-sided $A$-module $B$, where $B := \bigoplus_{i \geq 0} B^i$, has a natural $A$ algebra structure given by the $A$ linear maps:
+%\scriptsize{
+%$$\mu^{i,j} : B^i \otimes B^j \longrightarrow B^{i+j},\ (a_{i_0} \otimes x_{i_1} \otimes a_{i_1} \otimes \ldots \otimes a_{i_{n-1}} \otimes x_{i_n} \otimes a_{i_n} $$
+%}
+%\end{lemm}
+\begin{prop}\label{prop02}
+Let $B$ be the two sided $A$-module, as above:%generated by $A$ and $X$, i.e. $B^n = (A \otimes X)^{\otimes n} \otimes A$ and
+$$B = \bigoplus_{n \geq 0} B^n.$$
+Then $B$ has a graded $A$-algebra structure via multiplication
+$$\bao{rrcl}
+\mu^{n,m} :& B^n \otimes B^m &\longrightarrow& B^{n+m}\\
+&&&\\
+&a_{i_0} \otimes x_{i_1} \otimes \ldots \otimes  x_{i_n} \otimes a_{i_{n}} & & a_{i_0} \otimes x_{i_1} \otimes \ldots \otimes  x_{i_n} \otimes a_{i_{n}}\\
+&\otimes &\longmapsto&\\
+& b_{j_0} \otimes x_{j_1} \otimes \ldots \otimes  x_{j_m} \otimes b_{j_{m}} & &  b_{j_0} \otimes x_{j_1} \otimes \ldots \otimes  x_{j_m} \otimes b_{j_{m}}\\
+\ea$$
+for all $a_{i_k}, b_{j_l} \in A$, $x_{i_k}, x_{j_l} \in X$ and $1 \leq k \leq n, 1 \leq l \leq m$.
+\end{prop}
+\bws The proof is straightforward if we put $\mu^{n,m}\mid_{B \otimes B \bsl B^n \otimes B^m} = 0$ and $\mu = \sum_{n,m \in \nz_0} \mu^{n,m}$.
+\begin{prop}\label{prop03}
+Let $B$ be the algebra as above. The Ore extension $A[X,\alpha,\delta]$ is isomorphic to
+$B/I(\alpha,\delta)$ where
+$$I(\alpha,\delta) := \left<1_A \otimes x \otimes a - \alpha(a) \otimes x \otimes 1_A - \delta(a): x \in X, a \in A\right>$$
+is a two-sided ideal in $B$. Moreover, if $A$ is zero divisor free then so is $A[X,\alpha,\delta]$.
+\end{prop}
+\bws Comes in several steps:
+\bn
+\item First, let us compute $\delta(1_A) = \delta(1_A \cdot 1_A) = \alpha(1_A) \delta(1_A) + \delta(1_A) 1_A$. Equivalently, $0 = \alpha(1_A) \delta(1_A)$. But being a monomorphism $\alpha(1_A) = 1_A$, hence $\delta(1_A) = 0$.
+\item Put $\iota_l : A[X] \longrightarrow B$, $a \otimes x_i := a \otimes x_{i_1} \ldots x_{i_n}  \longmapsto a \otimes (x_{i_1} \otimes 1_A) \otimes \ldots \otimes (x_{i_n} \otimes 1_A)$. This clearly defines a left $A$-module homomorphism. Similarly, we get $\iota_r : [X]A \longrightarrow B$, $x_i \otimes a = x_{i_1} \ldots x_{i_n} \otimes a \longmapsto (1_A \otimes x_{i_1}) \otimes \ldots \otimes (1_A \otimes x_{i_n}) \otimes a$ a right $A$-module homomorphism. Both morphisms are injective as we readily see by our definition. Thus, we see that
+$$A[X], [X]A \subset B/I(\alpha,\delta).$$
+Moreover, $A[X]$ is a $T X$-right module and $[X]A$ is a $T X$-left module.
+\item Set $C := B/I(\alpha,\delta)$ and $\varphi : B \longrightarrow C$.
+\bd
+\item[Claim:] $\varphi$ is an $A$-algebra morphism. We are going to proof this claim sequentially.
+\bn
+\item $\varphi$ is a two-sided $A$-module homomorphism and in particular, we have $\varphi\mid_{A[X]} \circ \iota_l \equiv id_{A[X]}$. As we just proved both single sided $A$-modules, $A[X], [X]A$, have isomorphic images in $B$ and its quotient algebra. By our definition, $\varphi$ respects the left $A$-module structure. So let us proof the right $A$-module morphism. As we just saw there is a right $A$ submodule $\iota_r(X \otimes A) = 1_A \otimes X \otimes A$. Its image under $\varphi$ is the subset $\varphi(X \otimes A)$. But, no matter if we first apply the right action of $A$ on our monomials $x_i \in X$ or apply the action on $\varphi(x_i \otimes a)$ we still get the same value:
+$$\alpha(a) x_i + \delta(a) = \mu_C(\varphi(x_i) \otimes \varphi(a)) = \varphi(x_i \otimes a) \in C.$$
+In particular we have
+$$\varphi(X \otimes A) \simeq \varphi(1_A \otimes X \otimes A) \subset \left\{\alpha(a) \otimes x \otimes 1_A + \delta(a) : a \in A,\ x \in X\right\} \subset C^{\leq 1}.$$
+This extends to all elements in $[X]A$ as follows: pick $x_{i_1} \ldots x_{i_n} a \in X^{\otimes n} \otimes A$ and identify with $1_A \otimes x_{i_1} \otimes 1_A \otimes \ldots \otimes 1_A \otimes x_{i_n} \otimes a \in B^n$. Then, iteratively apply the following rule - if $I = \{i_j : 1 \leq j \leq n\}$ is the index set of our monomial $x_i \in T X$ and $M := \trm{map}(I,\{0,1\}) = \{0,1\}^I$, then:
+$$x_{i_1} \ldots x_{i_n} a = \sum_{\substack{m \in M}} w_{m}(a) x_{i_1}^{m(i_1)} \ldots x_{i_n}^{m(i_n)} \in C,\ \trm{where}$$
+$$w_{m} := w_{m(i_1)} w_{m(i_2)} \ldots w_{m(i_n)},\ w_{m(i_j)} = \delta^{1-m(i_j)} \alpha^{m(i_j)},$$
+where multiplication simply means composition. 
+%and $w_{k \in \nz^0} = \delta^n$ or, equivalently, having deleted all monomials from $x_1 \ldots x_n$.
+Easily proved by induction: assuming we have the above formular in case $X^{\otimes n} \otimes A$, then for $x_{i_0} x_{i_1} \ldots x_{i_n} a \in X^{\otimes n + 1} \otimes A$ we get:
+\begin{align*}
+x_{i_0} x_{i_1} \ldots x_{i_n} a &= x_{i_0} \sum_{m \in M} w_k (a) x_{i_1}^{m(i_1)} \ldots x_{i_n}^{m(i_n)}\\
+ &= \sum_m \alpha( w_m(a) ) x_{i_0}^1 x_{i_1}^{m(i_1)} \ldots x_{i_n}^{m(i_n)}\\ & + \sum_m \delta(w_m(a)) x_{i_0}^0 x_{i_1}^{m(i_1)} \ldots x_{i_n}^{m(i_n)}&&\\
+\end{align*}
+Defining two functions $\wt{m}_{0,1} : I \cup \{i_0\} \longrightarrow \{0,1\}$, with $\wt{m}_{0,1}\mid_I = m$ and $\wt{m}_0(i_0) = 0, \wt{m}_1(i_0) = 1$ we get two extensions for each $m \in M$ on $I \cup \{i_0\}$:
+\begin{align} 
+x_{i_0} \ldots x_{i_n} a &= \sum_{\wt{m} \in \wt{M}} w_{\wt{m}} (a) x_{i_0}^{\wt{m}(i_0)} \ldots x_{i_n}^{\wt{m}(i_n)},\\
+\end{align}
+where $\wt{M} = \{0,1\}^{I \cup \{i_0\}}$.
+\item By definition $B$ is a graded $A$-algebra with a filtration induced by the grading. This filtration is obviously kept under $\varphi$ ($\trm{im} \mu\mid_{B^{\leq n}} \subset C^{\leq n}$). Thus, we will show that the following diagram commutes:
+$$\xymatrix{
+B \otimes B \ar[d]_{\mu_B}\ar[r]^{\varphi \otimes \varphi} & C \otimes C\ar[d]^{\mu_C} \\
+B \ar[r]_{\varphi} & C.\\
+}$$
+\newcommand{\mmap}{\mathfrak{m}}
+\newcommand{\nmap}{\mathfrak{n}}
+Omitting the tensor symbol and ones, the image of any element $x_i a \otimes x_j b := x_{i_1} \ldots x_{i_m} a \otimes x_{j_1} \ldots x_{j_n} b \in B^m \otimes B^n$ is:
+$$\bao{rrcl}
+&\varphi \otimes \varphi(x_i a \otimes x_j b) &=& \sum_{\mmap \in M, \nmap \in N} w_\mmap(a) x_{i_1}^{\mmap(i_1)} \ldots x_{i_m}^{\mmap(i_n)}\\
+&&& \otimes w_\nmap(b) x_{j_1}^{\nmap(j_1)} \ldots x_{j_n}^{\nmap(j_n)}\\
+&&&\\
+\RA&\mu_C(\varphi \otimes \varphi)(x_i a \otimes x_j b) &=& \sum_{\mmap, \mmap' \in M, \nmap\in N} w_\mmap(a) w_{\mmap'}(w_\nmap(b)) x_{i_1}^{\mmap(i_1) \cdot \mmap'(i_1)} \ldots x_{i_m}^{\mmap(i_m) \cdot\mmap'(i_m)}\\
+&&&\cdot x_{j_1}^{\nmap(j_1)} \ldots x_{j_n}^{\nmap(j_n)},\\
+\ea$$
+where $M = \{0,1\}^{\{i_1,\ldots,i_m\}}, N = \{0,1\}^{\{j_1,\ldots,j_n\}}$ and $w_q$ as above. The lower part of the diagram yields:
+$$\bao{rrcl}
+&\mu_B(x_i a \otimes x_j b) &=& x_i a x_j b\\
+&&&\\
+\RA&\varphi(x_i a \otimes x_j b) &=& \sum_{\nmap \in N} w_\mmap(a) x_i^{\mmap(i)} w_\nmap(b) x_j^{\nmap(j)}\\
+&&&\\
+&&=& \sum_{\mmap, \mmap' \in M, \nmap \in N} w_\mmap(a) w_{\mmap'}(w_\nmap(b)) x_i^{\mmap(i) \cdot \mmap'(i)} x_j^{\nmap(j)},\\
+\ea$$
+where $x_i^{\mmap(i)} = x_{i_1}^{\mmap(i_1)} \ldots x_{i_m}^{\mmap(i_m)}$, etc. Obviously, the commutativity holds for all algebra generators. Hence, $\varphi$ is an $A$-algebra homomorphism.
+%$$\bao{rcl}
+%\varphi \otimes \varphi(a\otimes b) &=& \sum_{n_k \in X_k,m_l \in Y_l} a_{i_0} w_{n_1}(a_{i_1}) \ldots w_{n_n}(a_{i_n}) x_{i_1}^{\prod_k n_k(i_1)} \ldots x_{i_n}^{\prod_k n_k(i_n)}\\
+%&&\\
+%&& \otimes b_{j_0} w_{m_1}(b_{j_1}) \ldots w_{m_m}(b_{j_m}) x_{j_1}^{\prod_l m_l(j_1)} \ldots x_{j_m}^{\prod_l m_l(j_m)},
+%\ea$$
+%where $X_k = \{0,1\}^{\{i_1,\ldots,i_k\}}, Y_l = \{0,1\}^{\{j_1,\ldots,j_l\}}$ and each $w_q$ is defined as above. The product is
+%$$\bao{rcl}
+%\mu_C(\varphi \otimes \varphi(a\otimes b)) &=&  \sum_{n_k, n'_k \in X_k,m_l \in Y_l} a_{i_0} w_{n_1}(a_{i_1}) \ldots w_{n_n}(a_{i_n}) w_{n'_0}(b_{j_0})\\&&\\
+%&& w_{n'_1}(w_{m_1}(b_{j_1})) \ldots w_{n'_n}(w_{m_m}(b_{j_m})) \\
+%&&\\
+%&& x_{i_1}^{\prod_k n_k(i_1) \cdot n'_k(i_1)} \ldots x_{i_n}^{\prod_k n_k(i_n)\cdot n'_k(i_1)} x_{j_1}^{\prod_l m_l(j_1)} \ldots x_{j_m}^{\prod_l m_l(j_m)}.
+%\ea$$
+%Commuting the lower part of the diagram:
+%$$\mu_B (a \otimes b) = a_{i_0} x_{i_1} \ldots x_{i_n} a_{i_n} b_{j_0} x_{j_1} \ldots x_{j_m} b_{j_m}.$$
+%The image is then:
+%$$\varphi(\mu_B(a \otimes b)) = 
+%We have $\varphi(a_{i_0} \otimes x_{i_1} \otimes 1_A) \varphi(a_{i_1} \otimes x_{i_2} \otimes a_{i_2}) = \varphi(a_{i_0} \otimes x_{i_1} \otimes a_{i_1}) \varphi(1_A \otimes x_{i_2} \otimes a_{i_2})$ for all $a_{i_k} \in A, x_{i_k} \in X$. First we observe that $\varphi\mid_{B^0} = id_{B^0}$ and $\varphi(B^1) \subset A \otimes X \otimes 1_A \oplus A$. Also note that the equivalence equals the statement $\varphi = \mu_C(\varphi \otimes \varphi) = \varphi \mu$. Then we compute
+%$$\bao{rcl}
+%\varphi(a_{i_0} \otimes x_{i_1} \otimes a_{i_1} \otimes x_{i_2} \otimes a_{i_2}) &=& a_{i_0} \alpha(a_{i_1}) \alpha^2(a_{i_2}) x_{i_1} x_{i_2} + \alpha(a_{i_1}) \alpha \delta(a_{i_2}) x_{i_1}\\
+%&&\\
+%&& + \delta(a_{i_1} \alpha(a_{i_2})) x_{i_2} + \delta(a_{i_1} \delta(a_{i_2}))\\
+%&&\\
+%\varphi(a_{i_0} \otimes x_{i_1} \otimes 1_A) \varphi(a_{i_1} \otimes x_{i_2} \otimes a_{i_2}) &=& a_{i_0} x_{i_1} a_{i_1} (\alpha(a_{i_2}) x_{i_2} + \delta(a_{i_2}))\\
+%&&\\
+%&=& a_{i_0} x_{i_1} a_{i_1} \alpha(a_{i_2}) x_{i_2} + a_{i_0} x_{i_1} a_{i_1} \delta(a_{i_2})\\
+%&&\\
+%&=& a_{i_0} \left[\alpha(a_{i_1} \alpha(a_{i_2})) x_{i_1} + \delta(a_{i_1} \alpha(a_{i_2})) \right] x_{i_2}\\
+%&&\\
+%&& + a_{i_0} \left[\alpha(a_{i_1} \delta(a_{i_2}))x_{i_1} + \delta(a_{i_1} \delta(a_{i_2}))\right]\\
+%&&\\
+%\ea$$
+%$$\bao{rcl}
+%\varphi(a_{i_0} \otimes x_{i_1} \otimes a_{i_1}) \varphi(1 \otimes x_{i_2} \otimes a_{i_2}) &=& a_{i_0} (\alpha(a_{i_1}) x_{i_1} + \delta(a_{i_1})) (\alpha(a_{i_2}) x_{i_2} + \delta(a_{i_2}))\\
+%&&\\
+%&=& a_{i_0} \left(\alpha(a_{i_1}) x_{i_1} \alpha(a_{i_2}) x_{i_2} + \alpha(a_{i_1}) x_{i_1} \delta(a_{i_2})\right)\\
+%&&\\
+%&& + a_{i_0} \left(\delta(a_{i_1}) \alpha(a_{i_2}) x_{i_2} + \delta(a_{i_1}) \delta(a_{i_2})\right)\\
+%&&\\
+%&=& a_{i_0} \alpha(a_{i_1}) [\alpha^2(a_{i_2}) x_{i_1} + \delta(\alpha(a_{i_2}))] x_{i_2}\\ &&\\
+%&& + a_{i_0} \alpha(a_{i_1}) [\alpha(\delta(a_{i_2})) x_{i_1} + \delta(\delta(a_{i_2}))]\\
+%&&\\
+%&& + a_{i_0} \left(\delta(a_{i_1}) \alpha(a_{i_2}) x_{i_2} + \delta(a_{i_1}) \delta(a_{i_2})\right)\\
+%&&\\
+%&=& a_{i_0} \left(\alpha(a_{i_1} \alpha(a_{i_2})) x_{i_1} x_{i_2} + \alpha(a_{i_1} \delta(a_{i_2})) x_{i_1}\right)\\
+%&&\\
+%&& + a_{i_0} \underbrace{\left[\alpha(a_{i_1}) \delta(\alpha(a_{i_2})) + \delta(a_{i_1}) \alpha(a_{i_2})\right]}_{\delta(a_{i_1} \alpha(a_{i_2}))} x_{i_2}\\
+%&&\\
+%&& + a_{i_0} \underbrace{\left[\alpha(a_{i_1}) \delta(\delta(a_{i_2})) + \delta(a_{i_1}) \delta(a_{i_2})\right]}_{\delta(a_{i_1} \delta(a_{i_2}))}\\&&\\
+%\ea$$
+%$$\bao{rcl}
+%\varphi(a_{i_0} \otimes x_{i_1} \otimes a_{i_1}) \varphi(1 \otimes x_{i_2} \otimes a_{i_2}) &=& \varphi(a_{i_0} \otimes x_{i_1} \otimes 1_A) \varphi(a_{i_1} \otimes x_{i_2} \otimes a_{i_2})\\
+%\ea$$
+%In addition, $\varphi(\varphi(a_{i_0} \otimes x_{i_1} \otimes a_{i_1}) \otimes x_{i_2} \otimes a_{i_2}) = \varphi(a_{i_0} \otimes x_{i_1} \otimes \varphi(a_{i_1} \otimes x_{i_2} \otimes a_{i_2}))$. Hence, our claim above is just shown for $B^{\leq 2}$. The claim can thus be iteratively extended to all $A$ submodules $B^i$ showing that $\varphi$ is indeed an algebra homomorphism. Moreover, the two-sided $A$ submodule $I(\alpha,\delta)$ is a two-sided ideal in $B$.
+%\item The ideal $\ker \varphi \subset B$ equals $I(\alpha,\delta)$. Set $m(a,x) = 1_A \otimes x \otimes a - \alpha(a) \otimes x \otimes 1_A - \delta(a)$. By definition all elements $f \in I(\alpha,\delta)$ are of the form $f = \sum_{i \in \nz_0} f_i m(x,a) g_i$. Multiplicativity we have $\varphi(f) = \sum \varphi(f_i) \varphi(m(x,a)) \varphi(g_i) = \sum \varphi(f_i) (\varphi(1_A \otimes x \otimes a) - \alpha(a) \otimes x \otimes 1_A - \delta(a)) \varphi(g_i) = \sum \varphi(f_i) \cdot 0 \cdot \varphi(g_i) = 0$. Therefore, $f \in \ker \varphi$. Conversely, let $f \in \ker \varphi \bsl I(\alpha,\delta)$
+\en
+\ed
+\item By our proposition \ref{prop01} that every algebra $A$ has an ideal $IA$ in its tensor algebra $TA$, such that $TA/IA \simeq A$ it is enough to show that the following diagram commutes:
+$$\xymatrix{
+B \ar[d]\ar[r]_\varphi & C\ar[ld]^{\stackrel{?}{\sim}}\ar[d]^\iota\\
+A[X,\alpha,\delta]& T C \ar[l]^\pi.\\
+}$$
+But clearly, the ideal $I C = \left<a \otimes b - a b : a, b \in C\right>$ being the kernel of $\pi : TC \longrightarrow C$, is equally represented as
+$$I C = \left<\underbrace{a \otimes x - a x}_{A-\trm{left}\ \trm{module}}, \underbrace{x \otimes a - \alpha(a) x - \delta(a)}_{A-\trm{right}\ \trm{module}} : a \in A, x \in X\right>,$$
+where we explicitly give the relations on the tensor elements in $T C$.
+%$B \simeq T B^1$, for
+%$$IA := \left<1 \otimes x \otimes a - \alpha(a) \otimes x \otimes 1 - \delta(a) : a \in A, x \in X\right>.$$
+%On the other hand, $I C := \left<a \otimes b - a b : a, b \in C\right>$.
+\item If $\trm{Ann}_R(A) = \{0\}$ then: $a b = 0$ if and only if $a = 0$ or $b = 0$, i.e. $A$ is a domain. Then by definition we have for $f, g \in A[X,\alpha,\delta]$ $lt(f g) \in C^{\deg f + \deg g}$, where $lt(f)$ is the leading term of $f$ - i.e. the monomial of highest degree. If $f g = 0$ then $\deg (f g) = \max \underbrace{\{i \in \nz_0 : \sum_{|k| = i} f_j \wt{g}_{i-j} \neq 0\}}_{= \emptyset} = -\infty$ implies either $f_{i_1} = 0$ or $g_{i_2} = 0$ for all $0 \leq i_1 \leq \deg f, 0 \leq i_2 \leq \deg g$ concluding our proof.
+%we conclude the $I(\alpha,\delta) = IA[X,\alpha,\delta]$.
+%First, let us reassure that $A[X] \subset B$. Consider the element $a \otimes (x \otimes 1_A)^{\otimes n}$. Then by iteratively applying the definition we have 
+%$$a \otimes (x \otimes 1_A)^{\otimes n - 2} \otimes x \otimes (1_A\cdot(\alpha(1_A) + \delta(1_A)) \otimes x \otimes 1_A = \ldots = a \sum_{\gamma_{i_j} \in \{\alpha,\delta\}} \prod_{j=1}^n \gamma_{i_j}(1_A) \otimes (x \otimes 1_A)^{\otimes n}$$
+%Obviously, we have $1_A = \alpha(1_A) + \delta(1_A)$. Being an algebra monomorphism $\alpha(1_A) = 1_A$ thus $\delta(1_A) = 0_A$. Therefore, we may identify $a \otimes(x\otimes 1_A)^{\otimes n}$ with $a \otimes x^n$.
+%a \otimes (x \otimes 1_A)^{\otimes n - 3} \otimes x \otimes (\alpha(\alpha(1_A) + \delta(1_A)) + \delta(\alpha(1_A) + \delta(1_A))) \otimes x \otimes 1_A \otimes x \otimes 1_A$
+\en
+\bsp We want to show two prominent examples for some field $R$ - the polynomial ring $R[X_1,\ldots,X_n]$ and the tensor algebra $T(R^n)$. In both cases, $\alpha = id_R$ and $\delta = 0_R$. Thus, the verification both being Ore extensions of $R$ is straightforward.\\
+\indent A more complicated situation we find in the so called quantum algebras: let $q \in R^\times \bsl\{1\}$ and $A = R[X]$. Then the Ore extension $A[Y, \alpha, \delta]$, with
+$$\alpha = [X^i \longmapsto q^i X^i] \in \trm{Aut}_{R-\trm{alg}}(A)\ \forall i \geq 0,\ \delta \equiv 0,$$
+defines a non-commutative algebra - as $Y X = q X Y$ implies.
+\begin{prop}\label{prop04}
+If $A$ is noetherian and $|X| < \infty$ then $A[X,\alpha,\delta]$ is noetherian.
+\end{prop}
+\bws If $|X| < \infty$ the module $M(X)$ is noetherian over $R$. In particular, it is an $R$-module free of rank $|X|$. Thus, it suffices to show that $A \otimes X$ is noetherian as a left $A$-module. If $A$ is noetherian, then each $a \in A$ is a finite $R$-linear combination of only finitely many generators $B_A := \{a_i\} \subset A$. Hence if $\left<a_i : i \in I\right> = A$, $|I| < \infty$, then
+$$A \otimes X = \bigoplus_{\substack{i \in I\\x \in X}} A.a_i.A \otimes x$$
+is also finitely generated. In particular for $\rank A < \infty$, we have $\rank A \otimes X = \rank A \cdot |X|$, since $M(X)$ was a free $R$-module of rank $|X|$. Therefore, we get that each finite $A$ linear combination of elements in $B$ is also finitely generated over $R$. But being noetherian is kept under epimorphisms, hence we get our claim.
+\subsection{Derivations and Lie Algebras}
+For the sake of clarity, we repeat:
+\begin{defi}\label{defi05}
+For an algebra $A$ an $R$-derivation is a map $D$ with
+\bn
+\item $D \in \trm{End}_R(A)$,
+\item $D(x y) = D(x) y + x D(y)$ (Leibniz rule).
+\en
+Furthermore, we have
+\bn
+\item the set of $R$-derivations is denoted by $\trm{Der}_R(A)$,
+\item $A$ is called a (non-trivial) differential algebra over $R$ if $\trm{Der}_R(A) \neq \{0\}$,
+\en
+\index{Index}{derivation}
+\index{Index}{algebra!differential}
+\index{Symbol}{$\trm{Der}_R(A)$}
+%\index{Symbol}{$\trm{Der}_R(A)$}
+\end{defi}
+Any ring $R$ defines a trivial differential algebra over itself, taking the zero-homomorphism as $R$-derivation.
+%\bmk Note, an $R$-derivation is an $id_A$ derivation in the sense of Ore extensions. That to say, is equivalent to saying $A$ is an $R[X,id_A,D]$ algebra over $R$, where
+%$$X = \{x \in A : \exists D \in \trm{Der}_R(A),\ D(x) \neq 0\}$$
+%and $D$ are generators of $\trm{Der}_R(A)$.
+\begin{defi}\label{defi06}
+An Lie algebra $\mathfrak{g}$ is an $R$-algebra with the $R$-linear map $\mu : \mathfrak{g} \otimes \mathfrak{g} \longmapsto \mathfrak{g}$, s.t.
+\bn
+\item $\mu(x \otimes y) = -\mu(y \otimes x)$ (anti symmetric) and
+\item for any $x_i \in \mathfrak{g}$, $i = 1, 2, 3$, we have
+$$\mu \circ(\mu \otimes id_\mathfrak{g})(x_1 \otimes x_2 \otimes x_3 + x_2 \otimes x_3 \otimes x_1 + x_3 \otimes x_1 \otimes x_2) = 0,$$ 
+the Jacobian identity.
+\item \label{LieAlgFromAlg} For any algebra $A$ the $R$-module $\mathfrak{g}(A)$ with $\mu = [x \otimes y \longmapsto x y - y x]$ is the Lie algebra associated with $A$, coinciding with $A$ as a set. The $R$-bilinear map (multiplication) is denoted by $[.,.] : \mathfrak{g} \times \mathfrak{g}\longrightarrow \mathfrak{g}$, the so called commutator of $A$.
+\en
+\index{Index}{Lie algebra}
+\index{Index}{commutator}
+\index{Symbol}{$\mathfrak{g}$}
+\end{defi}
+\begin{koro}\label{koro02}
+The set of derivations $\trm{Der}_R(A)$ is a Lie algebra via the above defined commutator on $\trm{End}_R(A)$.
+\end{koro}
+\bmk All definitions of morphisms, sub Lie algebras, modules and ideals translate from algebras (although, ideals in Lie algebras are always two-sided). We repeat, if $(A, \mu, \eta)$ is some $R$-algebra its Lie algebra $\mathfrak{g}(A)$ is the same set, only with a different multiplication map.
+\bsp Some prominent examples:
+\bn
+\item for any $R$-module $M$, the endomorphism algebra $\trm{End}_R(M)$ is a Lie algebra with the commutator inducing multiplication $\mu$, denoted by
+$$\mathfrak{gl}_R(M).$$
+If $M \simeq R^n$, then $\mathfrak{gl}_R(M)$ is also denoted by $\mathfrak{gl}_n(R)$,
+%\item for any associative $R$-algebra $A$, the algebra $(A, \mu_{\trm{Lie}})$, where $\mu_{\trm{Lie}} := [.,.]$, is an $R$-Lie algebra - denoted by
+%$$\mathfrak{g}(A),$$
+\item the set of upper triangular matrices, $\mathfrak{b} \subset \mathfrak{gl}_n(R)$, and strictly upper triangular matrices $\mathfrak{n} \subset \mathfrak{b}$ are Lie algebras,
+\item the set of all square matrices with trace zero is a sub Lie algebra of $\mathfrak{gl}_n(R)$, denoted by $\mathfrak{sl}_n(R)$, called the special Lie algebra.
+\en
+\begin{defi}\label{PartialDiff}
+A differential algebra $(A,\mu,D)$ is called a partial differential algebra, if the Lie algebra $\trm{Der}_R(A) = \left<D\right>_{\trm{Lie}}$ is commutative:
+$$[\partial,\delta] = 0,\ \forall \partial, \delta \in \trm{Der}_R(A).$$
+\index{Index}{algebra!partial differential}
+\end{defi}
+Firstly, we remark that $A$ itself may be an Lie algebra (hence, we omit the unit map). This definition is due to Ritt (\cite{Ritt}, pg. 163), who, however, simply demanded commutativity of the derivations.
+\bsp \label{partial_diff_alg_examp}We give an example and a counter-example.
+\bn
+\item\label{partial_diff_exp01} For all $n \geq 1$ is $(k[x_1,\ldots,x_n], \Delta = \{\partial_1,\ldots,\partial_n\})$ a partial differential algebra:
+$$\bao{rclcl}
+\partial_i &=& [x_{j}^{k} &\longmapsto& \sum_{k} \delta_{ij} x_j^{k-1} = \delta_{ij} k x_j^{k-1}]\\
+&&&&\\
+\partial_i \partial_j &=& [x^k := x_1^{k_1} \ldots x_n^{k_n} &\longmapsto & k_i k_j x_1^{k_1}\ldots x_i^{k_i - 1} \ldots x_j^{k_j-1} \ldots x_n^{k_n}],\ \forall 1 \leq i < j \leq n\\
+&&&&\\
+\partial_j \partial_i &=& [x^k := x_1^{k_1} \ldots x_n^{k_n} &\longmapsto & k_i k_j x_1^{k_1}\ldots x_i^{k_i - 1} \ldots x_j^{k_j-1} \ldots x_n^{k_n}],\ \forall 1 \leq i < j \leq n,\\
+\ea$$
+where $\delta_{ij}$ is the Kronecker-Delta. The special case $n = 1$ is simply the differential algebra over a polynomial ring in one indeterminate over $k$.
+\item\label{partial_diff_exp02} Let $k$ be a field with $\trm{char} k \neq 2$ and $k[x,x^{-1}]$ denote the localization of $k[x]$, i.e. the ring of Laurent polynomials with $n = 1$ in our last example. The differential ring $(k[x,x^{-1}], \Delta = \{\partial_1, \partial_{-1}\})$, with:
+$$\bao{rcl}
+\partial_1 &=& \left[
+\bao{rcl}
+x^i &\longmapsto& i x^{i-1}\\
+x^{-i}&\longmapsto& -i x^{-i-1}\\
+\ea\right]\\
+&&\\
+\partial_{-1} &=& \left[
+\bao{rcl}
+x^i &\longmapsto& -i x^{i+1}\\
+x^{-i} &\longmapsto& i x^{-i+1},\\
+\ea\right]\\
+\ea$$
+is not a partial differential algebra over $k$, as
+$$\bao{rcl}
+\partial_{-1} \partial_1 &=& \left[
+\bao{rcl}
+x^i &\longmapsto& -i (i + 1) x^i\\
+x^{-i}&\longmapsto& -i (i - 1) x^{-i}\\
+\ea\right]\\
+&&\\
+\partial_1 \partial_{-1} &=& \left[
+\bao{rcl}
+x^i &\longmapsto& -i (i - 1) x^i\\
+x^{-i}&\longmapsto& -i (i + 1) x^{-i}\\
+\ea\right]\\
+\ea$$
+do not agree and therefore its commutator is:
+$$\bao{rcl}
+[\partial_1,\partial_{-1}] &=& \left[\bao{rcl}
+x^i &\longmapsto& 2 i x^i\\
+x^{-i} &\longmapsto& -2 i x^{-i}.\\
+\ea\right]\\\ea$$
+We claim that our derivation Lie algebra $\mathfrak{g}$, generated by $\Delta$, is isomorphic to $\mathfrak{sl}_2(k)$. In particular, $k[x,x^{-1}]$ is an $\mathfrak{sl}_2(k)$-module. Identifying $H = [\partial_1,\partial_{-1}]$, $X = \partial_1$ and $Y = \partial_{-1}$, we get an isomorphism of $k$-vector spaces (using $\mathfrak{sl}_2(k) = k.X \oplus k.Y \oplus k.H$). Now, it is enough to show this is also an isomorphism of Lie algebras. But by our computation above, we see already: $[X,H] = 2 X, [Y,H] = -2 Y$ and, by definition, $[X,Y] = H$, completing the proof.
+\en
+\subsubsection{The Universal Enveloping Algebra}
+A consequence of the universal property of algebras we have the following definition:
+\begin{defi}\label{defi07}
+For every Lie algebra $\mathfrak{g}$ there exists a unique associative algebra $U(\mathfrak{g})$ and a homomorphism of Lie algebras $\iota : \mathfrak{g} \longrightarrow U(\mathfrak{g})$, universal in the following sense. For each associative algebra $A$ and a homomorphism of Lie algebras $f : \mathfrak{g} \longrightarrow \mathfrak{g}(A)$, there exists an unique morphisms of algebras $g : U(\mathfrak{g}) \longrightarrow A$ such that
+$$\xymatrix{
+\mathfrak{g} \ar[r]^{\iota}\ar[dr]_f & U(\mathfrak{g})\ar[d]^g\\
+&A\\
+}$$
+commutes.
+\index{Index}{algebra!univeral enveloping}
+\index{Symbol}{$U(\mathfrak{g})$}
+\end{defi}
+We recall that $\mathfrak{g}(A)$ and $A$ coincide as sets (see def. \ref{defi06}\ref{LieAlgFromAlg}) and the Lie algebra structure on $U(\mathfrak{g})$ is given by the commutator. The above definition gives us the so called universal property, hence the name. In later examples we will see the application of both concepts.
+\begin{prop}\label{prop05}
+Let $T\mathfrak{g}$ be the tensor algebra of $\mathfrak{g}$, then
+$$T \mathfrak{g}/\left<x \otimes y - y \otimes x - [x,y]: x, y \in \mathfrak{g}\right> \simeq U(\mathfrak{g}).$$
+\end{prop}
+\bws We recall proposition \ref{prop01} that $U(\mathfrak{g}) \simeq T U(\mathfrak{g})/I U(\mathfrak{g})$ for some two-sided ideal $IU(\mathfrak{g})$ in the universal enveloping algebra. The ideal is generated by all elements of the form $a \otimes b - a b \in \mathfrak{g}^{\otimes 2} \oplus \mathfrak{g}$. Clearly, $b \otimes a - ba$ is also a generator. Therefore, the element $a \otimes b - a b - b \otimes a + b a$ is indeed another generator. Recalling the definition of the commutator $[a,b] = ab - ba$ we get that
+the generators
+$$a \otimes b - b \otimes a - \underbrace{a b - b a}_{[a,b]} = a \otimes b - b \otimes a - [a,b]$$
+uniquely define an associative algebra containing $\mathfrak{g}$ as Lie algebra.\\
+\bmk The universal enveloping algebra of a one-dimensional $\qz$ Lie algebra will be the centerpiece of the examples discussed in this paper.
+\subsection{Coalgebras}
+The concept of a coalgebra is dual to that of an (associative unital) algebras. To recall, each associative unital algebra $A$ is described by the two $R$-linear maps $\mu : A \otimes A \longrightarrow A$ and $\eta : R \longrightarrow A$, i.e. the triple $(A,\mu,\eta)$ contains already all information of $A$ given the commutative diagrams in definition \ref{defi01}, \ref{alg_unital} and its subsequent remark.
+\begin{defi}\label{defi08}
+A coalgebra is an $R$-module $C$ with two $R$-linear maps $\Delta : C \longrightarrow C \otimes C$, $\eps : C \longrightarrow R$, called the comultiplication or coproduct and counit, and the following properties:
+\bn
+\item $(id_C \otimes \Delta) \circ \Delta = (\Delta \otimes id_C) \circ \Delta$ (coassociativity) and
+\item $(id_C \otimes \eps) \circ \Delta = (\eps \otimes id_C) \circ \Delta = id_C$ (counitarity).
+\en
+In addition, if $\tau : C \otimes C \longrightarrow C\otimes C$, $c \otimes c' \longmapsto c' \otimes c$ is the flip isomorphism, we call $(C, \Delta, \eps)$ cocommutative, if $\tau \Delta = \Delta$.
+\index{Index}{coalgebra}
+\index{Index}{coassociativity}
+\index{Index}{counitality}
+\index{Index}{cocommutative}
+\index{Symbol}{$\Delta$}
+\index{Symbol}{$\eps$}
+%\index{Symbol}{counitality}
+%\index{Symbol}{cocommutative}
+\end{defi}
+\bmk The properties of coalgebras can be reformulated in terms of commuting diagrams:
+$$\bao{cc}
+\xymatrix{
+C \otimes C \otimes C && C \otimes C\ar[ll]_{id \otimes \Delta}\\
+C\otimes C \ar[u]^{\Delta \otimes id}&& C\ar[ll]^{\Delta}\ar[u]_{\Delta}\\
+} & \xymatrix{R \otimes C & \ar[l]_{\eps \otimes id_C} C \otimes C \ar[r]^{id_C \otimes \eps}& C \otimes R\\
+&C \ar[lu]^\simeq \ar[u]_\Delta \ar[ru]_\simeq&\\
+}\ea$$
+where we identify $R \otimes C \simeq C \simeq C \otimes R$ and $C \otimes (C \otimes C) \simeq C^{\otimes 3} \simeq (C \otimes C) \otimes C$. The left and right hand diagrams represent the coassociativity and the counitality, respectively. Lastly, cocommutativity can expressed as
+$$\xymatrix{
+C \otimes C & C \otimes C\ar[l]_\tau\\
+&C \ar[lu]^\Delta\ar[u]_\Delta.\\
+}$$
+%One important theorem in the theory of coalgebras, which we are not going to prove, reads as
+%\begin{satz}
+%Any element in a coalgebra is contained in a finitely generated sub-coalgebra.
+%\end{satz}
+Clearly, reversion of arrows in the commutative diagrams defining algebras (commutative, associative, unital) results in the above diagrams (cocommutative, coassociative and counital, resp.).
+\subsubsection{Duals of coalgebras}
+\begin{prop}\label{prop06}
+If $C$ is a coalgebra, then $C^* = \trm{Hom}(C,R)$ is an associative unital algebra. The multiplication is called convolution.\index{Index}{convolution}
+\end{prop}
+\bws First, let us define the multiplication and unit via the duals of the comultiplication and counit:
+$$\bao{rrcl}
+\eta_{C^*} := \eps^* :& R \simeq R^* &\longrightarrow& C^*\\
+&&&\\
+&r &\longmapsto& r \eps = [x \mapsto r \eps(x)]\\
+&&&\\
+\mu_{C^*} := \Delta^* :& (C \otimes C)^* \simeq C^* \otimes C^* &\longrightarrow & C^*\\
+&&&\\
+&\alpha \otimes \beta &\longmapsto& \mu_R \circ (\alpha \otimes \beta) \circ \Delta\\
+\ea$$
+Now, it is easy to check that the above defined diagrams commute. For simplicity we omit the subscripts. Let $\alpha, \beta, \gamma \in C^*$, first we compute:
+$$\mu_{C^*} = \mu_R \circ (ev \otimes ev) \circ (id_{C^*} \otimes \tau_{C^*\otimes C} \otimes id_C) \circ (id_{C^{* \otimes 2}} \otimes \Delta),$$
+where $ev : C^* \otimes C \longrightarrow R, \alpha \otimes c \longmapsto \alpha(c)$. Now we see that
+$$\bao{rcl}
+\mu_{C^*} \circ (id_{C^*} \otimes \mu_{C^*})(\alpha \otimes \beta \otimes \gamma) &=& \mu_R(\alpha \otimes \mu_R(\beta \otimes \gamma)(id_C \otimes \Delta)) \circ \Delta\\
+&&\\
+\mu_{C^*}(\mu_{C^*} \otimes id_{C^*})(\alpha\otimes\beta\otimes\gamma) &=& \mu_R \circ (\mu_R \circ (\alpha \otimes \beta) \circ \Delta \otimes \gamma)\circ \Delta.\\
+\ea$$
+So for any given $x \in C$ we have by linearity and coassociativity ($(\Delta \otimes id)\Delta(x) = (id \otimes \Delta)\Delta(x)$):
+$$\bao{rcl}
+\mu_R(\alpha \otimes \mu_R(\beta \otimes \gamma)(id_C \otimes \Delta)) \circ \Delta(x) &=& \sum_{(x)} \mu_R(\alpha(x_{(1)}) \otimes \mu_R(\beta \otimes \gamma)\Delta(x_{(2)}))\\
+&&\\
+ &=& \sum_{(x),(x_2)} \mu_R(\alpha(x_{(1)}) \otimes \beta(x_{(21)}) \gamma(x_{(22)}))\\
+&&\\
+ &=& \sum_{(x),(x_2)} \alpha(x_{(1)}) \beta(x_{(2)}) \gamma(x_{(3)})\\
+&&\\
+\mu_R \circ (\mu_R \circ (\alpha \otimes \beta) \circ \Delta \otimes \gamma)\circ \Delta(x) &=& \sum_{(x)} \mu_R(\mu_R(\alpha \otimes \beta)\Delta(x_{(1)}) \otimes \gamma(x_{(2)}))\\
+&&\\
+ &=& \sum_{(x_1),(x)} \mu_R(\alpha(x_{(11)}) \beta(x_{(12)}) \otimes \gamma(x_{(2)}))\\
+ &&\\
+ &=& \sum_{(x_1),(x)} \alpha(x_{(1)}) \beta(x_{(2)}) \gamma(x_{(3)})\\
+\ea$$
+Hence, we have an associative linear map $\mu$. On the other hand - identifying $R \otimes C^* \simeq C^* \simeq C^* \otimes R$, we get from counitality:
+$$\bao{rclcl}
+((id \otimes \eta)\alpha\otimes r)\Delta(x) &=& \sum_{(1),(2)} r \alpha(x_{(1)}) \otimes \eps(x_{(2)}) &=& r \sum_{(1),(2)} \alpha(x_{(1)}) \otimes \eps(x_{(2)})\\
+&&&&\\
+&=& \alpha\underbrace{\left(\sum_{(1),(2)} x_{(1)} \eps(x_{(2)})\right)}_{x} \otimes r &=& r \alpha(x)\\
+&&&&\\
+((\eta \otimes id) r\otimes \alpha)\Delta(x) &=& \sum_{(1),(2)} r \eps(x_{(1)}) \otimes \alpha(x_{(2)}) &=& \sum_{(1),(2)} r \eps(x_{(1)}) \otimes \alpha(x_{(2)})\\
+&&&&\\
+&=& r \otimes \alpha(\underbrace{\sum_{(1),(2)} \eps(x_{(1)}) x_{(2)}}_{x}) &=& r \alpha(x)\\
+\ea$$
+which defines our two structure maps in the triple $(C^*, \mu, \eta)$.\\
+\indent Note however, in general the converse does not hold.
+\begin{defi}\label{defi09} Let $R$ be a ring.
+ \bn
+ \item An $R$-module $M$ is called projective if there is a lifting property:
+ Let $N, P$ be two $R$-modules and $\varphi : N \rightarrow P$ an $R$-epimorphism, for every $f \in \trm{Hom}(M,N)$ there is at least one $g \in \trm{Hom}(M,P)$ such that $f \circ \varphi = g$.
+ \item An $R$-module is of finite type if every proper $R$-submodule $M'$ is noetherian.
+ \en
+\index{Index}{module!finite type}
+\index{Index}{module!projective}
+\end{defi}
+Note, the first definition does not provide a universal condition. We may have more than one such map. However, we get
+\begin{prop}\label{prop07}
+If the algebra $A$ is a projective $R$-module of finite type then, $A^*$ is a coalgebra.
+\end{prop}
+We omit the proof and refer the reader to \cite{OmSho}. An important consequence is that, for $R$ a field, all finite-dimensional $R$-algebras have coalgebras as duals. An other immediate consequence of \ref{prop06} we get
+\begin{koro}\label{koro03}
+Let $C$ be a (coass, counital) coalgebra and $A$ an associative, unital algebra, both over $R$. The set $\mathcal{A}_C := \trm{Hom}(C^*,A)$ is an associative unital algebra, with multiplication
+$$\mu_* : \mathcal{A}_C \otimes \mathcal{A}_C \longrightarrow \mathcal{A}_C,\ f \otimes g \longmapsto \mu_A \circ(f\otimes g) \circ \Delta_C$$
+called the convolution (denoted by $*$) and unit $\eta_A \circ \eps_C$.
+\end{koro}
+\subsubsection{Comodules, coideals and homomorphisms of coalgebras}
+\begin{defi}\label{defi10}
+For each coalgebra $C$ we define a left $C$-comodule $M$ as a module over $R$ with structure map $\rho_M = \rho : M \longrightarrow C \otimes M$ such that
+\bn
+\item $(\Delta \otimes id_M) \rho = (id_C \otimes \rho)\rho$,
+\item $(\eps \otimes id_M) \rho = id_M$.
+\en
+Additionally, we define a sub-comodule $N \subset M$ via restriction of $\rho\mid_N$. A sub coalgebra is a sub-comodule $C' \subset C$ with structure map $\Delta_{C'} = \Delta\mid_{C'}$. A coideal $I \subset C$ is a two-sided sub $C$-comodule of $\ker \eps$ such that
+$$I \subset \ker \eps \ \wedge \ \Delta(I) \subset I \otimes C + C \otimes I.$$
+For two left $C$-comodules $M, N$, a morphism of left $C$-comodules is a module homomorphism $f : M \longrightarrow N$ such that
+$$\rho_N f = (id_C \otimes f) \rho_M.$$
+Moreover, if $C$, $C'$ are coalgebras, then a homomorphism of coalgebras is morphism $f \in \trm{Hom}(C, C')$, such that:
+$$\Delta_{C'} f = (f \otimes f) \circ \Delta_C.$$
+\index{Index}{comodule}
+\index{Index}{coideal}
+\index{Index}{coalgebra!homomorphisms of}
+\index{Symbol}{$\rho_M$}
+\end{defi}
+The definitions can be readily extended for right and two-sided $C$ comodules and homomorphism.
+\bsp \label{coalg_example} We give two examples via the duals of finite-dimensional/free of finite rank $R$-algebras:
+\bn
+\item \label{coalg01} Let $R$ be a unique factorization domain and $A := R[x]/\left<x^2\right>$ the ring of dual numbers over $R$. Its dual is
+$$C := A^* = R.\delta_{\ov{1}} \oplus R.\delta_{\ov{x}},\ \trm{where}\ \delta_y(z) = \begin{cases}
+1 & y = z\\
+0 &\trm{else}\\
+\end{cases},\ \forall y, z \in \{\ov{1},\ov{x}\}.$$
+The comultiplication is the dual map of the multiplication on $A$:
+$$\Delta := \mu^* = \left[\alpha \longmapsto \alpha \circ \mu\right].$$
+Hence, we get:
+$$\bao{rcl}
+\delta_{\ov{1}} &\longmapsto& \delta_{\ov{1}} \otimes \delta_{\ov{1}}\\
+\delta_{\ov{x}} &\longmapsto& \delta_{\ov{1}} \otimes \delta_{\ov{x}} + \delta_{\ov{x}} \otimes \delta_{\ov{1}}\\
+\ea$$
+as images for the comultiplication. The images of the counit are consequently:
+$$\bao{rcl}
+\delta_{\ov{1}} &\longmapsto& 1\\
+\delta_{\ov{x}} &\longmapsto& 0.\\
+\ea$$
+The coassociativity is easily checked for both generators. Moreover, cocommutativity is evident.
+\item \label{coalg02} Let $R$ be a field such that $x^2 + 1$ is irreducible over $R$ and $A := R[x]/\left<x^2 + 1\right>$. Following our last example, we get for $C := A^*$:
+$$\bao{rrcl}
+\Delta:& C &\longrightarrow& C \otimes C\\
+& \delta_{\ov{1}} &\longmapsto & \delta_{\ov{1}} \otimes \delta_{\ov{1}} - \delta_{\ov{x}} \otimes \delta_{\ov{x}}\\
+& \delta_{\ov{x}} &\longmapsto & \delta_{\ov{1}} \otimes \delta_{\ov{x}} + \delta_{\ov{x}} \otimes \delta_{\ov{1}}\\
+\ea$$
+and a counit similar to the one in our last example. As in the last example, $C$ is cocommutative. However, coassociativity is not that easily seen:
+$$\bao{rcl}
+(\Delta \otimes id_C)\Delta(\delta_{\ov{1}}) &=& \Delta \otimes id_C\left(\delta_{\ov{1}} \otimes \delta_{\ov{1}} - \delta_{\ov{x}} \otimes \delta_{\ov{x}}\right)\\
+&=& \left(\delta_{\ov{1}} \otimes \delta_{\ov{1}} - \delta_{\ov{x}} \otimes \delta_{\ov{x}}\right) \otimes \delta_{\ov{1}} - \left(\delta_{\ov{1}} \otimes \delta_{\ov{x}} + \delta_{\ov{x}} \otimes \delta_{\ov{1}}\right) \otimes \delta_{\ov{x}}\\
+&=& \delta_{\ov{1}} \otimes \delta_{\ov{1}} \otimes \delta_{\ov{1}} - \delta_{\ov{x}} \otimes \delta_{\ov{x}}
+\otimes \delta_{\ov{1}} - \delta_{\ov{1}} \otimes \delta_{\ov{x}} \otimes \delta_{\ov{x}} - \delta_{\ov{x}} \otimes \delta_{\ov{1}} \otimes \delta_{\ov{x}}\\
+&&\\
+(id_C \otimes \Delta)\Delta(\delta_{\ov{1}}) &=& id_C \otimes \Delta\left(\delta_{\ov{1}} \otimes \delta_{\ov{1}} - \delta_{\ov{x}} \otimes \delta_{\ov{x}}\right)\\
+&=& \delta_{\ov{1}} \otimes \left(\delta_{\ov{1}} \otimes \delta_{\ov{1}} - \delta_{\ov{x}} \otimes \delta_{\ov{x}}\right) - \delta_{\ov{x}} \otimes \left(\delta_{\ov{1}} \otimes \delta_{\ov{x}} + \delta_{\ov{x}} \otimes \delta_{\ov{1}}\right)\\
+&=& \delta_{\ov{1}} \otimes \delta_{\ov{1}} \otimes \delta_{\ov{1}} - \delta_{\ov{1}} \otimes \delta_{\ov{x}} \otimes \delta_{\ov{x}} - \delta_{\ov{x}} \otimes \delta_{\ov{1}} \otimes \delta_{\ov{x}} - \delta_{\ov{x}} \otimes \delta_{\ov{x}}
+\otimes \delta_{\ov{1}}\\
+\ea$$
+$$\bao{rcl}
+(\Delta \otimes id_C)\Delta(\delta_{\ov{x}}) &=& \Delta \otimes id_C\left(\delta_{\ov{1}} \otimes \delta_{\ov{x}} + \delta_{\ov{x}} \otimes \delta_{\ov{1}}\right)\\
+&=& \left(\delta_{\ov{1}} \otimes \delta_{\ov{1}} - \delta_{\ov{x}} \otimes \delta_{\ov{x}}\right) \otimes \delta_{\ov{x}} + \left(\delta_{\ov{1}} \otimes \delta_{\ov{x}} + \delta_{\ov{x}} \otimes \delta_{\ov{1}}\right) \otimes \delta_{\ov{1}}\\
+&=& \delta_{\ov{1}} \otimes \delta_{\ov{1}} \otimes \delta_{\ov{x}} - \delta_{\ov{x}} \otimes \delta_{\ov{x}}
+\otimes \delta_{\ov{x}} + \delta_{\ov{1}} \otimes \delta_{\ov{x}} \otimes \delta_{\ov{1}} + \delta_{\ov{x}} \otimes \delta_{\ov{1}} \otimes \delta_{\ov{1}}\\
+&&\\
+(id_C \otimes \Delta)\Delta(\delta_{\ov{x}}) &=& id_C \otimes \Delta\left(\delta_{\ov{1}} \otimes \delta_{\ov{x}} + \delta_{\ov{x}} \otimes \delta_{\ov{1}}\right)\\
+&=& \delta_{\ov{1}} \otimes \left(\delta_{\ov{1}} \otimes \delta_{\ov{x}} + \delta_{\ov{x}} \otimes \delta_{\ov{1}}\right) + \delta_{\ov{x}} \otimes \left(\delta_{\ov{1}} \otimes \delta_{\ov{1}} - \delta_{\ov{x}} \otimes \delta_{\ov{x}}\right)\\
+&=& \delta_{\ov{1}} \otimes \delta_{\ov{1}} \otimes \delta_{\ov{x}} + \delta_{\ov{1}} \otimes \delta_{\ov{x}} \otimes \delta_{\ov{1}} + \delta_{\ov{x}} \otimes \delta_{\ov{1}} \otimes \delta_{\ov{1}} - \delta_{\ov{x}} \otimes \delta_{\ov{x}} \otimes \delta_{\ov{x}}.\\
+\ea$$
+\en
+Both examples are cocommutative, coassociative and counital coalgebras. However, they are not isomorphic over the same field/ring. This is clear if we recall that the dual of a coalgebra is an algebra. If both would be isomorphic, so would be their respective duals. Nevertheless, the first example $(A_1 = R[x]/\left<x^2\right>$, see \ref{coalg01}) contained a nilpotent element, the second example $(A_2 = R[x]/\left<x^2 + 1\right>$, see \ref{coalg02}) is either reduced (trivial nilradical) or is an integral ring extension (if $x^2 + 1$ has no roots in $R$, as we demanded). On the other hand, both coalgebras contain a coideal generated by the element $\delta_{\ov{x}}$. Hence, we get a coalgebra homomorphism
+$$A_i^* \longrightarrow R,\ a_1 \delta_{\ov{1}} + a_x \delta_{\ov{x}} \longmapsto a_1,\ \trm{for}\ i = 1,2$$
+\begin{defi}\label{coalg_type}
+Let $C$ be a non-trivial coalgebra over some field $k$.
+\bn
+\item\label{coalg_irred} We call $C$ irreducible if any two subcoalgebras $C', C'' \subset C$ have non-zero intersection.
+\item\label{coalg_simp} We call $C$ simple if $C$ has no non-trivial proper subcoalgebra $C' \subsetneq C$.
+\item\label{coalg_point} We call $C$ pointed if all its simple subcoalgebras are of dimension one.
+\item \label{coalg_group}We call an element $c \in C$ group-like if $\Delta(c) = c \otimes c$.
+\item\label{coalg_skew}We call $c \in C$ $(g,h)$-skew primitive if $\Delta(c) = g \otimes c + c \otimes h$ for some group-like elements $g, h \in C$.
+\en
+\index{Index}{coalgebra!irreducible}
+\index{Index}{coalgebra!simple}
+\index{Index}{coalgebra!pointed}
+\index{Index}{element!group-like}
+\index{Index}{element!skew-primitive}
+\end{defi}
+\bmk Clearly, all group-like elements of a coalgebra generate simple subcoalgebras. The first of examples \ref{coalg_example} has only one proper subcoalgebra generated by $\delta_{\ov{1}}$ which is simple. Therefore, it is reducible and pointed. The latter example is irreducible as $\Delta(\delta_{\ov{z}})$ is in $C^{\otimes 2}$ for $\ov{z} = \ov{1}, \ov{x}$, but not simple.
+\begin{defi}
+Let $(C, \Delta_C, \eps_C)$ and $(D, \Delta_D, \eps_D)$ be two coalgebras over $R$. The tensor product $C \otimes D$ has a coalgebra structure via
+$$\Delta_\otimes = (id_C \otimes \tau \otimes id_D) (\Delta_C \otimes \Delta_D),\ \eps_\otimes = \eps_C \otimes \eps_D.$$
+\end{defi}
+\begin{lemm}
+If $(C, \Delta, \eps)$ is a coalgebra over $R$ and $A \in \trm{CAlg}_R$ then
+$$\iota : C \longrightarrow A \otimes C, c \longmapsto 1_A \otimes c$$
+has a $A$-coalgebra structure via
+$$\Delta_A := (id_{A \otimes C} \otimes \iota) (id_A \otimes \Delta),\ \eps_A = id_A \otimes \eps$$
+\end{lemm}
+\bws Let $c \in C$, $C' = A \otimes C$ and $C$ being coassociative then
+$$\bao{rclcl}
+\Delta_A(1_A \otimes c) &=& (id_{C'} \otimes \iota)(1_A \otimes \Delta(c)) &=& (id_{C'} \otimes \iota)\left(1_A \otimes \left(\sum_{(c)} c_{(1)} \otimes c_{(2)}\right)\right)\\
+&&&&\\
+&=& \sum_{(c)} 1_A \otimes c_{(1)} \otimes \iota(c_{(2)}) &=& \sum_{(c)} 1_A \otimes c_{(1)} \otimes 1_A \otimes c_{(2)}.\\
+\ea$$
+Coassociativity follows already from the coassociativity of $C$ via equality
+$$\sum_{(c),(c_{(1)})} 1_A \otimes c_{(11)} \otimes 1_A \otimes c_{(12)} \otimes 1_A \otimes c_{(2)} = \sum_{(c),(c_{(2)})} 1_A \otimes c_{(1)} \otimes 1_A \otimes c_{(21)} \otimes 1_A \otimes c_{(22)}.$$
+Counitality follows as
+$$(\eps_A \otimes id_{C'})(1_A \otimes c) = \sum_{(c)} \eps_A(1_A \otimes c_{(1)}) \otimes 1_A \otimes c_{(2)} = \sum_{(c)} 1_A \otimes\underbrace{ \eps(c_{(1)}) c_{(2)}}_{c} = 1_A \otimes c\ \trm{and}$$
+$$(id_{C'} \otimes \eps_A)(1_A \otimes c) = \sum_{(c)} 1_A \otimes c_{(1)} \otimes \eps_A(1_A \otimes c_{(2)}) = \sum_{(c)} 1_A \otimes\underbrace{c_{(1)} \eps(c_{(2)})}_{c} = 1_A \otimes c$$
+implies $(\Delta_A \otimes id) \Delta_A = id_{C'} = (id \otimes \Delta_A)\Delta_A$.
+\subsubsection{Cofree and cofree cocommutative coalgebras}
+Returning to algebras and coalgebra, the question of the coalgebra structure for a general algebra $A$ hasn't been fully answered. This section is taken from \cite{Sweed}. Although, \cite{barr} gives a definition of cofree coalgebras for general rings we are following \cite{Sweed}: let $R$ be a field. Firstly, we need
+\begin{defi}
+Let $R$ be as above and $A$ an $R$-algebra. We define the sub $A^0$ to be
+$$A^0 = \left<g \in A^\ast : \exists I \subseteq \ker g, A/I \simeq \bigcup_{i\leq n} B_i,\ B_i \simeq R^{n_i}, n_i \in \nz\right>.$$
+\index{Symbol}{$A^o$}
+\end{defi}
+In words, $A^0$ is a subspace generated by all dual elements containing a cofinite ideal in $A$.
+\begin{lemm}
+Let $A, B$ be $R$-algebras and $f \in \mathrm{Hom}_{R-\mathrm{alg}}(A,B) =: \mathrm{Alg}_R(A,B)$ - we have:
+\bn
+\item $f^\ast: B^\ast \longrightarrow  A^\ast$ with $f^\ast = [\beta \longmapsto \beta \circ f]$ has $f^\ast(B^\ast) \subset A^\ast$,
+\item Regarding $A^\ast \otimes B^\ast \subset (A \otimes B)^\ast$, we have $A^o \otimes B^o = (A \otimes B)^o$,
+\item $\mu^\ast : A^\ast \longrightarrow (A \otimes A)^\ast$ has $\mathrm{im} \mu^\ast\mid_{A^o} \subset A^o \otimes A^o$.
+\en
+\end{lemm}
+\bws See \cite{Sweed}, pg. 110 - 113.
+\begin{prop}
+For $A$ as above, $(A^o, \Delta, \varepsilon)$ is a $R$-coalgebra for 
+$$\varepsilon : A^o \longrightarrow R,\ \alpha \longmapsto \alpha(1_A)\ \mathrm{and}\ \Delta := \mu^\ast\mid_{A^o}.$$
+\end{prop}
+\bws See \cite{Sweed}, pg. 113 - 114.
+
+\bmk This vector space has some interesting properties which are
+\bn
+\item If $A$ and $B$ are $R$-algebras and $g \in \mathrm{Alg}_R(A,B)$ then last prop shows that $g^\ast \mid_{B^o} =: g^o$ is an coalgebra homomorphism.
+\item $A^o$ is the maximal coalgebra in $A^\ast$ being induced by $\mu^{-1}(A^\ast \otimes A^\ast)$.
+\item It may happen that $A^o = \{0\}$ for example for infinite degree field extension.
+\item $A^\ast$ has a left $A$-module structure defined via:
+$$\rho_l : A \otimes A^\ast \longrightarrow A^\ast,\ a \otimes \alpha \longmapsto \alpha \_ \cdot a := [b \longmapsto \alpha(b a)].$$
+Furthermore, via
+$$\rho_r : A^\ast \otimes A \longrightarrow A^\ast,\ \alpha \otimes a \longmapsto \alpha a \cdot \_ := [b \longmapsto \alpha(a b)],$$
+making $A^\ast$ into an two-sided $A$-module.
+\item for a coalgebra $C$ its bidual $C^{\ast \ast}$ has its image in $C^{\ast o}$.
+\en
+\begin{satz}
+The functors $^o : \mathrm{Alg}_R \longrightarrow \mathrm{CoAlg}_R$ and $^* : \mathrm{CoAlg}_R \longrightarrow \mathrm{Alg}_R$ are adjoint to one another. There is a one-to-one correspondence between the sets
+$$\mathrm{Alg}_R(A,C^\ast) \ \mathrm{and}\ \mathrm{CoAlg}_R(C, A^o)$$
+\end{satz}
+Given two spaces $V$ and $W$ and $\iota : V^\ast \otimes W^\ast \longrightarrow (V \otimes W)^\ast$ as identification. Then $V^\ast \otimes W^\ast$ is dense in $(V \otimes W)^\ast$ if $u_1 \in V \otimes W\backslash\{0\}$ there is an $u_2 \in V^\ast \otimes W^\ast$ such that
+$$u_2(u_1) \neq 0.$$
+\begin{defi}
+An algebra $A$ is called proper if and only if $A^0$ is dense in $A^\ast$.
+\end{defi}
+\begin{lemm}
+$A^o$ dense if and only if for each non-zero $a \in A$ there is a cofinite ideal excluding $a$.
+\end{lemm}
+\begin{satz}
+If $A$ is a commutative finitely generated algebra then $A^o$ is dense in $A^\ast$.
+\end{satz}
+\bsp We consider $A = R[x]$ and denote with $ev_a : A \longrightarrow R, x^i \longmapsto a^i$, for all $a \in R$ then
+$$A^o = \left<\chi_i : \chi_i(x^j) = \delta_{i,j}\right> + \left<ev_a : a \in R \right>$$
+as each $I_i = \left<x^{i+1}\right> \subset \ker\chi_i$ has a quotient algebra free of rank $i + 1$ and by definition, $\ker ev_a \supseteq \left<x - a\right>$. We get that $\chi_i(1_A) = \delta_{0,i}$ and $ev_a(1_A) = 1_R$ and for $p = \sum p_i x^i, q = \sum q_i x^i$:
+$$\bao{rclcl}
+\Delta(\chi_i) &=& \chi_i \circ \mu_A &=& [p \otimes q \longmapsto \sum_{k+l=i} p_k q_l]\\
+&=& \sum_{k+l=i} \chi_k \otimes \chi_l&&\\
+&&&&\\
+\Delta(ev_a) &=& ev_a \circ \mu_A &=& \left[p \otimes q \longmapsto ev_a(p q)\right]\\
+&=& ev_a \otimes ev_a\\
+\ea$$
+Thus, $\chi_0$ and $ev_a$ are group-like and $\chi_1$ is primitive.
+%Clearly, for any arbitrary bialgebra $H$, its dual $H^\ast$ is usually not an bialgebra. However, $H^o$ is indeed.
+\begin{defi}[Cofree]
+If $V$ is a vector space, a pair $(C, \pi)$ with $C$ a coalgebra and $\pi \in \mathrm{Hom}(C,V)$ is called cofree coalgebra on $V$ if for any coalgebra $D$ and $f \in \mathrm{Hom}(D,V)$ there is a unique $F \in \mathrm{CoAlg}(D,C)$, such that 
+$$\xymatrix{
+D \ar[dr]_f\ar[r]^F & C \ar[d]^\pi\\
+& V\\
+}$$
+\index{Index}{coalgebra!cofree}
+\end{defi}
+\begin{satz}
+For any vector space $V$ the cofree coalgebra always exists.
+\end{satz}
+\bmk $T(V^\ast)^o$ is the cofree coalgebra for $V^{\ast\ast}$ for any vector space $V$.
+\begin{lemm}
+Let $(C,\pi)$ be a cofree coalgebra on some space $X$ and $Y \subset X$ be a subspace. Let $D = \sum E$ with
+$E$ subcoalgebras of $C$ such that $\pi(E) \subset Y$. Then $\rho := \pi\mid_D$ maps $D$ to $Y$ and $(D, \rho)$ is the cofree coalgebra on $Y$.
+\end{lemm}
+Now, we see that the cofree coalgebra for any vectors space $V$ can be recovered from the cofree coalgebra $(T(V^\ast)^o, \pi)$ on $V^{\ast\ast}$ where $\pi$ is defined via the composition map:
+$$\pi : T(V^\ast)^o \longrightarrow T(V^\ast)^\ast \longrightarrow V^{\ast\ast}.$$
+The first arrow is simply the inclusion whereas the second is the dual of the embedding of $V^\ast$ in $T(V^ \ast)$.
+\begin{defi}[Cofree cocommutative coalgebra]
+Let $V$ be a vector space and $C$ a cocommutative coalgebra. For $\pi \in \trm{Hom}(C,V)$ we call $(C, \pi)$ a cofree cocommutative algebra if for all cocommutative coalgebras $D$ and $f \in \trm{Hom}(D,V)$ there is a 	unique $F \in \trm{CoAlg}(C,D)$ such that
+$$\xymatrix{
+C \ar[r]^F \ar[rd]_\pi & D\ar[d]^f\\
+&V\\
+}$$
+commutes.
+\index{Symbol}{$T(V^\ast)^o$}
+\index{Index}{coalgebra!cofree!cocommutative}
+\end{defi}
+\subsection{Bialgebras}
+Both, the definition of algebras and coalgebras, with certain compatibility conditions, define a bialgebra.
+\begin{defi}\label{defi11}
+A bialgebra is a module $B$, with the structure of an algebra $(B,\mu,\eta)$ and of a coalgebra $(B,\Delta,\eps)$ with the following compatibility conditions expressed in commuting diagrams:
+$$\bao{cc}
+\xymatrix{
+ B \otimes B \ar[r]^\mu \ar[d]_{\Delta \otimes \Delta} & B \ar[r]^\Delta & B \otimes B\\
+ B \otimes B \otimes B \otimes B \ar[rr]_{id_B \otimes \tau \otimes id_B}&& B \otimes B \otimes B \otimes B \ar[u]_{\mu \otimes \mu}\\
+ }
+ %\item for multiplication $\nabla$ and counit $\eps$
+ &\xymatrix{
+ B \otimes B \ar[rd]_{\eps \otimes \eps} \ar[rr]^\mu & & B\ar[ld]^\eps\\
+ &R&
+ }\\
+ \trm{co/multiplication} & \trm{multiplication~and~counit}\\
+ &\\
+ %\item for comultiplication $\Delta$ and unit $\eta$:
+ \xymatrix{
+ &R \ar[ld]_\eta \ar[rd]^{\eta \otimes \eta}&\\
+  B \ar[rr]_\Delta&&B \otimes B \\ 
+ }
+ %\item and for co-/unit:
+ &\xymatrix{
+ R \ar[rr]^{id}\ar[rd]^\eta && R \\
+ &B\ar[ru]^\eps&
+ }\\
+ \trm{comultiplication~and~unit} & \trm{co/unit}\\
+ \ea$$
+ where $\tau : B \otimes B \rightarrow B \otimes B$, $x \otimes y \mapsto y\otimes x$ is the flip map.
+\index{Index}{bialgebra}
+\end{defi}
+\bmk The commuting diagrams can be rephrased as
+\bn
+\item $\eps$ and $\Delta$ are homomorphisms of algebras,
+\item $\eta$ and $\mu$ are homomorphisms of coalgebras.
+\en
+\begin{defi}\label{defi12}
+Let $B$ be a bialgebra. Group-like and $(g,h)$-skew primitive elements are defined via their coproducts as in def. \ref{coalg_type}, pt. \ref{coalg_skew} or \ref{coalg_group}. If $B$ has a unit $1_B$ we call an element primitive if it is a $(1_B,1_B)$-skew primitive element, i.e. 
+$$\Delta(x) = x \otimes 1_B + 1_B \otimes x.$$
+\index{Index}{element!primitive}
+\end{defi}
+\bmk Primitive elements and Lie algebras are intimitely connected what we are going to show in a short instance.
+%\bmk Firstly, we remark that the definition only depends on the coalgebra structure. In deed, \cite{Sweed} only uses the skew-primitive and group-like definition in the context of coalgebras.\\
+%\indent Secondly, the different types of primitive elements are interconnected. A primitive element is simply a $(1_B,1_B)$-primitive and $h$-skew primitives are $(1_B,h)$ skew-primitive. Recalling our definition of Ore-extensions $A[X,\alpha,\delta]$, we see that an $\alpha$-derivation $\delta$ is simply an $(id,\alpha)$-skew primitive element in $\trm{End}_R(A)$. To be precise, $\delta$ and $\alpha$ generate a bialgebra with $\alpha$ group-like and $\delta$ $(id,\alpha)$ skew-primitive.
+\bsp As before we introduce two famous examples.
+\bn
+\item Coming back to our tensor algebra over some module free of rank $n$, $T R^n$, it has the the structure of a primitive bialgebra given by $x \in R^n$ being primitive and $\eps(x) = 0$ for all $x \in T R^n\bsl R$ and $1_{TR^n} \longmapsto 1_R$. This gives us a coalgebra, with algebra structure maps $\eta : R \longrightarrow TR^n$, $1_R \longmapsto 1_{TR^n}$ and the given multiplication.
+\item The second example is the group algebra $R.G = R[G]$, for some group $G$. We have a comultiplication $\Delta(g) = g \otimes g$ and a counit $\eps(g) = 1$ for all $g \in G$. The multiplication is obvious and the unit is $1_R \longmapsto 1_{R.G}$.
+\en
+%\subsubsection{Primitives form a Lie algebra}
+\begin{prop}\label{prop08}
+Let $(B,\mu,\eta,\Delta,\eps)$ be a coassociative bialgebra. The module of all primitive elements of $B$ defines a Lie algebra, denoted $\mathcal{P}(B)$. The module of all group-like elements generates a sub bialgebra of $B$, denoted $\mathcal{G}(B)$.
+\end{prop}
+\bws Firstly, recall $\Delta$ is an algebra homomorphism
+$$\bao{rcl}
+[x,y] &=& x y - y x\\
+ &\RA&\\
+ \Delta([x,y]) &=& \Delta(x y) - \Delta(y x)\\ &=& \Delta(x) \Delta(y) - \Delta(y) \Delta(x)\\
+&=&(1 \otimes x + x \otimes 1)(1 \otimes y + y \otimes 1) \\
+&& - (1 \otimes y + y \otimes 1)(1 \otimes x + x \otimes 1)\\
+ &=& 1 \otimes x y + y \otimes x + x \otimes y + x y \otimes 1\\
+&& - 1 \otimes y x - x \otimes y - y \otimes x - y x \otimes 1\\
+&=& 1 \otimes [x,y] + [x,y] \otimes 1\\
+\ea$$
+Secondly, clearly:
+$$\sum_i \lambda_i g_i \in \mathcal{G}(B)\ \stackrel{\Delta}{\longmapsto} \ \sum_i \lambda_i \underbrace{g_i \otimes g_i}_{\in \Delta(\mathcal{G}(B))},\ \forall \lambda_i \in R,$$
+i.e. the coproducts of linear combination of group-likes are simply its linear combination of its coproducts. Hence, we only need to show that the product of group-like elements is again group-like. But this is clear from coassociativity and the fact that both coproduct and counit are algebra homomorphisms.
+\begin{defi}
+A bialgebra $B$ is called pointed irreducible, if its coalgebra $(B, \Delta, \eps)$ is pointed and irreducible. A cocommutative pointed irreducible bialgebra $B$ is called of Birkhoff-Witt type if it its coalgebra $(B,\Delta_B\eps_B)$ is isomorphic to a cocommutative cofree pointed irreducible coalgebra.
+\index{Index}{bialgebra!pointed irreducible}
+\index{Index}{bialgebra!of Birkhoff-Witt type}
+\end{defi}
+\bmk In \cite{Take} it is said that any irreducible cocommutative bialgebra over a field of characteristic zero is Birkhoff-Witt. In positive characteristic $p$, there is a canonical $R^{1/p}$-linear map:
+$$\mathcal{Y} : B \longrightarrow R^{1/p} \otimes_R B,$$
+then $B$ is BW if and only if $\mathcal{Y}$ is surjective. This is the case if $C$ is spanned by divided by power sequences or alternatively, if for
+$$T(C_+) = \bigoplus_{n \geq 0} C_+^{\otimes n},\ C_+ = \ker \eps$$
+$\trm{Hom}(T(C_+), A)$ is a divided power algebra for all algebras $A$. We define:
+\begin{defi}
+Let $A$ be an algebra and $I$ a (two-sided) ideal in $A$ with a family of maps $\gamma_i : I \longrightarrow A$ indexed by $\nz_0$ such that
+\bn
+\item $\gamma_1(x) = x$ and $\gamma_0(x) = 1$ for all $x \in I$,
+\item $\gamma_n(x) \gamma_m(x) = \left(\begin{array}{c}m + n\\m\\\end{array}\right) \gamma_{m + n} (x)$ for all $x \in I$ and $m, n \geq 0$,
+\item $\gamma_n(a x) = a^n \gamma_n(x)$ for all $x \in I$ and $a \in A$,
+\item $\gamma_n(x + y) = \sum_{i = 0}^n \gamma_i(x) \gamma_{n - i}(y)$ for all $x, y \in I$ and $n \geq 0$,
+\item $\gamma_n(\gamma_m)) = \frac{(m n)!}{n! (m!)^n} \gamma_{n m}(x)$ for all $x \in I$ and $n, m \geq 0$,
+\en
+then we call the triple $(A, I, \gamma)$ a divided power algebra. Here, $\gamma = (\gamma_i)_{i \in \nz_0}$.
+\index{Index}{algebra!pointed power sequences, of}
+\end{defi}
+\bsp \label{exp_bialg} To illustrate our last definitions, we give some examples.
+\bn
+\item \label{exp_bialg01} Let $\mathfrak{g}$ be a Lie algebra and $U(\mathfrak{g})$ be its universal enveloping algebra. Since the only group-like elements are all in $R.1$ we have that the universal enveloping algebra is our first example of a pointed irreducible bialgebra (with multiplication and unit as given and
+$$\Delta = [x \longmapsto 1 \otimes x + x \otimes 1],\ \eps(x) = 0\ \forall x \in \mathfrak{g}).$$
+In conjunction with prop. \ref{prop08}, we have a complete picture concerning Lie algebras or more precisely their universal envelopping algebras and primitive elements: if $A$ is a unital associative algebra and $A \simeq_{R-\trm{algs}} U(\mathfrak{g})$ for some Lie algebra $\mathfrak{g}$ then $A$ has a coalgebra structure via primitive generators $x \in \mathfrak{g}$. On the other hand, if $B$ is some bialgebra then its bialgebra of primitive elements is isomorphic to some universal envelopping algebra for a Lie algebra.
+%In \cite{Heid13} bialgebras of this type, are refered to as pointed irreducible of Birkhoff-Witt type.
+\item \label{exp_bialg02} On the other hand, for some group $G$, the group algebra $R.G$ with its (co-) multiplication and (co-) unit is a group-like bialgebra.\\
+\item \label{exp_bialg03} Examples of skew-primitive bialgebras are for example $U_q(\mathfrak{sl}_2(\cz))$ for $q \in \cz^\times \bsl \{1\}$, where some of the relations among its generators can be described as actions of skew-primitive elements of $\trm{End}_\cz(U(\mathfrak{sl}_2(\cz)))$.\\
+%\indent Two examples, where we have that the dual of an $R$-algebra are $R$-coalgebras:
+\en
+\subsubsection{Morphisms of bialgebras and bialgebra ideals}
+\begin{defi}
+Let $(B,\mu,\eta,\Delta,\eps)$ be a $R$-bialgebra.
+\bn
+\item An $R$-bimodule is an $R$-module $M$ which is a $(B,\mu,\eta)$-module and a $(B,\Delta,\eps)$-comodule.
+\item A sub- bialgebra $B'$ is an $R$-submodule such that the restrictions of the structure maps yields a bialgebra.
+\item A bialgebra ideal is an ideal of the associative algebra $(B,\mu,\eta)$ and a coideal of the coassociative coalgebra $(B,\Delta,\eps)$.
+\en
+\index{Index}{bimodule}
+\index{Index}{bialgebra!sub-bialgebra}
+\index{Index}{bialgebra!ideal of}
+\end{defi}
+\bmk Let $g, h \in B$ be group-like. First, we want to show that a $(g,h)$ skew-primitive element $x \in B$ is in a proper coideal. We define $S := \{x \in B : \exists! (g, h) \in B^2, \Delta(x) = g \otimes x + x \otimes h\}$ and let
+$$I := B.S.B,$$
+i.e. the two-sided ideal generated by $S$. We recall that $(\eps\otimes id)\Delta = id_B = (id\otimes \eps)\Delta$ and $\eps(g) = 1 = \eps(h)$. Therefore,
+$$(id\otimes \eps)\Delta(x) = g \otimes \eps(x) + x \otimes \eps(h) = x = \eps(g) \otimes x + \eps(x) \otimes h = (\eps \otimes id) \circ \Delta(x) \LRA x \in \ker \eps\ \forall x \in S.$$
+Thus, $S \subset \ker \eps$. Furthermore, for any product $a x b$, with $a, b \in B$, $x \in S$ we get:
+$$\Delta(a x b) = \Delta(a) (g \otimes x + x \otimes h) \Delta(b) = \sum_{(a),(b)} (\underbrace{a_{(1)} g b_{(1)} \otimes a_{(2)} x b_{(2)}}_{\in B \otimes I} + \underbrace{a_{(1)} x b_{(1)} \otimes a_{(2)} h b_{(2)}}_{\in I \otimes B})$$
+%if $x_{i_1} \ldots x_{i_n} \in B, x_{i_j} \in \mathcal{P}(B)$ then
+%$$\Delta (x_{i_1} \ldots x_{i_n}) = \Delta(x_{i_1}) \ldots \Delta(x_{i_n}) = (1 \otimes x_{i_1} + x_{i_1} + x_{i_1} \otimes 1) \ldots (1 \otimes x_{i_n} + x_{i_n} \otimes 1)$$
+%and 
+%$$\bao{rcl}
+% \Delta(x_{i_1}) \ldots \Delta(x_{i_n}) &=& \Delta(x_{i_1} \ldots x_{i_{n-1}}) (1 \otimes x_{i_n}) + (x_{i_n} \otimes 1) \Delta(x_{i_1} \ldots x_{i_{n-1}})\\
+%\ea$$
+In addition, $\eps(x y) = \eps(x) \eps(y)$ which shows $I$ is a coideal and, by definition, an ideal in $B$. Therefore, the canonical projection
+$$\pi : B \longrightarrow B/I,\ x \longmapsto x + I$$
+is a bialgebra morphism.\\
+\indent Subsequently, all primitive elements, i.e. $(1,1)$ skew-primitives, also define a bialgebra ideal in $B$.
+\begin{lemm}
+Let $(B,\mu,\eta,\Delta,\eps)$ be an $R$-bialgebra und $I \subset B$ be an $R$-submodule. The following statements are equivalent:
+\bn
+\item\label{biideal} $I$ is a two-sided bialgebra ideal.
+\item\label{bimodule} $I$ is two-sided $B$-sub bimodule of $\ker \eps$.
+\en
+\end{lemm}
+\bws If $I$ is a two-sided biideal, then $I$ is a two-sided $(B,\mu,\eta)$-submodule of $B$. On the other hand, $I \subset \ker \eps$ and a two-sided $(B,\Delta,\eps)$-sub-comodule of $B$. Thus, we have \ref{biideal} $\RA$ \ref{bimodule}. The converse implication follows immediately.
+\begin{lemm}\label{GroupLikeHopfIdeal}
+Let $2 \nmid \trm{char}(R)$ as well as $\frac{1}{2} \in R$ and $B$ an $R$-bialgebra. For two group-like elements $g,h \in \mathcal{G}(B)$ the difference $g - h$ generates a biideal, the set $I := B.(g - h).B$.
+\end{lemm}
+\bws Simple computation shows:
+$$\bao{rcl}
+\Delta(g - h) &=& \underbrace{\frac{1}{2}(g + h) \otimes (g - h) + \frac{1}{2}(g - h) \otimes (g + h)}_{B \otimes I + I \otimes B}\\
+&&\\
+\eps(g - h) &=& 0\\
+\ea$$
+The biideal property is a consequence of the fact that $\eps$ and $\Delta$ are algebra homomorphisms, as well as $\mu$ and $\eta$ being coalgebra homomorphisms. Furthermore, image of the canonical projection $\pi : B \longrightarrow B/I$ is a pointed-irreducible bialgebra (note, all group-likes are equivalent to $1_{B/I}$).
+\paragraph{Morphisms}
+Let $(B,\mu_B,\eta_B,\Delta_B,\eps_B)$, $(C,\mu_C,\eta_C,\Delta_C,\eps_C)$ be to two $R$-bialgebras.
+\begin{defi}
+A morphism of $R$-modules $f: B \longrightarrow C$ is a bialgebra morphism if and only if it is morphism of $R$-algebras and $R$-coalgebras.
+\index{Index}{bialgebra!morphism of}
+\end{defi}
+Equivalently, we could have demanded the any $R$-module morphism commuting with the structure maps defining each bialgebra would also yield the above definition.
+\subsubsection{Module algebras}
+The definition of an Ore extension can be easily extended as follows. Let $(A,\mu_A,\eta_A)$ be an $R$-algebra and $(B,\mu_B,\eta_B,\Delta_B,\eps_B)$ be an $R$-bialgebra and in addition let $A$ be a left $B$-module (equivalently, there is an algebra homomorphism $\rho : B \longrightarrow \trm{End}(A)$, i.e. a $B$-representation on $A$)
+\begin{defi}\label{defi09a}
+We call $A$ a $B$-module algebra, if there is a $\Psi \in \trm{Hom}(B \otimes A, A)$ with
+$$\Psi : B \otimes A \longrightarrow A,\ b \otimes a \longmapsto \rho(b)(a)$$
+such that
+\bn
+\item $\Psi(b \otimes a a') = \sum_{(b)} \mu_A\left(\rho(b_{(1)})(a) \otimes \rho(b_{(2)})(a')\right)$, for all $a, a' \in A$ and $b \in B$,
+where $\Delta_B(b) = \sum_{(b)} b_{(1)} \otimes b_{(2)}$,
+\item $\Psi(b \otimes 1_A) = \eps_B(b) 1_A$ for all $b \in B$.
+\en
+\index{Index}{module algebra}
+\end{defi}
+\bmk Firstly, in Heiderich 2010 and Heiderich 2011 a module algebra is defined for some coalgebra $(C,\Delta,\eps)$. Indeed, the module algebra structure solely depends on the coalgebra structure maps. But, most of the examples we will encounter are bialgebras. Secondly, the above definition can be rephrased in the context of commuting diagrams, the first is
+$$\xymatrix{
+B \otimes A \otimes A \ar[d]_{\Delta_B\otimes id_{A\otimes A}}\ar[rrr]^{id_B\otimes \mu_A}&&& B\otimes A\ar[dd]^{\Psi_A}\\
+B \otimes B \otimes A \otimes A \ar[d]_{id_B \otimes \tau_{B\otimes A} \otimes id_A}&&&\\
+B\otimes A \otimes B \otimes A\ar[rr]_{\Psi_A\otimes \Psi_A}&&A \otimes A\ar[r]_{\mu_A}&A,\\
+}$$
+where $\tau_{B\otimes A} : B \otimes A \longrightarrow A \otimes B$ is the flip isomorphism. The second is simply
+$$\xymatrix{
+B \simeq B \otimes R \ar[rr]^{id_B \otimes \eta_A}\ar[d]_{id_B\otimes \eta_A}&&B \otimes A\ar[d]^{\eps_B \otimes id_A}\\
+B \otimes A \ar[rr]_{\Psi_A}&& A \simeq R \otimes A\\
+}$$
+\bsp Recalling example \ref{partial_diff_exp02} on pg. \pageref{partial_diff_alg_examp}, $k[x,x^{-1}]$ and $\mathfrak{sl}_2(k)$ as derivation Lie algebra. We define $B = U(\mathfrak{sl}_2(k))$ with multiplication and unit as given, and comultiplication and counit given via the primitive generators $x \in \mathfrak{sl}_2(k)$ (see also example \ref{exp_bialg}. \ref{exp_bialg01} on pg. \pageref{exp_bialg01}). This makes $A := k[x,x^{-1}]$ into a $U(\mathfrak{sl}_2(k))$-module algebra, if we choose
+$$\bao{rrcl}
+\Psi : & U(\mathfrak{sl}_2(k)) \otimes_k k[x,x^{-1}] &\longrightarrow& k[x,x^{-1}]\\
+&&&\\
+& \partial_{i_1} \ldots \partial_{i_n} \otimes x^j & \longmapsto & \partial_{i_1} \circ \ldots \circ \partial_{i_n}(x^j)\\
+\ea$$
+as structure map, where $\partial_{i_j} \in \{\partial_{\pm 1}, [\partial_1,\partial_{-1}]\}$. Clearly, $\Psi(b \otimes 1) = \eps(b)\cdot 1 = \begin{cases}0 & \deg b \geq 1\\b_0.1 & \trm{else}\\\end{cases}$ for $b = b_0 + b_1 \partial_1 + b_{-1} \partial_{-1} + b_{1,-1} [\partial_1,\partial_{-1}] + \ldots$, as demanded. Moreover, a product $y z \in k[x,x^{-1}]$ gets mapped to:
+$$\partial_{i} \otimes y z \longmapsto \mu \circ (id_A \otimes \partial_i + \partial_i \otimes id_A)(y \otimes z) = \mu(\Psi \otimes \Psi)(id_B \otimes \tau_{B \otimes A} \otimes id_A)(\Delta \otimes id_{A^{\otimes 2}})(\partial_i \otimes y \otimes z),$$
+with $\partial_i$ as above. Recalling that $\Delta$ is an $k$-algebra homomorphism, we see that this applies to all weight spaces $k.\partial_{i_1} \ldots \partial_{i_n}$ of degree $n$.
+\begin{defi}
+Let $(A,\Psi_A)$ be a $B$-module algebra. 
+\bn
+\item The subset
+$$A^\Psi := \{a \in A : \Psi_A(b \otimes a) = \eps_B(b) a,\ \forall b \in B\}$$
+is called the constant $B$-module (sub)algebra.
+\item if $A' \subset A$ is a subalgebra, and $\trm{im}\Psi\mid_{B\otimes A'} \subset A'$, then $(A', \Psi_{A'} := \Psi\mid_{B\otimes A'})$ is also a $B$-module algebra.
+\item An ideal $I \subset A$ is called $B$-stable, if $\Psi_A(b \otimes a) \in I$ for all $a \in I$ and $b \in B$.
+\item Let $(A',\Psi_{A'})$ be an other $B$-module algebra. A morphism of algebras $\varphi : A \longrightarrow A'$ is called a morphism of $B$-module algebras if
+$$\xymatrix{
+B \otimes A \ar[r]^{id_B\otimes \varphi}\ar[d]_{\Psi_A} & B \otimes A'\ar[d]^{\Psi_{A'}}\\
+A \ar[r]_{\varphi} & A'\\
+}$$
+commutes.
+\en
+\index{Index}{module algebra!constant}
+\index{Index}{module algebra!subalgebra}
+\index{Index}{module algebra!$B$-stable ideals}
+\index{Index}{module algebra!homomorphisms of}
+\end{defi}
+Recall that for two unital algebras $(A,\mu_A,\eta_A)$, $(B,\mu_B,\eta_B)$ the tensor product $A \otimes B$ has an unital algebra structure via:
+$$\mu_{A\otimes B} := (\mu_A \otimes \mu_{B}) \circ (id_A \otimes \tau_{B \otimes A} id_B),\ \eta_{A \otimes B} = \eta_A \otimes \eta_B.$$
+\begin{lemm}\label{d_mod_tens_prod}
+Let $D$ be a cocommutative bialgebra, $(A,\Psi_A)$ and $(B,\Psi_B)$ be two $D$-module algebras. Then the algebra $A \otimes B$ has a $D$-module algebra structure via:
+$$\Psi_{A\otimes B} := \left(\Psi_A \otimes \Psi_B\right) \circ (id_D \otimes \tau_{D \otimes A} \otimes id_B) \circ (\Delta_D \otimes id_{A \otimes B}).$$
+\end{lemm}
+\bws Let $d \in D$ and $a \otimes b, a'\otimes b' \in A\otimes B$. We need to show that the two commutative diagrams in the last remark hold.
+\bn
+\item Firstly, let $f$ denote the morphism of the lower path of the first diagram and let $(\Delta \otimes \Delta) \circ \Delta(d) := \sum_{(d)} \Delta(d_{(1)}) \otimes \Delta(d_{(2)}) = \sum_{(d_{(1)}),(d_{(2)})} d_{(11)} \otimes d_{(12)} \otimes d_{(21)} \otimes d_{(22)}$, then
+{\scriptsize
+$$\bao{rcl}
+\Psi_{A\otimes B}(d \otimes (a a' \otimes b b')) &=& \sum_{(d)} \Psi_A(d_{(1)} \otimes a a') \otimes \Psi_B(d_{(2)} \otimes b b')\\
+&&\\
+&=& \sum_{(d_{(1)}),(d_{(2)})} (\Psi_A(d_{(11)} \otimes a)\Psi_A(d_{(12)}\otimes a')) \otimes (\Psi_AB(d_{(21)} \otimes b)\Psi_B(d_{(22)} \otimes b'))\\
+&&\\
+f(d \otimes (a \otimes b) \otimes (a'\otimes b')) &=& \sum_{(d)}\mu_{A\otimes B} \circ (\Psi_{A\otimes B} \otimes \Psi_{A\otimes B})(d_{(1)} \otimes (a \otimes b) \otimes d_{(2)} \otimes (a' \otimes b'))\\
+&&\\
+&=& \sum_{(d)} \mu_{A\otimes B} (\Psi_{A\otimes B}(d_{(1)} \otimes (a \otimes b)) \otimes \Psi_{A\otimes B}(d_{(2)} \otimes (a' \otimes b')))\\
+&&\\
+&=& \sum_{(d_{(1)}),(d_{(2)})} \mu_{A\otimes B}\left(\Psi_A(d_{(11)} \otimes a) \otimes \Psi_B(d_{(12)} \otimes b) \otimes \Psi_A(d_{(21)} \otimes a') \otimes \Psi_B(d_{(22)} \otimes b')\right)\\
+&&\\
+&=& \sum_{(d_{(1)}),(d_{(2)})} (\Psi_A(d_{(11)} \otimes a)\Psi_A(d_{(21)}\otimes a')) \otimes (\Psi_A(d_{(12)} \otimes b)\Psi_B(d_{(22)} \otimes b'))\\
+\ea$$}
+Recall from our definition of coassociative cocommutative (counital) coalgebras:
+$$
+\bao{cc}
+\xymatrix{
+D \ar[r]^{\Delta}\ar[d]_{\Delta}&D^{\otimes2}\ar[d]_{id\otimes \Delta}\\
+D^{\otimes2} \ar[r]_{\Delta\otimes id}&D^{\otimes3}\\
+} &
+%\xymatrix{
+%D \ar[r]^{\Delta} \ar[d]_{\Delta}&D^{\otimes2}\ar[d]^{\eps \otimes id}\\
+%D^{\otimes2} \ar[r]_{id \otimes \eps} & D\\ 
+%} &
+\xymatrix{
+D \ar[r]^\Delta\ar[rd]_{\Delta}&D^{\otimes2}\ar[d]_\tau\\
+&D^{\otimes2}\\}
+\ea$$
+as well as each tensor module $D^{\otimes n}$ has a natural (right) comodule structure via $\rho_n := id^{\otimes n - 1} \otimes \Delta : D^{\otimes n} \longrightarrow D^{\otimes n} \otimes D$ and similarily a (left) comodule structure $\wt{\rho}_n := \Delta \otimes id^{\otimes n - 1} : D^{\otimes n} \longrightarrow D \otimes D^{\otimes n}$. In particular, we have $\wt{\rho}_3 \rho_2 \Delta = \rho_3 \wt{\rho}_2 \Delta = (\Delta \otimes \Delta)\Delta$ and we may always apply cocommutativity where ever $\Delta$ appears. Hence, $(id_D \otimes \tau \otimes id) \circ (\Delta \otimes \Delta) \circ \Delta = (\Delta \otimes \Delta) \circ \Delta$ (a proper proof in Heiderich 2010, Lem 2.15). Note, cocommutativity is essential in this step (i.e. in general the tensor product of $D$-module algebras is not a $D$-module algebra).
+\item Computing $\Psi_{A\otimes B}(d \otimes (1_A\otimes 1_B)) = \sum_{(d)}\Psi_A(d_{(1)} \otimes 1_A) \otimes \Psi_B(d_{(2)} \otimes 1_B) = \sum_{(d)}\eps(d_{(1)}) 1_A \otimes \eps(d_{(2)}) 1_B = \eps(d) (1_A \otimes 1_B)$.
+\en
+\subsubsection{Smashed product}
+\begin{defi}\label{defi03}
+Let $A$ be an algebra, $G$ some group and $R.G$ the group algebra over $R$. Let $\rho : G \longrightarrow \trm{Aut} A$ define a representation, then
+$$\bao{rrcl}
+A \# G := A \otimes R.G,\ \mu_{A\#G} :& A\#G \otimes A\#G &\longrightarrow& A\#G\\
+& (m_1 \otimes g_1) \otimes (m_2 \otimes g_2) &\longmapsto& m_1 \rho(g_1)(m_2) \otimes g_1 g_2\\
+\ea$$
+defines an associative unital algebra, the so called smashed product.
+\index{Index}{smashed product}
+\end{defi}
+Note, that $A\#G$ can be interpreted as the semi-direct product $A \rtimes_\rho R.G$ of the two monoids $A$ and $R.G$. We also note, that $A$ has the structure of $R.G$-module algebra, via:
+$$\Psi : R.G \otimes A \longrightarrow A,\ r g \otimes a \longmapsto r g(a),$$
+extending to the $R.G$-module algebra $A\#G$:
+$$\Psi' : R.G \otimes A\#G \longrightarrow A\#G,\ r g \otimes a \otimes 1_G \longmapsto r g(a) \otimes g,$$
+sumarized in the following
+\begin{koro}\label{koro01}
+Let $A\#G$ be the smashed product for some algebra $A$ and some group $G$ with $G$-representation $\rho : G \longrightarrow \trm{Aut}_R(A)$.
+\bn
+\item $A\#G$ is isomorphic to 
+$$T(A\otimes R.G \otimes A)/\left<1_A \otimes g \otimes a - \rho(g)(a) \otimes g \otimes 1_A: a \in A, g \in G\right>,$$
+where $T(A \otimes R.G \otimes A)$ is the tensor algebra generated by the two-sided $A$-module $A \otimes R.G \otimes A$.
+\item $A\# G$ is a $R.G$-module algebra given by
+$$\bao{rrcl}
+\Psi_{A\#G} : &R.G \otimes A\# G &\longrightarrow& A\#G\\
+&&&\\
+&(r g, a\# h) &\longmapsto&r \rho(g)(a)\# g h.\\
+\ea$$
+\en
+\end{koro}
+\bws The first statement is an immediate consequence of Prop. \ref{prop01} - the second statement is an immediate consequence of our definition of module algebras. %More general, we get an extended Ore extension $A[B]$ for any pair of algebras with semi-direct monoidal product $A \rtimes_\rho B$, where $\rho : B \longrightarrow \trm{Aut}A$ defines some representation.
+\bmk The smashed product and its quotient algebras play an important role in deformation of singularities of algebraic varieties, a subfield of algebraic geometry. In addition, we will encounter smashed products in the context of general differential Galois theory.
+\subsubsection{The internal module algebra}
+Given a $B$-module algebra $(A,\Psi)$ we define for $\trm{Hom}_R(B,A)$ the $B$-module algebra structure
+as follows
+\begin{lemm}
+The map $\Psi_{\trm{int}} : B \otimes \trm{Hom}_R(B,A) \longrightarrow \trm{Hom}_R(B,A)$ given
+by
+$$\Psi_{\trm{int}} = \left[b \otimes f\longmapsto f \circ \mu_B(b \otimes\_) := [b' \longmapsto f \circ \mu_B(b \otimes b')]\right]$$
+is the proposed structure map.
+\end{lemm}
+\bws Again, we want to show that the two commuting diagrams following def. \ref{defi09a} hold.
+\bn
+\item let $b \in B$ and $f, g \in \trm{Hom}_R(B,A)$, then we have for $\Delta_B(b) = \sum_{(b)} b_{(1)} \otimes b_{(2)}$:
+$$\bao{rcl}
+\Psi_{\trm{int}}(b \otimes \mu_{\trm{Hom}_R(B,A)}(f \otimes g)) &=& \sum_{(b)} \mu_A\circ\left(f \circ \mu_B(b_{(1)} \otimes\_) \otimes g \circ \mu_B(b_{(2)} \otimes\_)\right)\circ\Delta\\
+&&\\
+&=& \left[b' \longmapsto \sum_{(b),(b')} f(b_{(1)} b'_{(1)}) g(b_{(2)} b'_{(2)})\right]\\
+&&\\
+\phi(b \otimes f \otimes g) &=& \sum_{(b)}\mu_{_C\mathcal{M}(B,A)} \circ (\Psi_{\trm{int}}(b_{(1)} \otimes f) \otimes \Psi_{\trm{int}}(b_{(2)} \otimes g))\\
+&&\\
+&=& \left[b' \longmapsto \sum_{(b),(b')} f(b_{(1)} b'_{(1)}) g(b_{(2)} b'_{(2)})\right]\\
+\ea$$
+As multiplication $\mu_{\trm{Hom}_R(B,A)}$ is given via convolution $\mu_A (f \otimes g) \Delta$ we showed the first diagram. Here, we use $\phi = \mu_A \circ (\Psi_{\trm{int}} \otimes \Psi_{\trm{int}}) \circ (id_B \otimes \tau_{B \otimes \trm{Hom}_R(B,A)} \otimes id_{\trm{Hom}_R(B,A)}) \circ (\Delta \otimes id_{\trm{Hom}_R(B,A)^{\otimes2}})$.
+\item $1_{\trm{Hom}_R(B,A)} = \eta_A \eps_B$ then for all $b \in B$:
+$$\bao{rcl}
+\Psi_{\trm{int}}(b \otimes 1_{\trm{Hom}_R(B,A)}) &=& \eta_A\eps_B(\mu_B(b \otimes\_))\\
+&&\\
+&=& \left[b' \longmapsto \eta_A(\eps_B(b b')) = \eps_B(b b') \eta_A(1_R) = \eps_B(b) \eta_A(\eps_B(b'))\right]\\
+&&\\
+&=& \eps_B(b) \eta_A \eps_B\\ 
+\ea$$
+showing the second diagram.
+\en
+%\bmk We previously claimed that the two examples \ref{coalg_example} on pg. \pageref{coalg_example} are not isomorphic over the same ring/field.
+\subsection{Hopf Algebras}
+The concept of bialgebras has another specialization in the so called Hopf algebras, with one additional condition. For its definition we need to expand some concepts.
+\begin{defi}\label{defi13}
+Let $(B,\mu,\eta,\Delta,\eps)$ be a bialgebra.
+\bn
+\item For each algebra $(B,\mu,\eta)$, its opposite algebra $B^{\trm{op}}$ is defined as $(B,\mu^{\trm{op}},\eta^{\trm{op}})$, where $\mu^{\trm{op}} := \mu \tau_{B\otimes B}$, $\eta^{\trm{op}} = \eta$.
+\item For each coalgebra $(B,\Delta,\eps)$, its opposite coalgebra $B^{\trm{cop}}$ is $(B,\Delta^{\trm{op}},\eps^{\trm{op}})$, where $\Delta^{\trm{op}} := \tau_{B \otimes B} \Delta$ and $\eps^{\trm{op}} = \eps$.
+\item The opposite bialgebra $B^{\trm{copop}}$ is simply $(B,\mu^{\trm{op}},\eta,\Delta^{\trm{op}},\eps)$.
+\item An antipode $S : B \longrightarrow B^{\trm{op}}$ is a homomorphism of algebras such that $$S * id_B := [x \longmapsto \sum_{(x)} S(x_{(1)}) x_{(2)}] = [x \longmapsto \sum_{(x)} x_{(1)} S(x_{(2)})] =: id * S = \eta \eps$$
+(i.e. $S$ the two-sided inverse of identity with respect to convolution on $\trm{Hom}((B, \Delta, \eps),(B, \mu, \eta))$).
+\item\label{defi131} An Hopf algebra $B$ is a bialgebra with antipode $S \in \trm{Hom}(B,B)$.
+\en
+\index{Index}{Hopf algebra}
+\index{Index}{antipode}
+\index{Index}{algebra!opposite}
+\index{Index}{coalgebra!opposite}
+\index{Index}{bialgebra!opposite}
+\index{Symbol}{$\Delta^{\trm{op}}$}
+\index{Symbol}{$\mu^{\trm{op}}$}
+\index{Symbol}{$B^{\trm{op}}$}
+\index{Symbol}{$B^{\trm{cop}}$}
+\index{Symbol}{$B^{\trm{copop}}$}
+\index{Symbol}{$S$}
+\end{defi}
+The concept of opposite algebra can be extended to objects in the category of groups: let $G$ be an object in $\trm{Grp}$, its opposite group $G^{\trm{op}}$ is the same set $G$, with the same unit map $e : \ast \longrightarrow G$, but with multiplication:
+$$m : G \times G \longrightarrow G, (g,h) \longmapsto h g.$$
+The notation used here is introduced in the appendix, in the category theory section. An anti-homomorphism in the category of groups is a group homomorphism $i : G \longrightarrow G^{\trm{op}}$. Thus, we can characterize the antipode as a bialgebra homomorphism:
+$$S : B \longrightarrow B^{\trm{copop}},$$
+i.e. an antihomomorphism (in the category of bialgebras). The following composed commutative diagram describes definition \ref{defi13}.\ref{defi131}:
+$$\xymatrix{
+B \ar[d]_\Delta\ar[r]^\eps & R\ar[r]^\eta & B\\
+B\otimes B\ar[rr]^{id_B \otimes S}_{S \otimes id_B} &&B\otimes B\ar[u]_\mu\\
+}$$
+%\begin{defi}
+%Let $(B,\mu,\eta,\Delta,\eps,S)$ be a Hopf algebra.
+%\bn
+%\item 
+%\en
+%\end{defi}
+\subsubsection{Skew symmetric polynomials}
+From now on, we assume $R$ to be some algebraically closed field. Let $q \in R^\times$ then the polynomial ring $A := R[X]$ has a Hopf-algebra structure as mentioned before. Revisiting the notion of Ore-extionsions, let $\alpha := [X^i \longmapsto (q X)^i]$ be an $R$-algebra homomorphism on $A$. Clearly, the zero-homomorphism is an $\alpha$-derivation.
+\begin{defi}[Skew symmetric polynomials]
+Let $\delta = 0_A$. The $A$-algebra $B := A[Y,\alpha,\delta]$ is called the ring of skew-symmetric polynomials.
+\end{defi}
+\bmk This can be constructed via the tensor algebra over some free $R$-module free of rank 2:
+$$B \simeq R\left<X,Y\right>/\left<Y X - q X Y\right>.$$
+This can be extended in the following sense: let $\mathfrak{g}$ denote an $R$-Lie algebra and $U(\mathfrak{g})$ denoted its universal enveloping algebra. If $\left<x_i : x_i \in \mathfrak{g}\right> = \mathfrak{g}$ we construct the quantized universal enveloping algebra $U_{\trm{quant}}(\mathfrak{g})$ via Ore-extensions as follows:
+$A_1 := R[x_1]$ and $A_i := A_{i-1}[x_i,\alpha_i,\delta_i]$, with $\alpha_i \in \trm{Aut}_{\trm{alg}}(A_{i-1})$ and $\delta_i \in \trm{Der}_{\alpha_i}(A_{i-1})$.
+ \bsp The best understood examples are the $q$-quantized universal enveloping algebras of finite dimensionals simple Lie algebras as $\mathfrak{sl}_n(R)$ (where $R$ is a field and $q \in R^\times\bsl\{1\}$). See for instance Klimyk \cite{Klim}, for $U_q(\mathfrak{so}_n)$ or Saito  \cite{Sait} for the general case.
+\bmk Lastly, we like to note that Saito and Umemura gave a brief introduction to quantized Galois theory over $\qz$ \cite{SaitoUmemura,SaitoUmemura01}. There, the differential Galois group is a quantum group. However, this beyond the scope of this essay.
