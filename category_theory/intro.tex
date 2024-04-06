@@ -39,13 +39,13 @@ $\obj{\calc^{\mrm{op}}} = \objc$ and $\homo{\calc^{\mrm{op}}}{X,Y} = \homc{Y,X}$
 The composition is simply inverted: for $f \in \homo{\calc^{\mrm{op}}}{X,Y}$ and $g \in \homo{\calc^{\mrm{op}}}{Y,Z}$ we get:
 $$g \circ^{\mrm{op}} f = f \circ g.$$
 \end{defi}
-A morphism $f : X \longrightarrow Y$ in $\calc$ is called an isomorphism if there exists a morphism $g : Y \longrightarrow X$ in $\calc$ such that
-$$ f \circ g = id_Y  \ \mrm{and}\ g \circ f = id_X.$$
-An endomorphism is a morphism with target object $Y = X$ - an automorphism is and endomorphism and isomorphism. Two morphism $f, g$ are parallel if they have the same source and targets:
+Two morphism $f, g$ are parallel if they have the same source and targets:
 $$f, g : X\  \substack{\longrightarrow\\\longrightarrow}\ Y.$$
 A morphism $f : X \longrightarrow Y$ is a monomorphism if for any parallel morphisms $g_1 , g_2 : Z\  \substack{\longrightarrow\\\longrightarrow}\ X$ we have
 $$g_1 \circ f = g_2 \circ f\ \Rightarrow\ g_1 = g_2.$$
-A morphism $f : X \longrightarrow Y$ is an epimorphism if $f^{\mrm{op}}$ is a monomorphism.
+A morphism $f : X \longrightarrow Y$ is an epimorphism if $f^{\mrm{op}}$ is a monomorphism. Furthermore, a morphism $f : X \longrightarrow Y$ in $\calc$ is called an isomorphism if there exists a morphism $g : Y \longrightarrow X$ in $\calc$ such that
+$$ f \circ g = id_Y  \ \mrm{and}\ g \circ f = id_X.$$
+An endomorphism is a morphism with target object $Y = X$ - an automorphism is and endomorphism and isomorphism.
 We call a category $\calc'$ a subcategory of $\calc$ if $\obj{\calc'} \subset \objc$ and $\homo{\calc'}{X,Y} \subset \homc{X,Y}$ for all $X, Y \in \obj{\calc'}$. We call a subcategory $\calc'$ of $\calc$ full if $\homo{\calc'}{X,Y} = \homc{X,Y}$. A full subcategory $\calc'$ of $\calc$ is saturated if $X \in \calc$ belongs to $\calc'$ whenever $X$ is isomorphic to an object in $\calc'$. A category is discrete if all morphism are identity morphisms. A category $\calc$ is non empty if $\objc$ is non empty. A category is a groupoid if all morphisms are isomorphisms. A category $\calc$ is finite if $\morc$ is finite as a set. A category is connected if its non empty and for any pair objects $X, Y \in \calc$ there is a finite sequence of objects $X = X_0, \ldots, X_i = Y$ such that at least one of the sets $\homc{X_j,X_{j+1}}$ or $\homc{X_{j+1},X_j}$ is non empty for all $0 \leq j \leq i - 1$.\\
 \indent A diagram in a category $\calc$ is a family of symbols representing objects in $\calc$ and arrows betweens these representing morphisms of these objects. The definition of a commutative diagrams follows in an obvious fashion.
 \bsp 
@@ -93,7 +93,40 @@ Its morphisms are simply the maps preserving the each of the three maps.
 \subsubsection{Topological spaces as category}
 
 \subsection{Functors}
+Given a universe $\calu$ and two $\calu$ categories $\calc$ and $\call{D}$, we call a pairing
+$$F : \calc \longrightarrow \call{D}$$
+a functor if the following holds:
+\begin{enumerate}
 
+\item $F(A) \in \obj{\calc}$,
+\item $F(f) \in \homo{\call{D}}{F(A),F(B)}$ for all $f \in \homo{\calc}{A,B}$ and $A, B \in \obj{\calc}$.
+\end{enumerate}
+The last point can be depicted in the following commuting diagram:
+$$
+\xymatrix{
+A \ar[d]_F \ar[r]^f & B\ar[d]^F\\
+F(A) \ar[r]_{F(f)} & F(B)\\
+}
+$$
+We also note that $F^{op}$ is a functor $\calc^{op} \longrightarrow \call{D}^{op}$.
+\subsubsection{Functors as Categories}
+Unless stated otherwise all categories are assumed to be $\calu$ categories. For two categories $\calc$ and $\call{D}$ we have that
+$$Fct(\calc,\call{D})$$
+is (not necessarily $\calu$) category:
+\begin{description}
+\item[Objects] are the functors $F: \calc \longrightarrow \call{D}$,
+\item[Morphisms] for any two functors $F, G: \calc \longrightarrow \call{D}$ there is a map $\theta$ such that
+$$\xymatrix{
+A \ar[d]\ar[r] & F(A)\ar[ld]^\theta\\
+G(A).\\
+}$$
+\item[Composition] For any triple of functors $(F,G,H)$ of categories and an object $A$ in $\calc$ and two morphisms of functors $\theta :F \longrightarrow G$, $\lambda: G \longrightarrow H$ we have that
+$$\xymatrix{
+A \ar[rd]\ar[d]\ar[r] & F(A)\ar[ld]^\theta\ar[d]^{\lambda \circ \theta}\\
+G(A) \ar[r]_\lambda & H(A).\\
+}$$
+commutes.
+\end{description}
 \subsection{Yoneda functors and Yoneda lemma}
 Given a universe $\calu$ and a $\calu$-category $\calc_\calu$ we define two functors:
 $$\begin{array}{rrcl}
