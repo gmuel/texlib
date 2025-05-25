@@ -111,7 +111,7 @@ We call $\lieg$ solvable if $\mathcal{D}(\lieg) = \mathcal{D}^1(\lieg)$ is nilpo
 \bsp Let $R$ be a ring and $A = R[X]$ - its ring of polynomials. The endomorphism $\partial_X = [X \longmapsto 1] \in \mathrm{End}_R(A)$ is the classical example of a non-trivial $R$-derivation. Moreover, $\mathrm{Der}_R(R[X])$ contains $R[X]$-left modules:\\
 \indent Claim: for any derivation $\partial : R[X] \longrightarrow R[X]$, the $R$-submodule
 $$R[X].\partial \subset \der{R[X]}$$
-is an $R[X]$-left module in $\der{R[X]}$.
+is an $R[X]$-left module in $\der{R[X]}$.\\
 \paragraph{Proof} Given a derivation $\partial \in \der{R[X]}$ and two polynomials $p, q \in R[X]$:
 $$\bao{rcl}
 [p \partial,q \partial] &=& p \partial(q \partial) - q \partial(p \partial)\\&&\\ &=& p \partial(q) \partial + p q \partial^2 - q \partial(p) \partial - q p \partial^2\\
@@ -120,7 +120,153 @@ $$\bao{rcl}
 &&\\
 &=& (p \partial(q) - q \partial(p)) \partial \in R[X].\partial\\
 \ea$$
-\bmk This proof actually applies to any differential algebra - given any derivation $\partial \in \dera$, the $R$-submodule $R . \partial$ generates an $A$-left submodule in $\dera$.
+\bmk This proof actually applies to any differential algebra - given any derivation $\partial \in \dera$, the $R$-submodule $R . \partial$ generates an $A$-left submodule in $\dera$.\\
+We can generalize even further:\\
+if $A$ is an associative (not necessarily commutative) $R$ algebra and $\mathcal{Z}(A)$ its center then 
+$\dera$ is a left $\mathcal{Z}(A)$ module. If $A$ is also commutative then $\mathcal{Z}(A) = A$.
+\paragraph{Proof} Given $a, b \in A$, $z \in \mathcal{Z}(A)$ and $\partial \ \dera$:
+$$\bao{rcl}
+z \partial (a b) &=& z (\partial(a) b + a \partial(b))\\
+&&\\
+&=& z \partial(a) b + z a \partial(b)\\
+&&\\
+&=& z \partial(a) b + a z \partial(b)\\
+&\Leftrightarrow&\\
+& & z \in \ker ad (a)\;\forall a \in A\\
+\ea$$
+~\\
+\paragraph{Example} Fix $R$ as before and set $A = R[X,Y]$. There are the two canonical derivations $\partial_X, \partial_Y \in \dera$. Now, set
+$$\bao{rclcl}
+D_X &=& \left[\bao{rcl}
+X^i &\longmapsto& i X^{i-1}\\
+Y^j &\longmapsto& -j Y^{j+1}\\
+\ea\right] &=& \partial_X - Y^2 \partial_Y\\
+&&&&\\
+D_Y &=& \left[\bao{rcl}
+X^i &\longmapsto& -i X^{i+1}\\
+Y^j &\longmapsto& j Y^{j-1}\\
+\ea\right] &=& \partial_Y - X^2 \partial_X\\
+\ea$$
+Computing the commutator of both derivations:
+$$\bao{rcl}
+[D_X,D_Y] &=& D_X D_Y - D_Y D_X\\
+&&\\
+ &=& (\partial_X - Y^2 \partial_Y)(\partial_Y - X^2 \partial_X)\\
+ &&\\
+ && - (\partial_Y - X^2 \partial_X) (\partial_X - Y^2 \partial_Y)\\
+ &&\\
+ &=& \partial_X \partial_Y - 2 X \partial_X - X^2 \partial_X^2\\
+ &&\\
+ && - Y^2 \partial_Y^2 + Y^2 X^2 \partial_Y \partial_X\\
+ &&\\
+ && - \partial_Y \partial_X + 2 Y \partial_Y + Y^2 \partial_Y^2\\
+ &&\\ 
+ && + X^2 \partial_X^2 - X^2 Y^2 \partial_X \partial_Y\\
+ &&\\
+ &=& \partial_X \partial_Y - 2 X \partial_X + X^2 Y^2 \partial_Y \partial_X \\
+ &&\\
+ && - \partial_Y \partial_X + 2 Y \partial_Y - X^2 Y^2 \partial_X \partial_Y\\
+ &&\\
+ &=& (1 - X^2 Y^2) [\partial_X,\partial_Y] + 2 Y \partial_Y - 2 X \partial_X\\
+\ea$$
+As the commutator $[\partial_X,\partial_Y]$ is trivial we arrive at
+$$[D_X,D_Y] = 2 Y \partial_Y - 2 X \partial_X =: D_H.$$
+Completing our computation for $[D_H,D_X]$ and $[D_H,D_Y]$, respectively:
+$$\bao{rcl}
+[D_H,D_X] &=& D_H D_X - D_X D_H\\
+&&\\
+&=& (2 Y \partial_Y - 2 X \partial_X)(\partial_X - Y^2 \partial_Y)\\
+&&\\
+&& - (\partial_X - Y^2 \partial_Y) (2 Y \partial_Y - 2 X \partial_X)\\
+&&\\
+&=& 2 Y \partial_Y \partial_X - 4 Y^2 \partial_Y - 2 Y^3 \partial_Y^2\\
+&&\\
+&& -2 X \partial_X^2 + 2 X Y^2 \partial_X \partial_Y\\
+&&\\
+&& - 2 Y \partial_X \partial_Y + 2 \partial_X + 2 X \partial_X^2\\
+&&\\
+&& + 2 Y^2 \partial_Y + 2 Y^3 \partial_Y^2 - 2 X Y^2 \partial_Y \partial_X\\ 
+\ea$$
+$$\bao{rcl}
+[D_H,D_X] &=& 2 X Y^2 [\partial_X,\partial_Y] - 2 Y [\partial_X,\partial_Y]\\
+&&\\
+&& + 2 \partial_X - 2 Y^2 \partial_Y\\
+&&\\
+&=& 2 Y (X Y - 1) \underbrace{[\partial_X,\partial_Y]}_{0} + 2 \partial_X - 2 Y^2 \partial_Y\\
+&&\\
+&=& 2 (\partial_X - Y^2 \partial_Y)\\
+&&\\
+&=& 2 D_X\\
+\ea$$
+Considering the following map:
+$$\tau : A \longrightarrow A,\;\left[\bao{rcl}
+X^i &\longmapsto& Y^i\\
+Y^j &\longmapsto& X^j\\
+\ea\right]$$
+which is an algebra automorphism of order two (i.e. $\tau^2 = id_A$). Then we get:
+$$\bao{rclcl}
+\tau \partial_X \tau &=& \left[\bao{rcl}
+X^i &\longmapsto& 0\\
+Y^j &\longmapsto& j Y^{j-1}\\
+\ea\right] &=& \partial_Y\\
+&&&&\\
+\tau \partial_Y \tau &=& \tau^2 \partial_X \tau^2 &=& \partial_X\\
+\ea$$
+showing that both derivations are conjugated via $\tau$. Furthermore,
+$$\bao{rcl}
+\tau D_X \tau &=& \tau (\partial_X - Y^2 \partial_Y) \tau\\
+&&\\
+&=& \tau \partial_X \tau - \tau Y^2 \partial_Y \tau\\
+&&\\
+&=& \partial_Y - X^2 \tau \partial_Y \tau\\
+&&\\
+&=& \partial_Y - X^2 \partial_X\\
+&&\\
+&=& D_Y\\
+&&\\
+\tau D_H \tau &=& \tau (D_X D_Y - D_Y D_X) \tau \\
+&&\\
+&=& \tau D_X \tau^2 D_Y \tau - \tau D_Y \tau^2 D_X \tau\\
+&&\\
+&=& D_Y D_X - D_X D_Y\\
+&&\\
+&=& - D_H
+\ea$$
+giving us the additional identity $\tau D_Y \tau = D_X$. Equipped with these identities we get:
+$$\bao{rclcl}
+[D_H,D_Y] &=& D_H D_Y - D_Y D_H\\
+&&\\
+&=& D_H \tau D_X \tau - \tau D_X \tau D_H
+&=& - \tau D_H D_X \tau + \tau D_X D_H \tau\\
+&&\\
+&=& - \tau [D_H,D_X] \tau
+&=& -2 \tau D_X \tau\\
+&&\\
+&=& -2 D_Y\\
+\ea$$
+and the finding that our example algebra is an $\mathfrak{sl}_2(R)$ module (algebra). Lastly, consider the ideal
+$$ I = \left<X Y - 1\right> \subset A.$$
+Our generators $D_X$ and $D_Y$ give us the identities:
+$$\bao{rcl}
+D_Z\left( p (X Y - 1)\right) &=&  D_Z\left(p (X Y - 1)\right)\\
+&&\\
+&=& \underbrace{D_Z(p) (X Y - 1)}_{\in I} + p D_Z(X Y - 1)\\
+&&\\
+D_X(X Y - 1) &=& D_X(X) Y + X D_X(Y)\\
+&&\\
+&=& Y - X Y^2\\
+&&\\
+&=& -Y (X Y - 1) \in I\\
+\\
+D_Y(X Y - 1) &=& \tau D_X \tau(X Y - 1)\\
+&&\\
+&=& \tau D_X(X Y - 1)\\
+&&\\
+&=& -2 \tau (Y(X Y - 1)) = -2 X (X Y - 1) \in I\\
+\ea$$
+proving that $D_Z(I) \subset I$ for $Z = X, Y$. In addition, since both images are in $I$ so is $D_H(I)$ showing $I$ to be a differential submodule wrt. our new three derivations. Therefore, the projection
+$$\pi : A \longrightarrow A/I = R[X,Y]/\left<X Y - 1\right> \simeq R[x,x^{-1}]$$
+is a homomorphism of differential algebras and $A/I$ is a $\mathfrak{sl}_2(A/I)$ module algebra.
 \begin{defi}
 
 \end{defi}
