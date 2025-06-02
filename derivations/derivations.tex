@@ -26,9 +26,13 @@
 \newcommand{\lieg}{\frk{g}}
 \newcommand{\lieh}{\frk{h}}
 \newcommand{\liea}{\frk{a}}
-\newcommand{\der}[1]{\mathrm{Der}_R(#1)}
+\newcommand{\homr}[2]{\mathrm{#1}_R(#2)}
+\newcommand{\der}[1]{\homr{Der}{#1}}
 \newcommand{\dera}{\der{A}}
+\newcommand{\rendo}[1]{\homr{End}{#1}}
+\newcommand{\renda}{\rendo{A}}
 \author{moi}
 \begin{document}
 \include{intro}
+\include{general}
 \end{document}
