@@ -298,11 +298,15 @@ c &\stackrel{!}{=}& (id_C \otimes \eps)\Delta(c) = id_C(g) \otimes \eps(c) + id_
 $$B := A[X,\alpha,\partial_{\alpha}] = T(A \otimes X \otimes A)/\left<1_A \otimes X \otimes a - \alpha(a) \otimes X \otimes 1_A - \partial_{\alpha}(a) : a \in A\right>.$$
 These types of algebra extensions are discussed studying quantum groups and quantum algebras and are beyond the scope of this paper.
 \subsection{Bialgebras}
-Given an $R$ algebra $D$ which is both and $R$ algebra and coalgebra:
+Given an $R$ algebra $D$ which is both and $R$ algebra and coalgebra (i.e. $(D,\mu,\eta) \in \rm{Alg}_R$ and $(D,\Delta,\eps) \in \rm{CoAlg}_R$):
 \begin{defi}
-then we call $D$ a bialgebra if $\mu, \eta$ are coalgebra homomorphisms and $\Delta, \eps$ are algebra homomorphisms:
-$$\xymatrix{
-D \ar[d] \ar[r] & D^{\otimes 2}\\
-D & 
-}$$
+then we call $D$ a bialgebra if $\mu, \eta$ are coalgebra homomorphisms and $\Delta, \eps$ are algebra homomorphisms, or in other words when the following diagrams
+$$
+\bao{ccc}
+\xymatrix{
+D^{\otimes 2} \ar[d]_{\Delta \otimes \Delta} \ar[rr]^\mu && D\\
+D^{\otimes 4} \ar[r]_{id_D \otimes \tau \otimes id_D} & D^{\otimes 4} \ar[r]_{\mu \otimes \mu}& D^{\otimes 2}\ar[u]_{\mu}\\
+}
+\ea$$
+commute.
 \end{defi}
